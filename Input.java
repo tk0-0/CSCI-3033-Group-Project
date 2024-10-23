@@ -1,9 +1,15 @@
-import java.util.*; 
+import java.util.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 
-public class Input
+public class Input extends Application
 {
     public static void main(String[] args)
     {
+        //launch(args);
+
         Scanner scan = new Scanner(System.in);
 
         final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other"};
@@ -191,4 +197,16 @@ public class Input
 
         return monthlyAverage;
     }
+
+    public void start(Stage primaryStage) {
+		try {
+			BorderPane root = new BorderPane();
+			Scene scene = new Scene(root,400,400);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
