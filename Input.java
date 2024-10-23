@@ -1,7 +1,9 @@
 import java.util.*; 
 
-public class Input {
-    public static void main(String[] args) {
+public class Input
+{
+    public static void main(String[] args)
+    {
         Scanner scan = new Scanner(System.in);
 
         final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other"};
@@ -34,7 +36,7 @@ public class Input {
 
         System.out.println("Welcome to the Personal Budget Manager!\n");
         
-        do{
+        do {
             System.out.print("Please enter your pay period.\n0 for bi-weekly, 1 for monthly, 2 for yearly, 3 for other: "); 
             payPeriod = scan.nextInt();
 
@@ -77,7 +79,7 @@ public class Input {
 
         if(!(payPeriod == 3 && days == 0))
         {
-            monthlyAverage = calculateMonthlyAverage(payPeriod, income, days);
+            monthlyAverage = CalculateMonthlyAverage(payPeriod, income, days);
             budget.SetIncome(monthlyAverage);
         }
 
@@ -168,7 +170,7 @@ public class Input {
         scan.close();
     }
 
-    public static double calculateMonthlyAverage(final int payPeriod, final double income, final int days)
+    public static double CalculateMonthlyAverage(final int payPeriod, final double income, final int days)
     {
         double monthlyAverage = 0.0;
 

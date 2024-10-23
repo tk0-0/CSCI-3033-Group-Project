@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class BudgetPlan {
+public class BudgetPlan
+{
     private double monthlyIncome;
     private int entries;
 
@@ -36,5 +37,10 @@ public class BudgetPlan {
     public int GetEntries()
     {
         return entries;
+    }
+
+    public double GetIncome()
+    {
+        return monthlyIncome;
     }
 }
