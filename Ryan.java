@@ -34,7 +34,11 @@ public class Ryan extends Application
             Button next = new Button("Continue");        next.setFont(font);                next.setPrefWidth(100);
 
             //Categories
-            categories.getItems().addAll("Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other");
+            categories.getItems().addAll("Home and Utilities", "Food/Groceries", "Health/Personal Care", 
+                                         "Personal Insurance", "Savings", "Transportation", 
+                                         "Education", "Communication", "Pets", 
+                                         "Shopping and Entertainment", "Emergencies", "Travel", 
+                                         "Miscellaneous", "Other");
 
             categories.setOnAction(e -> {
                 String category = categories.getValue();
@@ -43,20 +47,48 @@ public class Ryan extends Application
                 selectSubCategories.setVisible(false);
                 subCategories.setVisible(false);
 
-                if ("Home and Utilities".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");}
-                else if ("Food/Groceries".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery"); }
-                else if ("Health/Personal Care".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Medicine", "Medical Bill");}
-                else if ("Personal Insurance".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");}
-                else if ("Savings".equals(category)) {selectSubCategories.setVisible(false); subCategories.setVisible(false);  subCategories.getItems().setAll("");}
-                else if ("Transportation".equals(category)) {selectSubCategories.setVisible(true);  subCategories.setVisible(true); subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");}
-                else if ("Education".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Tuition", "School Supplies"); }
-                else if ("Communication".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true);  subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");}
-                else if ("Pets".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Pet Supplies", "Vet Visit", "Pet Insurance"); }
-                else if ("Shopping and Entertainment".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game"); }
-                else if ("Emergencies".equals(category)) {selectSubCategories.setVisible(true);  subCategories.setVisible(true); subCategories.getItems().setAll("Funeral", "Family Support");}
-                else if ("Travel".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true);  subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");}
-                else if ("Miscellaneous".equals(category)) {selectSubCategories.setVisible(true); subCategories.setVisible(true); subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw"); }
-                else if ("Other".equals(category)) {subCategories.setVisible(false); selectSubCategories.setVisible(false); custom.setVisible(true);}
+                if ("Home and Utilities".equals(category)) {selectSubCategories.setVisible(true); 
+                                                            subCategories.setVisible(true); 
+                                                            subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");}
+                else if ("Food/Groceries".equals(category)) {selectSubCategories.setVisible(true); 
+                                                             subCategories.setVisible(true); 
+                                                             subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery"); }
+                else if ("Health/Personal Care".equals(category)) {selectSubCategories.setVisible(true); 
+                                                                   subCategories.setVisible(true); 
+                                                                   subCategories.getItems().setAll("Medicine", "Medical Bill");}
+                else if ("Personal Insurance".equals(category)) {selectSubCategories.setVisible(true); 
+                                                                 subCategories.setVisible(true);
+                                                                 subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");}
+                else if ("Savings".equals(category)) {selectSubCategories.setVisible(false); 
+                                                      subCategories.setVisible(false);  
+                                                      subCategories.getItems().setAll("");}
+                else if ("Transportation".equals(category)) {selectSubCategories.setVisible(true);  
+                                                             subCategories.setVisible(true); 
+                                                             subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");}
+                else if ("Education".equals(category)) {selectSubCategories.setVisible(true); 
+                                                        subCategories.setVisible(true); 
+                                                        subCategories.getItems().setAll("Tuition", "School Supplies"); }
+                else if ("Communication".equals(category)) {selectSubCategories.setVisible(true); 
+                                                            subCategories.setVisible(true);  
+                                                            subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");}
+                else if ("Pets".equals(category)) {selectSubCategories.setVisible(true); 
+                                                   subCategories.setVisible(true); 
+                                                   subCategories.getItems().setAll("Pet Supplies", "Vet Visit", "Pet Insurance"); }
+                else if ("Shopping and Entertainment".equals(category)) {selectSubCategories.setVisible(true); 
+                                                                         subCategories.setVisible(true); 
+                                                                         subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game"); }
+                else if ("Emergencies".equals(category)) {selectSubCategories.setVisible(true);  
+                                                          subCategories.setVisible(true); 
+                                                          subCategories.getItems().setAll("Funeral", "Family Support");}
+                else if ("Travel".equals(category)) {selectSubCategories.setVisible(true); 
+                                                     subCategories.setVisible(true);  
+                                                     subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");}
+                else if ("Miscellaneous".equals(category)) {selectSubCategories.setVisible(true); 
+                                                            subCategories.setVisible(true); 
+                                                            subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw"); }
+                else if ("Other".equals(category)) {subCategories.setVisible(false); 
+                                                    selectSubCategories.setVisible(false); 
+                                                    custom.setVisible(true);}
                     
             }); 
             
