@@ -19,6 +19,7 @@ import javafx.scene.image.*;
 // import for text, font,etc
 import javafx.scene.text.*; 
 
+// import for action events 
 import javafx.event.*;
 
 
@@ -29,7 +30,7 @@ public class Henry extends Application {
 		try {
 			BorderPane root = new BorderPane();
 			
-			// First scene
+			// first scene
 			/********************************************/		
 			VBox vBoxSceneOne = new VBox(15); 
 			
@@ -55,12 +56,12 @@ public class Henry extends Application {
 			
 			
 			
-			// Second scene
+			// second scene
 			/********************************************/
 			VBox vBoxSceneTwo = new VBox(50);
 			vBoxSceneTwo.setAlignment(Pos.CENTER);
 			
-			HBox hBoxSceneTwo = new HBox(10); 
+			HBox hBoxSceneTwo = new HBox(50); 
 			hBoxSceneTwo.setAlignment(Pos.CENTER);
 			
 			
@@ -83,12 +84,25 @@ public class Henry extends Application {
 			vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne,sceneTwoLabelTwo,hBoxSceneTwo); 
 			/********************************************/
 			
+
+			// third scene
+			/********************************************/
+
+
+			/********************************************/
+
+
 			
 			//root.setCenter(vBoxSceneTwo);
 			
 			
 			Scene sceneOne = new Scene(vBoxSceneOne,400,400);
 			Scene sceneTwo = new Scene(vBoxSceneTwo,400,400);
+			//Scene sceneThree = new Scene(vBoxSceneTwo,400,400);
+			//Scene sceneFour = new Scene(vBoxSceneTwo,400,400);
+			//Scene sceneFive = new Scene(vBoxSceneTwo,400,400);
+			//Scene sceneSix = new Scene(vBoxSceneTwo,400,400);
+
 			
 			sceneOneButtonOne.setOnAction(e->primaryStage.setScene(sceneTwo));
 			sceneOneButtonTwo.setOnAction(e->Platform.exit());
