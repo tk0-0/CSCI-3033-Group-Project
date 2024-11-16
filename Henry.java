@@ -31,7 +31,7 @@ public class Henry extends Application {
 			
 			// First scene
 			/********************************************/		
-			VBox vBox = new VBox(15); 
+			VBox vBoxSceneOne = new VBox(15); 
 			
 
 			Image image = new Image("file:image/2.png");
@@ -40,7 +40,7 @@ public class Henry extends Application {
 			imageView.setFitWidth(200);
 			
 			
-			vBox.setAlignment(Pos.CENTER);
+			vBoxSceneOne.setAlignment(Pos.CENTER);
 			
 			Label sceneOnelabelOne = new Label("Welcome to the Personal Budget Planner"); 
 			sceneOnelabelOne.setFont(Font.font(18));
@@ -50,7 +50,7 @@ public class Henry extends Application {
 			Button sceneOneButtonTwo = new Button("Quit");
 			//sceneOneButtonTwo.setFont(Font.font("Noteworthy"));
 			
-			vBox.getChildren().addAll(imageView,sceneOnelabelOne, sceneOneButtonOne, sceneOneButtonTwo);
+			vBoxSceneOne.getChildren().addAll(imageView,sceneOnelabelOne, sceneOneButtonOne, sceneOneButtonTwo);
 			/********************************************/
 			
 			
@@ -87,7 +87,7 @@ public class Henry extends Application {
 			//root.setCenter(vBoxSceneTwo);
 			
 			
-			Scene sceneOne = new Scene(vBox,400,400);
+			Scene sceneOne = new Scene(vBoxSceneOne,400,400);
 			Scene sceneTwo = new Scene(vBoxSceneTwo,400,400);
 			
 			sceneOneButtonOne.setOnAction(e->primaryStage.setScene(sceneTwo));
