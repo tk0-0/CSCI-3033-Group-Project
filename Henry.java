@@ -107,7 +107,7 @@ public class Henry extends Application {
 			sceneOneButtonOne.setOnAction(e->primaryStage.setScene(sceneTwo));
 			sceneOneButtonTwo.setOnAction(e->Platform.exit());
 			sceneTwoButtonOne.setOnAction(e->primaryStage.setScene(sceneOne)); 
-			
+			sceneTwoButtonTwo.setOnAction(new ButtonClickHandlerTwo()); 
 			
 			
 			
@@ -129,6 +129,7 @@ public class Henry extends Application {
 	class ButtonClickHandlerTwo implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
+			
 			
 			
 		}
