@@ -24,7 +24,7 @@ public class Henry extends Application {
             vBoxSceneOne.setAlignment(Pos.CENTER);
             vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
-            File file = new File("image/music.mp3");
+            File file = new File("content/music.mp3");
             Media media = new Media(file.toURI().toString()); 
             MediaPlayer player = new MediaPlayer(media);
             player.setAutoPlay(true);
@@ -40,7 +40,7 @@ public class Henry extends Application {
 
 
             // Image
-            Image image = new Image("file:image/2.png");
+            Image image = new Image("file:content/2.png");
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(200);
             imageView.setFitWidth(200);
@@ -213,6 +213,8 @@ public class Henry extends Application {
 
 
             // Scene Four
+            VBox 
+
 
 
             // Scenes
