@@ -213,16 +213,16 @@ public class Henry extends Application {
 
 
             // Scene Four
-<<<<<<< HEAD
+
             VBox vBoxSceneFour = new VBox(); 
             vBoxSceneFour.setAlignment(Pos.CENTER);
             Label sceneFourLabelOne = new Label("Ryans Scene");
             Button sceneFourButtonOne = new Button("Go Back"); 
             
 
-=======
-            //VBox 
->>>>>>> 2d65b73add8225c305e0ec75974bebcb3228024b
+
+    
+
 
 
 
