@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
 import javafx.event.*;
+import javafx.scene.media.*;
 
 public class Henry extends Application {
     @Override
@@ -18,6 +19,13 @@ public class Henry extends Application {
             VBox vBoxSceneOne = new VBox(20);
             vBoxSceneOne.setAlignment(Pos.CENTER);
             vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
+
+            Media media = new Media("file:image/music.mp4"); 
+            MediaPlayer player = new MediaPlayer(media);
+            
+
+            player.setAutoPlay(true);
+            player.play();
 
             // Image
             Image image = new Image("file:image/2.png");
