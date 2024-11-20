@@ -213,7 +213,12 @@ public class Henry extends Application {
 
 
             // Scene Four
-            VBox 
+            VBox vBoxSceneFour = new VBox(); 
+            vBoxSceneFour.setAlignment(Pos.CENTER);
+            Label sceneFourLabelOne = new Label("Ryans Scene");
+            Button sceneFourButtonOne = new Button("Go Back"); 
+            
+
 
 
 
