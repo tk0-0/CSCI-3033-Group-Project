@@ -9,21 +9,24 @@ import javafx.scene.image.*;
 import javafx.scene.text.*;
 import javafx.event.*;
 import javafx.scene.media.*;
+import java.io.*;
 
 public class Henry extends Application {
+    
+
+
     @Override
     public void start(Stage primaryStage) {
         try {
-            // first Scene
+            // First Scene
             /****************************************************/
             VBox vBoxSceneOne = new VBox(20);
             vBoxSceneOne.setAlignment(Pos.CENTER);
             vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
-            Media media = new Media("file:/Users/henry/Documents/GitHub/CSCI-3033-Group-Project/image/music.mp4"); 
+            File file = new File("image/music.mp3");
+            Media media = new Media(file.toURI().toString()); 
             MediaPlayer player = new MediaPlayer(media);
-            
-
             player.setAutoPlay(true);
             player.setCycleCount(MediaPlayer.INDEFINITE);
             player.play();
@@ -96,7 +99,7 @@ public class Henry extends Application {
             vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo);
             /****************************************************/
 
-            // scene three 
+            // Scene Three 
             /****************************************************/
             //Font for the menu
             Font font = new Font("Noteworthy", 15);
@@ -206,9 +209,10 @@ public class Henry extends Application {
             VBox bottom_area = new VBox(30, amount_area, bottom_buttons);
             VBox menu = new VBox(50, category_areas, bottom_area);
             menu.setAlignment(Pos.CENTER);
+            /****************************************************/
 
 
-
+            // Scene Four
 
 
             // Scenes
@@ -220,7 +224,7 @@ public class Henry extends Application {
             sceneOneButtonOne.setOnAction(e -> primaryStage.setScene(sceneTwo));
             sceneOneButtonTwo.setOnAction(e -> Platform.exit());
             sceneTwoButtonOne.setOnAction(e -> primaryStage.setScene(sceneOne));
-
+            sceneTwoButtonTwo.setOnAction(e -> primaryStage.setScene(sceneThree));
             
 
             // Set Initial Scene
