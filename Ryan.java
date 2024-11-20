@@ -9,6 +9,10 @@ import javafx.scene.control.*;
 
 public class Ryan extends Application
 {
+    ArrayList<String> expenseCategories = new ArrayList<>();
+    ArrayList<String> expenseAmounts = new ArrayList<>();
+    ArrayList<String> expenseSubCategories = new ArrayList<>();
+    int count =0;
     @Override
     public void start(Stage primaryStage){
         try{
@@ -27,13 +31,14 @@ public class Ryan extends Application
 
             //Labels for the Lists and amount
             Label selectCategory = new Label("Select a Category!");           
-            selectCategory.setFont(font);
+            //selectCategory.setFont(font);
 
             Label selectSubCategories = new Label("Select a Subcategory!");     
-            selectSubCategories.setFont(font);  selectSubCategories.setVisible(false);
+            //selectSubCategories.setFont(font);  
+            selectSubCategories.setVisible(false);
 
             Label amtEnter_message = new Label("Enter Amount:");             
-            amtEnter_message.setFont(font);
+            //mtEnter_message.setFont(font);
 
             //Buttons to continue and add to list
             Button add = new Button("Add to List");      
@@ -70,7 +75,8 @@ public class Ryan extends Application
                                                                   subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");}
                 else if ("Savings".equals(category)) { selectSubCategories.setVisible(false); 
                                                        subCategories.setVisible(false);  
-                                                       subCategories.getItems().setAll("");}
+                                                       subCategories.getItems().setAll("");
+                                                        subCategories.setValue(" ");}
                 else if ("Transportation".equals(category)) { selectSubCategories.setVisible(true);  
                                                               subCategories.setVisible(true); 
                                                               subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");}
@@ -97,10 +103,9 @@ public class Ryan extends Application
                                                              subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw"); }
                 else if ("Other".equals(category)) { subCategories.setVisible(false); 
                                                      selectSubCategories.setVisible(false); 
-                                                     custom.setVisible(true);}
-                    
+                                                     custom.setVisible(true);
+                                                     subCategories.setValue(custom.getText());}
             }); 
-            
             //Creates the category area
             HBox customcat = new HBox(10, custom); 
             customcat.setAlignment(Pos.CENTER);
