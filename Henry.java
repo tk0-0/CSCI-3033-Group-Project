@@ -1,6 +1,5 @@
 import javafx.scene.paint.*;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -10,8 +9,6 @@ import javafx.scene.control.*;
 import javafx.application.Platform;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Scale;
 import javafx.event.*;
 import javafx.scene.media.*;
 import java.io.*;
@@ -97,7 +94,12 @@ public class Henry extends Application {
             HBox hBoxSceneTwo = new HBox(20, sceneTwoButtonOne, sceneTwoButtonTwo);
             hBoxSceneTwo.setAlignment(Pos.CENTER);
 
-            vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo);
+            Label errorLabel = new Label("Please fill in all information!"); 
+            errorLabel.setVisible(false);
+            
+
+            vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
+            
             /****************************************************/
 
             // Audio
@@ -125,22 +127,31 @@ public class Henry extends Application {
 
 
             // Go back button
-            sceneTwoButtonOne.setOnAction(e -> primaryStage.setScene(sceneOne));
+            sceneTwoButtonOne.setOnAction(e -> {
+                primaryStage.setScene(sceneOne); 
+                errorLabel.setVisible(false);
+            
+            
+            
+            });
 
-            // confirm button
+            // Confirm button
             sceneTwoButtonTwo.setOnAction(e -> {
                 if (!incomeField.getText().isEmpty() && !frequencyComboBox.getValue().isEmpty()) {
+                    errorLabel.setVisible(false);
                     income = Double.parseDouble(incomeField.getText()); 
                     payFrequency = new String(frequencyComboBox.getValue());
-                    System.out.printf("%f %s", income,payFrequency);
+                    incomeField.setText("");
+                    frequencyComboBox.setValue(null);
 
 
                     // goes back to first scene;
                     primaryStage.setScene(sceneOne);
                 }
                 else if (incomeField.getText().isEmpty() || frequencyComboBox.getValue().isEmpty()) {
-                    Label errorLabel = new Label("Please Select or fill in your information"); 
-                    vBoxSceneTwo.getChildren().add(errorLabel);
+                    errorLabel.setVisible(true);
+                
+                    
                 }
 
             });
