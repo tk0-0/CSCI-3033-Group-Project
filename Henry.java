@@ -10,11 +10,9 @@ import javafx.scene.text.*;
 import javafx.event.*;
 import javafx.scene.media.*;
 import java.io.*;
+import javafx.util.Duration;
 
 public class Henry extends Application {
-    
-
-
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -24,20 +22,9 @@ public class Henry extends Application {
             vBoxSceneOne.setAlignment(Pos.CENTER);
             vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
-            File file = new File("content/music.mp3");
+            File file = new File("content/money.mp3");
             Media media = new Media(file.toURI().toString()); 
             MediaPlayer player = new MediaPlayer(media);
-            player.setAutoPlay(true);
-            player.setCycleCount(MediaPlayer.INDEFINITE);
-            player.play();
-            
-            // keeps music playing because it gets sent to the garbage collector
-            primaryStage.setOnCloseRequest(event -> {
-                if (player != null) {
-                    player.stop();  // Clean up if necessary
-                }
-            });
-
 
             // Image
             Image image = new Image("file:content/2.png");
@@ -232,7 +219,13 @@ public class Henry extends Application {
             Scene sceneThree = new Scene(menu, 400,400);
 
             // Button Actions
-            sceneOneButtonOne.setOnAction(e -> primaryStage.setScene(sceneTwo));
+            sceneOneButtonOne.setOnAction(e -> {
+                primaryStage.setScene(sceneTwo);
+                player.play();
+
+                // reset to the beginning
+                player.seek(Duration.ZERO);
+            });
             sceneOneButtonTwo.setOnAction(e -> Platform.exit());
             sceneTwoButtonOne.setOnAction(e -> primaryStage.setScene(sceneOne));
             sceneTwoButtonTwo.setOnAction(e -> primaryStage.setScene(sceneThree));
