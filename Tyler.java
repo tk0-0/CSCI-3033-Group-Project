@@ -23,9 +23,21 @@ public class Tyler //extends Application
         }
         System.out.println();
 
-        expenses = Algorithm1(expenseChanges);
-        //expenses = Algorithm2(expenseChanges);
-        //expenses = Algorithm3(expenseChanges);
+        double total = 0.0;
+        for(double expense : expenseAmounts)
+            total += expense;
+
+        if(total < monthlyIncome)
+        {
+            double savings = monthlyIncome - total;
+            expenses[13] += savings;
+        }
+        else if(total != monthlyIncome)
+        {
+            expenses = Algorithm1(expenseChanges, total);
+            //expenses = Algorithm2(expenseChanges, total);
+            //expenses = Algorithm3(expenseChanges, total);
+        }
 
         for(double expense : expenses)
         {
@@ -36,26 +48,10 @@ public class Tyler //extends Application
         //launch(args);
     }
 
-    public static double[] Algorithm1(ArrayList<Integer> expenseChanges)
+    public static double[] Algorithm1(ArrayList<Integer> expenseChanges, double total)
     {
         // holds the expenses spent for each main category
         double[] expenses = TotalExpenses();
-
-        double total = 0;
-        for(double expense : expenseAmounts)
-            total += expense;
-
-        if(total < monthlyIncome)
-        {
-            double savings = monthlyIncome - total;
-            expenses[13] += savings;
-            return expenses;
-        }
-        else if(total == monthlyIncome)
-        {
-            // nothing changes
-            return expenses;
-        }
 
         // Algorithm 1: Priority of top 4, starts at bottom of priority list, goes up to 5, cutting set percentages until breaking even
             // Percentage Cuts: 12-0: 75%, 70%, 60%, 55%, 50%, 45%, 30%, 25%, 10%, 10%, 10%, 10%, 10%
@@ -120,26 +116,10 @@ public class Tyler //extends Application
         return expenses;
     }
 
-    public static double[] Algorithm2(ArrayList<Integer> expenseChanges)
+    public static double[] Algorithm2(ArrayList<Integer> expenseChanges, double total)
     {
         // holds the expenses spent for each main category
         double[] expenses = TotalExpenses();
-
-        double total = 0;
-        for(double expense : expenseAmounts)
-            total += expense;
-
-        if(total < monthlyIncome)
-        {
-            double savings = monthlyIncome - total;
-            expenses[13] += savings;
-            return expenses;
-        }
-        else if(total == monthlyIncome)
-        {
-            // nothing changes
-            return expenses;
-        }
 
         // Algorithm 2: Cut 10% from bottom of priority list
         outer:
@@ -179,26 +159,10 @@ public class Tyler //extends Application
         return expenses;
     }
 
-    public static double[] Algorithm3(ArrayList<Integer> expenseChanges)
+    public static double[] Algorithm3(ArrayList<Integer> expenseChanges, double total)
     {
         // holds the expenses spent for each main category
         double[] expenses = TotalExpenses();
-
-        double total = 0;
-        for(double expense : expenseAmounts)
-            total += expense;
-
-        if(total < monthlyIncome)
-        {
-            double savings = monthlyIncome - total;
-            expenses[13] += savings;
-            return expenses;
-        }
-        else if(total == monthlyIncome)
-        {
-            // nothing changes
-            return expenses;
-        }
 
         // Algorithm 3: 0 out everything from bottom of list
         outer:
