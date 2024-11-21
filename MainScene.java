@@ -22,7 +22,7 @@ public class MainScene extends Application {
 
 
         // Audio Files
-        File file = new File("content/money.mp3");
+        File file = new File("content/money1.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
 
@@ -35,7 +35,7 @@ public class MainScene extends Application {
         // Button Actions
         henry.sceneOneButtonOne.setOnAction(e -> {
             primaryStage.setScene(sceneTwo);
-            player.seek(Duration.millis(1000));
+
             player.play();
 
             // reset to the beginning
