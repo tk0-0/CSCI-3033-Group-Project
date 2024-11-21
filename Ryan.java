@@ -52,11 +52,11 @@ public class Ryan extends Application
             reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
             //Categories
-            categories.getItems().addAll("Home and Utilities", "Food/Groceries", "Health/Personal Care", 
-                                         "Personal Insurance", "Savings", "Transportation", 
-                                         "Education", "Communication", "Pets", 
-                                         "Shopping and Entertainment", "Emergencies", "Travel", 
-                                         "Miscellaneous", "Other");
+            categories.getItems().addAll(   "Home and Utilities", "Food/Groceries", "Health/Personal Care", 
+                                            "Personal Insurance", "Savings", "Transportation", 
+                                            "Education", "Communication", "Pets", 
+                                            "Shopping and Entertainment", "Emergencies", "Travel", 
+                                            "Miscellaneous", "Other"    );
 
             //Action events for Category Combo Box
             categories.setOnAction(e -> {
