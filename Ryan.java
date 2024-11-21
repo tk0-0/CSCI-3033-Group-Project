@@ -1,5 +1,6 @@
 import java.util.*;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -41,9 +42,13 @@ public class Ryan extends Application
 
             //Buttons to continue and add to list
             Button add = new Button("Add to List");      
-            add.setFont(font);  add.setPrefWidth(100);
+            //add.setFont(font);  
+            add.setPrefWidth(100);
             Button next = new Button("Continue");        
-            next.setFont(font); next.setPrefWidth(100);
+            //next.setFont(font); 
+            next.setPrefWidth(100);
+            Button reset = new Button("Reset");
+            reset.setPrefWidth(100);
 
             //Categories
             categories.getItems().addAll("Home and Utilities", "Food/Groceries", "Health/Personal Care", 
@@ -111,7 +116,8 @@ public class Ryan extends Application
                 
                     if (custom.isVisible()) {
                         subCategory = custom.getText();
-                    } else {
+                    }
+                    else {
                         subCategory = subCategories.getValue();
                     }
                 
@@ -119,7 +125,8 @@ public class Ryan extends Application
                         expenseCategories.add(selectedCategory);
                         if (subCategory != null) {
                             expenseSubCategories.add(subCategory);
-                        } else {
+                        } 
+                        else {
                             expenseSubCategories.add("");
                         }
                         expenseAmounts.add(enteredAmount);
@@ -131,6 +138,12 @@ public class Ryan extends Application
                         subCategories.setVisible(false);
                         custom.setVisible(false);
                     }
+                });
+
+                reset.setOnAction(y -> {
+                    expenseAmounts.clear();
+                    expenseCategories.clear();
+                    expenseSubCategories.clear();
                 });
             }); 
             //Creates the category area
@@ -144,7 +157,7 @@ public class Ryan extends Application
             //Creates the bottom area 
             HBox amount_area = new HBox(10, amtEnter_message, amount); 
             amount_area.setAlignment(Pos.CENTER);
-            HBox bottom_buttons = new HBox(10, add, next); 
+            HBox bottom_buttons = new HBox(10, reset, add, next); 
             bottom_buttons.setAlignment(Pos.CENTER);
 
             //Combines the category area and bottom area
@@ -152,6 +165,16 @@ public class Ryan extends Application
             VBox bottom_area = new VBox(30, amount_area, bottom_buttons);
             VBox menu = new VBox(50, category_areas, bottom_area);
             menu.setAlignment(Pos.CENTER);
+
+            ListView<String> expenses = new ListView<>();
+            expenses.getItems().addAll("Henry Gay");
+            expenses.setPrefSize(100, 200);
+            expenses.getSelectionModel().select(-1);
+            expenses.setPadding(new Insets(10));
+            
+            VBox expenseOutput = new VBox(10);
+            expenseOutput.getChildren().add(expenses);
+            expenseOutput.setAlignment(Pos.TOP_CENTER);
 
             Scene scene = new Scene(menu, 400, 400);
             primaryStage.setScene(scene);
@@ -163,8 +186,6 @@ public class Ryan extends Application
     public static void main(String[] args) {
         launch(args);
     }
-
-
 }
 
 
