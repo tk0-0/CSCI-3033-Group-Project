@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -167,18 +168,36 @@ public class Ryan extends Application
             menu.setAlignment(Pos.CENTER);
 
             ListView<String> expenses = new ListView<>();
-            expenses.getItems().addAll("Henry Gay");
             expenses.setPrefSize(100, 200);
             expenses.getSelectionModel().select(-1);
             expenses.setPadding(new Insets(10));
-            
-            VBox expenseOutput = new VBox(10);
-            expenseOutput.getChildren().add(expenses);
+
+            Button calculateExpenses = new Button("Show Recommendations");
+            Button goBack = new Button("Go Back");
+            HBox bottomButtons = new HBox(10, goBack, calculateExpenses);
+            bottomButtons.setAlignment(Pos.CENTER);
+            VBox expenseOutput = new VBox(100, expenses, bottomButtons);
             expenseOutput.setAlignment(Pos.TOP_CENTER);
 
-            Scene scene = new Scene(menu, 400, 400);
-            primaryStage.setScene(scene);
+            Scene scene3 = new Scene(menu, 400, 400);
+            menu.setStyle("-fx-background-color: #f0f8ff");
+            Scene scene4 = new Scene(expenseOutput, 400, 400);
+            primaryStage.setScene(scene3);
             primaryStage.show();
+
+            next.setOnAction(p -> {
+                expenses.getItems().add("Main Expenses\t\tSubCategory Expense\t\tExpense Amount");
+                for (int i = 0; i < expenseCategories.size(); i++){
+                    expenses.getItems().add(expenseCategories.get(i) + "\t\t\t" + expenseSubCategories.get(i) + "\t\t\t" + expenseAmounts.get(i));
+                }
+                primaryStage.setScene(scene4);
+                primaryStage.show();
+            });
+            goBack.setOnAction(o -> {
+                expenses.getItems().clear();
+                primaryStage.setScene(scene3);
+                primaryStage.show();
+            });
         } catch(Exception e){
             e.printStackTrace();
         }
