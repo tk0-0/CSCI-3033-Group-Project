@@ -39,10 +39,9 @@ public class Zach extends Application {
         updatePieChart();
 
         // Reset button clears the pie chart
-        Button resetButton = new Button("Reset Chart");
+        Button resetButton = new Button("Go Back");
         resetButton.setOnAction(e -> {
-            expenses.clear();
-            pieChartData.clear();
+            //TO DO
         });
 
         // Add interactivity to Pie Chart (hover effect for both slice and label)
