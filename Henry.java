@@ -1,3 +1,6 @@
+import javafx.scene.paint.*;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -7,10 +10,13 @@ import javafx.scene.control.*;
 import javafx.application.Platform;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Scale;
 import javafx.event.*;
 import javafx.scene.media.*;
 import java.io.*;
 import javafx.util.Duration;
+import javafx.scene.shape.*;
 
 public class Henry extends Application {
     @Override
@@ -22,19 +28,47 @@ public class Henry extends Application {
             vBoxSceneOne.setAlignment(Pos.CENTER);
             vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
-            File file = new File("content/money.mp3");
-            Media media = new Media(file.toURI().toString()); 
-            MediaPlayer player = new MediaPlayer(media);
+
+            Circle myCircle = new Circle(150); 
+            myCircle.setFill(Color.TRANSPARENT);
+            myCircle.setStroke(Color.BLACK);
+
+            
+
+            
+
 
             // Image
             Image image = new Image("file:content/2.png");
             ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(200);
-            imageView.setFitWidth(200);
+            imageView.setFitHeight(100);
+            imageView.setFitWidth(100);
+            
+            imageView.setClip(myCircle);
+            
+            Circle myCircleTwo = new Circle(5);
+
+            /* 
+
+            // Create a PathTransition to move the ball in a circle
+            PathTransition pt = new PathTransition();
+            pt.setRate(1);  // Speed of the transition
+            pt.setPath(myCircle);  // Set the circular path
+            pt.setNode(myCircleTwo);  // Set the ball (circle2) to move along the path
+            pt.setCycleCount(Timeline.INDEFINITE);  // Loop indefinitely
+            pt.setAutoReverse(true);  // Do not reverse direction
+            pt.setDuration(Duration.seconds(3));  // Duration of one full revolution
+
+            pt.play();  // Start the animation
+            */
+            
+            StackPane stackPane = new StackPane(); 
+            stackPane.getChildren().addAll(imageView);
+            
 
             // Title Label
             Label sceneOneLabelOne = new Label("Welcome to the Personal Budget Planner");
-            sceneOneLabelOne.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+            sceneOneLabelOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
             sceneOneLabelOne.setStyle("-fx-text-fill: #333;");
 
             // Buttons
@@ -44,7 +78,7 @@ public class Henry extends Application {
             sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
             // Adding nodes to the layout
-            vBoxSceneOne.getChildren().addAll(imageView, sceneOneLabelOne, sceneOneButtonOne, sceneOneButtonTwo);
+            vBoxSceneOne.getChildren().addAll(stackPane,sceneOneLabelOne, sceneOneButtonOne, sceneOneButtonTwo);
             /****************************************************/
 
             // Second Scene
@@ -210,8 +244,10 @@ public class Henry extends Application {
 
     
 
-
-
+            // Audio
+            File file = new File("content/money.mp3");
+            Media media = new Media(file.toURI().toString()); 
+            MediaPlayer player = new MediaPlayer(media);
 
             // Scenes
             Scene sceneOne = new Scene(vBoxSceneOne, 400, 400);
@@ -221,6 +257,7 @@ public class Henry extends Application {
             // Button Actions
             sceneOneButtonOne.setOnAction(e -> {
                 primaryStage.setScene(sceneTwo);
+                player.seek(Duration.millis(1000));
                 player.play();
 
                 // reset to the beginning
