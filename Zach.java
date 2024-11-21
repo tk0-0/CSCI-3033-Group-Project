@@ -1,13 +1,9 @@
-package application;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -41,10 +37,9 @@ public class Zach extends Application {
         updatePieChart();
 
         // Reset button clears the pie chart
-        Button resetButton = new Button("Reset Chart");
+        Button resetButton = new Button("Go Back");
         resetButton.setOnAction(e -> {
-            expenses.clear();
-            pieChartData.clear();
+            //TO DO
         });
 
         // Add interactivity to Pie Chart (hover effect for both slice and label)
@@ -75,7 +70,7 @@ public class Zach extends Application {
         root.setBottom(buttonBox);
 
         // Scene setup
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(root, 750, 500);
         primaryStage.setTitle("Interactive Pie Chart Example");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -85,16 +80,8 @@ public class Zach extends Application {
         pieChartData.clear();
         for (Expense expense : expenses) {
             double percentage = (expense.getAmount() / totalAmount) * 100;
-            pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + expense.getAmount() + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
+            pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + String.format("%.2f", expense.getAmount()) + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
         }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     public static void main(String[] args) {
