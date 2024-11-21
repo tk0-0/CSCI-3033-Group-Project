@@ -13,17 +13,20 @@ public class Ryan extends Application
     ArrayList<String> expenseCategories = new ArrayList<>();
     ArrayList<String> expenseAmounts = new ArrayList<>();
     ArrayList<String> expenseSubCategories = new ArrayList<>();
+
     @Override
     public void start(Stage primaryStage){
         try{
 
             //ComboBoxes for the categories
             ComboBox<String> categories = new ComboBox<>();
+
             ComboBox<String> subCategories = new ComboBox<>();       
             subCategories.setPrefWidth(200);    subCategories.setVisible(false);
 
             //Textfields for the custom category and user input amount
             TextField amount = new TextField();
+
             TextField custom = new TextField();                
             custom.setPrefWidth(200);   custom.setVisible(false);
 
@@ -39,9 +42,11 @@ public class Ryan extends Application
             Button add = new Button("Add to List");      
             add.setPrefWidth(100);
             add.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
+
             Button next = new Button("Continue");        
             next.setPrefWidth(100);
             next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
+
             Button reset = new Button("Reset");
             reset.setPrefWidth(100);
             reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
@@ -53,7 +58,7 @@ public class Ryan extends Application
                                          "Shopping and Entertainment", "Emergencies", "Travel", 
                                          "Miscellaneous", "Other");
 
-            //Action events for click
+            //Action events for Category Combo Box
             categories.setOnAction(e -> {
                 String category = categories.getValue();
                 subCategories.getItems().clear();
@@ -61,50 +66,65 @@ public class Ryan extends Application
                 selectSubCategories.setVisible(false);
                 subCategories.setVisible(false);
 
-                if ("Home and Utilities".equals(category)) { selectSubCategories.setVisible(true); 
-                                                             subCategories.setVisible(true); 
-                                                             subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");}
-                else if ("Food/Groceries".equals(category)) { selectSubCategories.setVisible(true); 
-                                                              subCategories.setVisible(true); 
-                                                              subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery"); }
+                //String Comparisons
+                if ("Home and Utilities".equals(category)) {    selectSubCategories.setVisible(true); 
+                                                                subCategories.setVisible(true); 
+                                                                subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");    }
+
+                else if ("Food/Groceries".equals(category)) {   selectSubCategories.setVisible(true); 
+                                                                subCategories.setVisible(true); 
+                                                                subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery");   }
+
                 else if ("Health/Personal Care".equals(category)) { selectSubCategories.setVisible(true); 
                                                                     subCategories.setVisible(true); 
-                                                                    subCategories.getItems().setAll("Medicine", "Medical Bill");}
-                else if ("Personal Insurance".equals(category)) { selectSubCategories.setVisible(true); 
-                                                                  subCategories.setVisible(true);
-                                                                  subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");}
-                else if ("Savings".equals(category)) { selectSubCategories.setVisible(false); 
-                                                       subCategories.setVisible(false);  
-                                                       subCategories.getItems().setAll("");
-                                                        subCategories.setValue(" ");}
-                else if ("Transportation".equals(category)) { selectSubCategories.setVisible(true);  
-                                                              subCategories.setVisible(true); 
-                                                              subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");}
-                else if ("Education".equals(category)) { selectSubCategories.setVisible(true); 
-                                                         subCategories.setVisible(true); 
-                                                         subCategories.getItems().setAll("Tuition", "School Supplies"); }
-                else if ("Communication".equals(category)) { selectSubCategories.setVisible(true); 
-                                                             subCategories.setVisible(true);  
-                                                             subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");}
+                                                                    subCategories.getItems().setAll("Medicine", "Medical Bill");    }
+
+                else if ("Personal Insurance".equals(category)) {   selectSubCategories.setVisible(true); 
+                                                                    subCategories.setVisible(true);
+                                                                    subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");   }
+
+                else if ("Savings".equals(category)) {  selectSubCategories.setVisible(false); 
+                                                        subCategories.setVisible(false);  
+                                                        subCategories.getItems().setAll("");
+                                                        subCategories.setValue(" ");    }
+
+                else if ("Transportation".equals(category)) {   selectSubCategories.setVisible(true);  
+                                                                subCategories.setVisible(true); 
+                                                                subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");   }
+
+                else if ("Education".equals(category)) {    selectSubCategories.setVisible(true); 
+                                                            subCategories.setVisible(true); 
+                                                            subCategories.getItems().setAll("Tuition", "School Supplies");  }
+
+                else if ("Communication".equals(category)) {    selectSubCategories.setVisible(true); 
+                                                                subCategories.setVisible(true);  
+                                                                subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");    }
+
                 else if ("Pets".equals(category)) { selectSubCategories.setVisible(true); 
                                                     subCategories.setVisible(true); 
-                                                    subCategories.getItems().setAll("Pet Supplies", "Vet Visit", "Pet Insurance"); }
-                else if ("Shopping and Entertainment".equals(category)) { selectSubCategories.setVisible(true); 
-                                                                          subCategories.setVisible(true); 
-                                                                          subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game"); }
-                else if ("Emergencies".equals(category)) { selectSubCategories.setVisible(true);  
-                                                           subCategories.setVisible(true); 
-                                                           subCategories.getItems().setAll("Funeral", "Family Support");}
-                else if ("Travel".equals(category)) { selectSubCategories.setVisible(true); 
-                                                      subCategories.setVisible(true);  
-                                                      subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");}
-                else if ("Miscellaneous".equals(category)) { selectSubCategories.setVisible(true); 
-                                                             subCategories.setVisible(true); 
-                                                             subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw"); }
-                else if ("Other".equals(category)) { subCategories.setVisible(false); 
-                                                     selectSubCategories.setVisible(false); 
-                                                     custom.setVisible(true);
-                                                     subCategories.setValue(custom.getText());}
+                                                    subCategories.getItems().setAll("Pet Supplies", "Vet Visit", "Pet Insurance");  }
+
+                else if ("Shopping and Entertainment".equals(category)) {   selectSubCategories.setVisible(true); 
+                                                                            subCategories.setVisible(true); 
+                                                                            subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game");  }
+
+                else if ("Emergencies".equals(category)) {  selectSubCategories.setVisible(true);  
+                                                            subCategories.setVisible(true); 
+                                                            subCategories.getItems().setAll("Funeral", "Family Support");   }
+
+                else if ("Travel".equals(category)) {   selectSubCategories.setVisible(true); 
+                                                        subCategories.setVisible(true);  
+                                                        subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");   }
+
+                else if ("Miscellaneous".equals(category)) {    selectSubCategories.setVisible(true); 
+                                                                subCategories.setVisible(true); 
+                                                                subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw");  }
+
+                else if ("Other".equals(category)) {    subCategories.setVisible(false); 
+                                                        selectSubCategories.setVisible(false); 
+                                                        custom.setVisible(true);
+                                                        subCategories.setValue(custom.getText());   }
+                //Action event for add
                 add.setOnAction(x -> {
                     String selectedCategory = categories.getValue();
                     String subCategory;
@@ -162,8 +182,12 @@ public class Ryan extends Application
             VBox menu = new VBox(50, category_areas, bottom_area);
             menu.setAlignment(Pos.CENTER);
 
+
+            //Menu for the Second Scene
+            //Make a VBox for the Scenes
             VBox expensesList = new VBox(10);
             expensesList.setPadding(new Insets(5));
+            expensesList.setAlignment(Pos.CENTER);
 
             ScrollPane scrollPane = new ScrollPane(expensesList);
             scrollPane.setFitToWidth(true);
@@ -182,28 +206,37 @@ public class Ryan extends Application
             VBox expenseOutput = new VBox(60, scrollPane, bottomButtons);
             expenseOutput.setAlignment(Pos.CENTER);
 
+            //Background color for the Scenes
             Scene scene3 = new Scene(menu, 400, 400);
             menu.setStyle("-fx-background-color: #f0f8ff;");
             Scene scene4 = new Scene(expenseOutput, 400, 400);
             expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
+
+            //Start out at Scene3
             primaryStage.setScene(scene3);
             primaryStage.show();
 
+            //Action event for the continue button
             next.setOnAction(p -> {
+                //Clear the VBox list if it has elements already
                 expensesList.getChildren().clear();
+                //For loop to add each expense to the VBox list
                 for (int i = 0; i < expenseCategories.size(); i++) {
-                    Label expenseLabel = new Label(expenseCategories.get(i) + ":     " + expenseSubCategories.get(i) + "\t$" + expenseAmounts.get(i));
+                    Label expenseLabel = new Label(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + expenseAmounts.get(i));
                     expensesList.getChildren().add(expenseLabel);
                 }
-
+                //Show Scene4
                 primaryStage.setScene(scene4);
                 primaryStage.show();
             });
 
+            //Action event for the go back button in the 4th scene
             goBack.setOnAction(o -> {
+                //Show Scene3
                 primaryStage.setScene(scene3);
                 primaryStage.show();
             });
+
         } catch(Exception e){
             e.printStackTrace();
         }
