@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Zach extends Application {
+    //static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other"};
+    //double[] expenses = Algorithm1();
 
     private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     private ArrayList<Expense> expenses = new ArrayList<>();
