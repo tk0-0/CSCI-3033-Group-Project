@@ -22,7 +22,7 @@ public class MainScene extends Application {
 
 
         // Audio Files
-        File file = new File("content/money1.mp3");
+        File file = new File("content/monkey.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
 
