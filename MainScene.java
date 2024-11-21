@@ -19,15 +19,12 @@ public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create an instance of Henry and pass the stage
-
+        Henry henry = new Henry(primaryStage);
 
         // Audio Files
         File file = new File("content/monkey.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
-
-
-        Henry henry = new Henry(primaryStage);
 
         Scene sceneOne = henry.getSceneOne();
         Scene sceneTwo = henry.getSceneTwo();
@@ -45,7 +42,6 @@ public class MainScene extends Application {
         // Exit button 
         henry.sceneOneButtonTwo.setOnAction(e -> Platform.exit());
 
-
         // Go back button
         henry.sceneTwoButtonOne.setOnAction(e -> {
             primaryStage.setScene(sceneOne); 
@@ -54,7 +50,7 @@ public class MainScene extends Application {
 
         // Confirm button
         henry.sceneTwoButtonTwo.setOnAction(e -> {
-            if (!henry.incomeField.getText().isEmpty() && !henry.frequencyComboBox.getValue().isEmpty()) {
+            if (!henry.incomeField.getText().isEmpty() && henry.frequencyComboBox.getValue() != null) {
                 henry.errorLabel.setVisible(false);
                 henry.income = Double.parseDouble(henry.incomeField.getText()); 
                 henry.payFrequency = new String(henry.frequencyComboBox.getValue());
@@ -65,12 +61,9 @@ public class MainScene extends Application {
                 // goes back to first scene;
                 primaryStage.setScene(sceneOne);
             }
-            else if (henry.incomeField.getText().isEmpty() || henry.frequencyComboBox.getValue().isEmpty()) {
-                henry.errorLabel.setVisible(true);
-            
-                
+            else {
+                henry.errorLabel.setVisible(true); 
             }
-
         });
 
 
