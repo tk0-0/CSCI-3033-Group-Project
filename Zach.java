@@ -4,8 +4,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -72,7 +70,7 @@ public class Zach extends Application {
         root.setBottom(buttonBox);
 
         // Scene setup
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(root, 750, 500);
         primaryStage.setTitle("Interactive Pie Chart Example");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -84,14 +82,6 @@ public class Zach extends Application {
             double percentage = (expense.getAmount() / totalAmount) * 100;
             pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + String.format("%.2f", expense.getAmount()) + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
         }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     public static void main(String[] args) {
