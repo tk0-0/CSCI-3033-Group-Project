@@ -12,7 +12,6 @@ public class Ryan extends Application
     ArrayList<String> expenseCategories = new ArrayList<>();
     ArrayList<String> expenseAmounts = new ArrayList<>();
     ArrayList<String> expenseSubCategories = new ArrayList<>();
-    int count =0;
     @Override
     public void start(Stage primaryStage){
         try{
@@ -105,6 +104,34 @@ public class Ryan extends Application
                                                      selectSubCategories.setVisible(false); 
                                                      custom.setVisible(true);
                                                      subCategories.setValue(custom.getText());}
+                add.setOnAction(x -> {
+                    String selectedCategory = categories.getValue();
+                    String subCategory;
+                    String enteredAmount = amount.getText();
+                
+                    if (custom.isVisible()) {
+                        subCategory = custom.getText();
+                    } else {
+                        subCategory = subCategories.getValue();
+                    }
+                
+                    if (selectedCategory != null && !enteredAmount.isEmpty()) {
+                        expenseCategories.add(selectedCategory);
+                        if (subCategory != null) {
+                            expenseSubCategories.add(subCategory);
+                        } else {
+                            expenseSubCategories.add("");
+                        }
+                        expenseAmounts.add(enteredAmount);
+                
+                        categories.setValue(null);
+                        subCategories.setValue(null);
+                        custom.clear();
+                        amount.clear();
+                        subCategories.setVisible(false);
+                        custom.setVisible(false);
+                    }
+                });
             }); 
             //Creates the category area
             HBox customcat = new HBox(10, custom); 

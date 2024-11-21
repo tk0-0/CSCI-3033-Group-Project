@@ -1,46 +1,65 @@
 import java.util.*;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+// import javafx.application.Application;
+// import javafx.stage.Stage;
+// import javafx.scene.Scene;
+// import javafx.scene.layout.BorderPane;
 
-public class Tyler extends Application
+public class Tyler //extends Application
 {
     static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other"};
 
-    static ArrayList<String> expenseCategories = new ArrayList<>();
-    static ArrayList<String> expenseSubCategories = new ArrayList<>();
-    static ArrayList<Double> expenseAmounts = new ArrayList<>();
+    static ArrayList<String> expenseCategories = new ArrayList<>(Arrays.asList("Home and Utilities", "Food/Groceries", "Communication", "Shopping and Entertainment"));
+    static ArrayList<Double> expenseAmounts = new ArrayList<>(Arrays.asList(1400.00, 500.00, 150.00, 100.00));
     static double monthlyIncome = 2000;
 
     public static void main(String[] args)
     {
+        ArrayList<Integer> expenseChanges = new ArrayList<>();
+        double[] expenses = TotalExpenses();
+
+        for(double expense : expenses)
+        {
+            System.out.print(expense + " ");
+        }
+        System.out.println();
+
+        expenses = Algorithm1(expenseChanges);
+        //expenses = Algorithm2(expenseChanges);
+        //expenses = Algorithm3(expenseChanges);
+
+        for(double expense : expenses)
+        {
+            System.out.print(expense + " ");
+        }
+        System.out.println();
+
+        //launch(args);
+    }
+
+    public static double[] Algorithm1(ArrayList<Integer> expenseChanges)
+    {
         // holds the expenses spent for each main category
         double[] expenses = TotalExpenses();
-        ArrayList<Integer> expenseChanges = new ArrayList<>();
-
-        // first make sure that monthly income is exceeded; if it is already fine, put the remaining in savings (only one pie chart)
 
         double total = 0;
-        for(double expense: expenseAmounts)
+        for(double expense : expenseAmounts)
             total += expense;
 
         if(total < monthlyIncome)
         {
-            // savings = monthlyIncome - total;
-            // expenses[13] += savings;
-            // return expenses;
+            double savings = monthlyIncome - total;
+            expenses[13] += savings;
+            return expenses;
         }
         else if(total == monthlyIncome)
         {
             // nothing changes
-            // return expenses;
+            return expenses;
         }
-
-        // index in expenses double array represents priority rankings
 
         // Algorithm 1: Priority of top 4, starts at bottom of priority list, goes up to 5, cutting set percentages until breaking even
             // Percentage Cuts: 12-0: 75%, 70%, 60%, 55%, 50%, 45%, 30%, 25%, 10%, 10%, 10%, 10%, 10%
+        outer:
         while(true)
         {
             for(int i = 12; i >= 0; i--)
@@ -49,13 +68,14 @@ public class Tyler extends Application
                 boolean priorityChange = true;
 
                 for(int j = 6; j <= 12; j++)
-                    if(expenses[j] > 0)
+                    if(expenses[j] > 0.0)
                         priorityChange = false;
 
                 if(i >= 0 && i <= 4 && !priorityChange)
                     break;
 
-                switch(i) {
+                switch(i)
+                {
                     case 12: percent = 0.75; break;
                     case 11: percent = 0.70; break;
                     case 10: percent = 0.60; break;
@@ -64,14 +84,132 @@ public class Tyler extends Application
                     case 7:  percent = 0.45; break;
                     case 6:  percent = 0.30; break;
                     case 5:  percent = 0.25; break;
-                    case 4,3,2,1,0: percent = 0.10;
+                    case 4,3,2,1,0: percent = 0.10; break;
                     default: percent = 0.0;
                 }
 
                 if((total - (expenses[i] * percent)) > monthlyIncome)
                 {
-                    expenses[i] -= (expenses[i] * percent);
-                    total -= (expenses[i] * percent);
+                    if((expenses[i] * percent) >= 0.01)
+                    {
+                        total -= (expenses[i] * percent);
+                        expenses[i] -= (expenses[i] * percent);
+                        expenseChanges.add(i);
+                    }
+                    else
+                    {
+                        total -= expenses[i];
+                        expenses[i] = 0.0;
+                        expenseChanges.add(i);
+                    }
+                }
+                else
+                {
+                    if(total - monthlyIncome > 0.0)
+                    {
+                        expenses[i] -= (total - monthlyIncome);
+                        total = monthlyIncome;
+                        expenseChanges.add(i);
+                    }
+
+                    break outer;
+                }
+            }
+        }
+
+        return expenses;
+    }
+
+    public static double[] Algorithm2(ArrayList<Integer> expenseChanges)
+    {
+        // holds the expenses spent for each main category
+        double[] expenses = TotalExpenses();
+
+        double total = 0;
+        for(double expense : expenseAmounts)
+            total += expense;
+
+        if(total < monthlyIncome)
+        {
+            double savings = monthlyIncome - total;
+            expenses[13] += savings;
+            return expenses;
+        }
+        else if(total == monthlyIncome)
+        {
+            // nothing changes
+            return expenses;
+        }
+
+        // Algorithm 2: Cut 10% from bottom of priority list
+        outer:
+        while(true)
+        {
+            for(int i = 12; i >= 0; i--)
+            {
+                if((total - (expenses[i] * 0.1)) > monthlyIncome)
+                {
+                    if((expenses[i] * 0.1) >= 0.01)
+                    {
+                        total -= (expenses[i] * 0.1);
+                        expenses[i] -= (expenses[i] * 0.1);
+                        expenseChanges.add(i);
+                    }
+                    else
+                    {
+                        total -= expenses[i];
+                        expenses[i] = 0.0;
+                        expenseChanges.add(i);
+                    }
+                }
+                else
+                {
+                    if(total - monthlyIncome > 0.0)
+                    {
+                        expenses[i] -= (total - monthlyIncome);
+                        total = monthlyIncome;
+                        expenseChanges.add(i);
+                    }
+
+                    break outer;
+                }
+            }
+        }
+
+        return expenses;
+    }
+
+    public static double[] Algorithm3(ArrayList<Integer> expenseChanges)
+    {
+        // holds the expenses spent for each main category
+        double[] expenses = TotalExpenses();
+
+        double total = 0;
+        for(double expense : expenseAmounts)
+            total += expense;
+
+        if(total < monthlyIncome)
+        {
+            double savings = monthlyIncome - total;
+            expenses[13] += savings;
+            return expenses;
+        }
+        else if(total == monthlyIncome)
+        {
+            // nothing changes
+            return expenses;
+        }
+
+        // Algorithm 3: 0 out everything from bottom of list
+        outer:
+        while(true)
+        {
+            for(int i = 12; i >= 0; i--)
+            {
+                if((total - expenses[i]) > monthlyIncome)
+                {
+                    total -= expenses[i];
+                    expenses[i] = 0.0;
                     expenseChanges.add(i);
                 }
                 else
@@ -83,14 +221,12 @@ public class Tyler extends Application
                         expenseChanges.add(i);
                     }
 
-                    break;
+                    break outer;
                 }
             }
         }
-        // Algorithm 2: Cut 10% from bottom of priority list
-        // Algorithm 3: 0 out everything from bottom of list
 
-        //launch(args);
+        return expenses;
     }
 
     public static double[] TotalExpenses()
@@ -132,19 +268,19 @@ public class Tyler extends Application
         return expenses;
     }
 
-    @Override
-    public void start(Stage primaryStage)
-    {
-		try
-        {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,500,500);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}
-        catch(Exception e)
-        {
-			e.printStackTrace();
-		}
-	}
+    // @Override
+    // public void start(Stage primaryStage)
+    // {
+	// 	try
+    //     {
+	// 		BorderPane root = new BorderPane();
+	// 		Scene scene = new Scene(root,500,500);
+	// 		primaryStage.setScene(scene);
+	// 		primaryStage.show();
+	// 	}
+    //     catch(Exception e)
+    //     {
+	// 		e.printStackTrace();
+	// 	}
+	// }
 }
