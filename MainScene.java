@@ -50,19 +50,26 @@ public class MainScene extends Application {
 
         // Confirm button
         henry.sceneTwoButtonTwo.setOnAction(e -> {
-            if (!henry.incomeField.getText().isEmpty() && henry.frequencyComboBox.getValue() != null) {
-                henry.errorLabel.setVisible(false);
-                henry.income = Double.parseDouble(henry.incomeField.getText()); 
-                henry.payFrequency = new String(henry.frequencyComboBox.getValue());
-                henry.incomeField.setText("");
-                henry.frequencyComboBox.setValue(null);
-
-
-                // goes back to first scene;
-                primaryStage.setScene(sceneOne);
-            }
-            else {
-                henry.errorLabel.setVisible(true); 
+            try {
+                if (!henry.incomeField.getText().isEmpty() && henry.frequencyComboBox.getValue() != null) {
+                    // Try to parse income as a Double
+                    henry.income = Double.parseDouble(henry.incomeField.getText()); 
+                    henry.payFrequency = new String(henry.frequencyComboBox.getValue());
+                    henry.incomeField.setText("");
+                    henry.frequencyComboBox.setValue(null);
+        
+                    // Goes back to the first scene
+                    primaryStage.setScene(sceneOne);
+                    henry.errorLabel.setVisible(false); 
+                    henry.errorLabel.setText("Please fill in all information!");
+                }
+                else {
+                    henry.errorLabel.setVisible(true); 
+                }
+            } catch (NumberFormatException ex) {
+                // If parsing fails, show error for invalid income input
+                henry.errorLabel.setText("Please enter a valid number for income.");
+                henry.errorLabel.setVisible(true);
             }
         });
 
