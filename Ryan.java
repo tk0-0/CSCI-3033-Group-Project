@@ -1,4 +1,4 @@
-import java.awt.Color;
+
 import java.util.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.scene.control.*;
 
 public class Ryan extends Application
@@ -17,8 +16,6 @@ public class Ryan extends Application
     @Override
     public void start(Stage primaryStage){
         try{
-            //Font for the menu
-            Font font = new Font("Noteworthy", 15);
 
             //ComboBoxes for the categories
             ComboBox<String> categories = new ComboBox<>();
@@ -32,24 +29,22 @@ public class Ryan extends Application
 
             //Labels for the Lists and amount
             Label selectCategory = new Label("Select a Category!");           
-            //selectCategory.setFont(font);
 
             Label selectSubCategories = new Label("Select a Subcategory!");     
-            //selectSubCategories.setFont(font);  
             selectSubCategories.setVisible(false);
 
             Label amtEnter_message = new Label("Enter Amount:");             
-            //mtEnter_message.setFont(font);
 
             //Buttons to continue and add to list
             Button add = new Button("Add to List");      
-            //add.setFont(font);  
             add.setPrefWidth(100);
+            add.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
             Button next = new Button("Continue");        
-            //next.setFont(font); 
             next.setPrefWidth(100);
+            next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
             Button reset = new Button("Reset");
             reset.setPrefWidth(100);
+            reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
             //Categories
             categories.getItems().addAll("Home and Utilities", "Food/Groceries", "Health/Personal Care", 
@@ -177,7 +172,9 @@ public class Ryan extends Application
             scrollPane.setStyle("-fx-background-color: #696969;");
 
             Button calculateExpenses = new Button("Show Recommendations");
+            calculateExpenses.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
             Button goBack = new Button("Go Back");
+            goBack.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
 
             HBox bottomButtons = new HBox(10, goBack, calculateExpenses);
             bottomButtons.setAlignment(Pos.CENTER);
