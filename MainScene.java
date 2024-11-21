@@ -19,20 +19,27 @@ public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create an instance of Henry and pass the stage
+
+
+        // Audio Files
+        File file = new File("content/money.mp3");
+        Media media = new Media(file.toURI().toString()); 
+        MediaPlayer player = new MediaPlayer(media);
+
+
         Henry henry = new Henry(primaryStage);
 
-        
         Scene sceneOne = henry.getSceneOne();
         Scene sceneTwo = henry.getSceneTwo();
 
         // Button Actions
         henry.sceneOneButtonOne.setOnAction(e -> {
             primaryStage.setScene(sceneTwo);
-            henry.player.seek(Duration.millis(1000));
-            henry.player.play();
+            player.seek(Duration.millis(1000));
+            player.play();
 
             // reset to the beginning
-            henry.player.seek(Duration.ZERO);
+            player.seek(Duration.ZERO);
         });
 
         // Exit button 
