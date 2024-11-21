@@ -186,9 +186,8 @@ public class Ryan extends Application
             primaryStage.show();
 
             next.setOnAction(p -> {
-                expenses.getItems().add("Main Expenses\t\tSubCategory Expense\t\tExpense Amount");
                 for (int i = 0; i < expenseCategories.size(); i++){
-                    expenses.getItems().add(expenseCategories.get(i) + "\t\t\t" + expenseSubCategories.get(i) + "\t\t\t" + expenseAmounts.get(i));
+                    expenses.getItems().add(expenseCategories.get(i) + ":     " + expenseSubCategories.get(i) + "\t\t$" + expenseAmounts.get(i));
                 }
                 primaryStage.setScene(scene4);
                 primaryStage.show();
