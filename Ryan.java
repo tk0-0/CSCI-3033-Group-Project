@@ -167,33 +167,43 @@ public class Ryan extends Application
             VBox menu = new VBox(50, category_areas, bottom_area);
             menu.setAlignment(Pos.CENTER);
 
-            ListView<String> expenses = new ListView<>();
-            expenses.setPrefSize(100, 200);
-            expenses.getSelectionModel().select(-1);
-            expenses.setPadding(new Insets(10));
+            VBox expensesList = new VBox(10);
+            expensesList.setPadding(new Insets(5));
+
+            ScrollPane scrollPane = new ScrollPane(expensesList);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setPrefSize(375, 240);
+            scrollPane.setMaxWidth(375);
+            scrollPane.setStyle("-fx-background-color: #696969;");
 
             Button calculateExpenses = new Button("Show Recommendations");
             Button goBack = new Button("Go Back");
+
             HBox bottomButtons = new HBox(10, goBack, calculateExpenses);
             bottomButtons.setAlignment(Pos.CENTER);
-            VBox expenseOutput = new VBox(100, expenses, bottomButtons);
-            expenseOutput.setAlignment(Pos.TOP_CENTER);
+
+            VBox expenseOutput = new VBox(60, scrollPane, bottomButtons);
+            expenseOutput.setAlignment(Pos.CENTER);
 
             Scene scene3 = new Scene(menu, 400, 400);
-            menu.setStyle("-fx-background-color: #f0f8ff");
+            menu.setStyle("-fx-background-color: #f0f8ff;");
             Scene scene4 = new Scene(expenseOutput, 400, 400);
+            expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
             primaryStage.setScene(scene3);
             primaryStage.show();
 
             next.setOnAction(p -> {
-                for (int i = 0; i < expenseCategories.size(); i++){
-                    expenses.getItems().add(expenseCategories.get(i) + ":     " + expenseSubCategories.get(i) + "\t\t$" + expenseAmounts.get(i));
+                expensesList.getChildren().clear();
+                for (int i = 0; i < expenseCategories.size(); i++) {
+                    Label expenseLabel = new Label(expenseCategories.get(i) + ":     " + expenseSubCategories.get(i) + "\t$" + expenseAmounts.get(i));
+                    expensesList.getChildren().add(expenseLabel);
                 }
+
                 primaryStage.setScene(scene4);
                 primaryStage.show();
             });
+
             goBack.setOnAction(o -> {
-                expenses.getItems().clear();
                 primaryStage.setScene(scene3);
                 primaryStage.show();
             });
