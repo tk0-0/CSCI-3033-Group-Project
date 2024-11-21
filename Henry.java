@@ -39,7 +39,6 @@ public class Henry {
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
         
-        
         StackPane stackPane = new StackPane(); 
         stackPane.getChildren().addAll(imageView);
         
@@ -63,7 +62,7 @@ public class Henry {
         /****************************************************/
         VBox vBoxSceneTwo = new VBox(30);
         vBoxSceneTwo.setAlignment(Pos.CENTER);
-        vBoxSceneTwo.setStyle("-fx-background-color: #e8f5e9;");
+        vBoxSceneTwo.setStyle("-fx-background-color: #f0f8ff;");
 
         // label and combo box
         Label sceneTwoLabelOne = new Label("Select Pay Frequency");
@@ -103,18 +102,18 @@ public class Henry {
         
         /****************************************************/
 
-        // Audio
-        File file = new File("content/money.mp3");
-        Media media = new Media(file.toURI().toString()); 
-        MediaPlayer player = new MediaPlayer(media);
-
         // Scenes
         sceneOne = new Scene(vBoxSceneOne, 400, 400);
         sceneTwo = new Scene(vBoxSceneTwo, 400, 400);
 
 
-
         /* 
+
+        // Audio
+        File file = new File("content/money.mp3");
+        Media media = new Media(file.toURI().toString()); 
+        MediaPlayer player = new MediaPlayer(media);
+        
 
         // Button Actions
         sceneOneButtonOne.setOnAction(e -> {
@@ -160,7 +159,6 @@ public class Henry {
             
     }
     
-
     public Scene getSceneOne() {
         return sceneOne;
     }
