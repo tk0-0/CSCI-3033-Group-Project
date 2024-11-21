@@ -1,5 +1,3 @@
-
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,7 +83,7 @@ public class Zach extends Application {
         pieChartData.clear();
         for (Expense expense : expenses) {
             double percentage = (expense.getAmount() / totalAmount) * 100;
-            pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + expense.getAmount() + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
+            pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + String.format("%.2f", expense.getAmount()) + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
         }
     }
 
