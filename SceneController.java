@@ -56,6 +56,7 @@ public class SceneController extends Application {
                     // Try to parse income as a Double
                     henry.income = Double.parseDouble(henry.incomeField.getText()); 
                     henry.payFrequency = new String(henry.frequencyComboBox.getValue());
+                    henry.monthlyIncome = henry.CalculateMonthlyAverage();
                     henry.incomeField.setText("");
                     henry.frequencyComboBox.setValue(null);
         
@@ -74,14 +75,9 @@ public class SceneController extends Application {
             }
         });
 
-
-
         // Set the initial scene and show the stage
         primaryStage.setScene(sceneOne);
         
-
-
-
         primaryStage.setTitle("Personal Budget Planner");
         primaryStage.show();
     }

@@ -18,13 +18,16 @@ import javafx.scene.shape.*;
 public class Henry {
     private Scene sceneOne;
     private Scene sceneTwo;
-    public double income; 
-    public String payFrequency; 
+
+    public double income;
+    public double monthlyIncome;
+    public String payFrequency;
+
     public MediaPlayer player;
     public Button sceneOneButtonOne, sceneOneButtonTwo, sceneTwoButtonOne, sceneTwoButtonTwo;
-    public ComboBox<String> frequencyComboBox; 
+    public ComboBox<String> frequencyComboBox;
     public TextField incomeField;
-    public Label errorLabel; 
+    public Label errorLabel;
 
     public Henry(Stage primaryStage) {
         // First Scene
@@ -73,7 +76,7 @@ public class Henry {
         sceneTwoLabelOne.setStyle("-fx-text-fill: #333;");
 
         frequencyComboBox = new ComboBox<>();
-        frequencyComboBox.getItems().addAll("Weekly", "Biweekly", "Monthly");
+        frequencyComboBox.getItems().addAll("Weekly", "Bi-Weekly", "Monthly");
         frequencyComboBox.setStyle("-fx-font-size: 14;");
 
         // label and text field
@@ -107,50 +110,19 @@ public class Henry {
         // Scenes
         sceneOne = new Scene(vBoxSceneOne, 400, 400);
         sceneTwo = new Scene(vBoxSceneTwo, 400, 400);
+    }
 
-        /*
-        // Audio
-        File file = new File("content/money.mp3");
-        Media media = new Media(file.toURI().toString()); 
-        MediaPlayer player = new MediaPlayer(media);
-        */
+    public double CalculateMonthlyAverage() {
+        double monthlyAverage = 0.0;
 
-        // Button Actions
-        sceneOneButtonOne.setOnAction(e -> {
-            primaryStage.setScene(sceneTwo);
-            player.seek(Duration.millis(1000));
-            player.play();
+        if(payFrequency.equals("Weekly"))
+            monthlyAverage = income * 4;
+        else if(payFrequency.equals("Bi-Weekly"))
+            monthlyAverage = income * 2;
+        else
+            monthlyAverage = income;
 
-            // reset to the beginning
-            player.seek(Duration.ZERO);
-        });
-
-        // Exit button 
-        sceneOneButtonTwo.setOnAction(e -> Platform.exit());
-
-        // Go back button
-        sceneTwoButtonOne.setOnAction(e -> {
-            primaryStage.setScene(sceneOne); 
-            errorLabel.setVisible(false);
-        });
-
-        // Confirm button
-        sceneTwoButtonTwo.setOnAction(e -> {
-            if (!incomeField.getText().isEmpty() && !frequencyComboBox.getValue().isEmpty()) {
-                errorLabel.setVisible(false);
-                income = Double.parseDouble(incomeField.getText()); 
-                payFrequency = new String(frequencyComboBox.getValue());
-                incomeField.setText("");
-                frequencyComboBox.setValue(null);
-
-                // goes back to first scene;
-                primaryStage.setScene(sceneOne);
-            }
-            else if (incomeField.getText().isEmpty() || frequencyComboBox.getValue().isEmpty()) {
-                errorLabel.setVisible(true);
-            }
-        });
-            
+        return monthlyAverage;
     }
     
     public Scene getSceneOne() {
