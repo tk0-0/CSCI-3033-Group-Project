@@ -174,12 +174,15 @@ public class BudgetPlanner extends Application {
         custom.setPrefWidth(200);   custom.setVisible(false);
 
         //Labels for the Lists and amount
-        Label selectCategory = new Label("Select a Category!");           
+        Label selectCategory = new Label("Select a Category!");  
+        selectCategory.setStyle("-fx-font: 15px Arial; -fx-font-weight: bold;");
 
         Label selectSubCategories = new Label("Select a Subcategory!");     
+        selectSubCategories.setStyle("-fx-font: 15px Arial; -fx-font-weight: bold;");
         selectSubCategories.setVisible(false);
 
-        Label amtEnter_message = new Label("Enter Amount:");   
+        Label amtEnter_message = new Label("Enter Amount:");  
+        amtEnter_message.setStyle("-fx-font: 15px Arial; -fx-font-weight: bold;"); 
         
         Label errorMessage = new Label("Please enter a valid amount!");
         errorMessage.setVisible(false);
@@ -188,22 +191,22 @@ public class BudgetPlanner extends Application {
         Button add = new Button("Add");      
         add.setPrefWidth(90);
         add.setPrefHeight(15);
-        add.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20;");
+        add.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         Button next = new Button("Continue");        
         next.setPrefWidth(90);
         next.setPrefHeight(15);
-        next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
+        next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         Button reset = new Button("Reset");
         reset.setPrefWidth(90);
         reset.setPrefHeight(15);
-        reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
+        reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         Button back = new Button("Go Back");
         back.setPrefWidth(90);
         back.setPrefHeight(15);
-        back.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
+        back.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         //Categories
         categories.getItems().addAll(   "Home and Utilities", "Food/Groceries", "Health/Personal Care", 
                                         "Personal Insurance", "Savings", "Transportation", 
@@ -340,7 +343,7 @@ public class BudgetPlanner extends Application {
 
         //Combines the category area and bottom area
         VBox category_areas = new VBox(15, category_box, subCategory_box);
-        VBox bottom_area = new VBox(30, amount_area, bottom_buttons);
+        VBox bottom_area = new VBox(50, amount_area, bottom_buttons);
         VBox menu = new VBox(50, category_areas, bottom_area);
 
         VBox updated_menu = new VBox(10, menu, errorMessage);
@@ -358,15 +361,18 @@ public class BudgetPlanner extends Application {
         scrollPane.setMaxWidth(375);
         scrollPane.setStyle("-fx-background-color: #696969;");
 
-        Button calculateExpenses = new Button("Show Recommendations");
-        calculateExpenses.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
+        Label expenseList = new Label("Your Expenses: ");
+        expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
+        Button calculateExpenses = new Button("Show Recommendations!");
+        calculateExpenses.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         Button goBack = new Button("Go Back");
-        goBack.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
+        goBack.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         HBox bottomButtons = new HBox(10, goBack, calculateExpenses);
         bottomButtons.setAlignment(Pos.CENTER);
-
-        VBox expenseOutput = new VBox(60, scrollPane, bottomButtons);
+        VBox list_of_expenses = new VBox(5, expenseList, scrollPane);
+        list_of_expenses.setAlignment(Pos.CENTER);
+        VBox expenseOutput = new VBox(55, list_of_expenses, bottomButtons);
         expenseOutput.setAlignment(Pos.CENTER);
 
         //Background color for the Scenes
@@ -382,6 +388,7 @@ public class BudgetPlanner extends Application {
             //For loop to add each expense to the VBox list
             for (int i = 0; i < expenseCategories.size(); i++) {
                 Label expenseLabel = new Label(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + expenseAmounts.get(i));
+                expenseLabel.setStyle("-fx-font-family: 'Brush Script MT', cursive; -fx-font-size: 15px;");
                 expensesList.getChildren().add(expenseLabel);
             }
 
