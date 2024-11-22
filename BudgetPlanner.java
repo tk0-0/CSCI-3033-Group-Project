@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import javafx.util.Duration;
 import javafx.scene.shape.*;
 
-public class Henry extends Application {
+public class BudgetPlanner extends Application {
 
     private Scene sceneOne;
     private Scene sceneTwo;
