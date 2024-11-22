@@ -48,8 +48,8 @@ public class BudgetPlanner extends Application {
         // Image
         Image image = new Image("file:content/6.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(200);
-        imageView.setFitWidth(200);
+        imageView.setFitHeight(150);
+        imageView.setFitWidth(150);
         
         StackPane stackPane = new StackPane(); 
         stackPane.getChildren().addAll(imageView);
@@ -62,6 +62,14 @@ public class BudgetPlanner extends Application {
         sceneOneTextOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
         sceneOneTextOne.setStyle("-fx-text-fill: #333;");
         sceneOneTextOne.setStrokeWidth(.4);
+
+        RotateTransition rtrans  = new RotateTransition(new Duration(5000), imageView); 
+        rtrans.setFromAngle(0); 
+        rtrans.setToAngle(360);
+        rtrans.setAutoReverse(false);
+        rtrans.setInterpolator(Interpolator.LINEAR);
+        rtrans.setCycleCount(Timeline.INDEFINITE);
+        rtrans.play();    
 
         // Buttons
         sceneOneButtonOne = new Button("Start Budget Planning");
