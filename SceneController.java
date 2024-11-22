@@ -15,14 +15,14 @@ import java.io.*;
 import javafx.util.Duration;
 import javafx.scene.shape.*;
 
-public class MainScene extends Application {
+public class SceneController extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create an instance of Henry and pass the stage
         Henry henry = new Henry(primaryStage);
 
         // Audio Files
-        File file = new File("content/monkey.mp3");
+        File file = new File("content/money1.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
 
@@ -32,7 +32,6 @@ public class MainScene extends Application {
         // Button Actions
         henry.sceneOneButtonOne.setOnAction(e -> {
             primaryStage.setScene(sceneTwo);
-
             player.play();
 
             // reset to the beginning
