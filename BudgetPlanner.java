@@ -175,14 +175,14 @@ public class BudgetPlanner extends Application {
 
         //Labels for the Lists and amount
         Label selectCategory = new Label("Select a Category!");  
-        selectCategory.setStyle("-fx-font: 15px Arial; -fx-font-weight: bold;");
+        selectCategory.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
 
         Label selectSubCategories = new Label("Select a Subcategory!");     
-        selectSubCategories.setStyle("-fx-font: 15px Arial; -fx-font-weight: bold;");
+        selectSubCategories.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
         selectSubCategories.setVisible(false);
 
         Label amtEnter_message = new Label("Enter Amount:");  
-        amtEnter_message.setStyle("-fx-font: 15px Arial; -fx-font-weight: bold;"); 
+        amtEnter_message.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;"); 
         
         Label errorMessage = new Label("Please enter a valid amount!");
         errorMessage.setVisible(false);
