@@ -18,7 +18,7 @@ public class Zach extends Application {
     private ArrayList<Double> expenseAmounts = new ArrayList<>(Arrays.asList(1400.00, 500.00, 150.00, 100.00));
 
     // Will come from Henry's code
-    private double monthlyIncome = 3000;
+    private double monthlyIncome = 2000;
 
     // Keeps track of changed categories
     private ArrayList<Integer> expenseChanges = new ArrayList<>();
@@ -41,9 +41,9 @@ public class Zach extends Application {
         }
         else if(totalAmount != monthlyIncome)
         {
-            //expenseItems = Tyler.Algorithm1(expenseChanges, monthlyIncome, totalAmount, expenseCategories, expenseAmounts);
-            //expenseItems = Tyler.Algorithm2(expenseChanges, monthlyIncome, totalAmount, expenseCategories, expenseAmounts);
-            expenseItems = Tyler.Algorithm3(expenseChanges, monthlyIncome, totalAmount, expenseCategories, expenseAmounts);
+            //Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            //Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
         }
 
         for(int i = 0; i < 14; i++)
@@ -96,7 +96,7 @@ public class Zach extends Application {
 
         // Scene setup
         Scene scene = new Scene(root, 1000, 500);
-        primaryStage.setTitle("Interactive Pie Chart Example");
+        primaryStage.setTitle("Budget Plan");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

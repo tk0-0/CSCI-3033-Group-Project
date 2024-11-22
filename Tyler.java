@@ -4,11 +4,8 @@ public class Tyler
 {
     private static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
 
-    public static double[] Algorithm1(ArrayList<Integer> expenseChanges, double monthlyIncome, double total, final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
+    public static void Algorithm1(double[] expenses, ArrayList<Integer> expenseChanges, double monthlyIncome, double total)
     {
-        // holds the expenses spent for each main category
-        double[] expenses = TotalExpenses(expenseCategories, expenseAmounts);
-
         // Algorithm 1: Priority of top 4, starts at bottom of priority list, goes up to 5, cutting set percentages until breaking even
             // Percentage Cuts: 12-0: 75%, 70%, 60%, 55%, 50%, 45%, 30%, 25%, 10%, 10%, 10%, 10%, 10%
         outer:
@@ -68,15 +65,10 @@ public class Tyler
                 }
             }
         }
-
-        return expenses;
     }
 
-    public static double[] Algorithm2(ArrayList<Integer> expenseChanges, double monthlyIncome, double total, final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
+    public static void Algorithm2(double[] expenses, ArrayList<Integer> expenseChanges, double monthlyIncome, double total)
     {
-        // holds the expenses spent for each main category
-        double[] expenses = TotalExpenses(expenseCategories, expenseAmounts);
-
         // Algorithm 2: Cut 10% from bottom of priority list
         outer:
         while(true)
@@ -111,15 +103,10 @@ public class Tyler
                 }
             }
         }
-
-        return expenses;
     }
 
-    public static double[] Algorithm3(ArrayList<Integer> expenseChanges, double monthlyIncome, double total, final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
+    public static void Algorithm3(double[] expenses, ArrayList<Integer> expenseChanges, double monthlyIncome, double total)
     {
-        // holds the expenses spent for each main category
-        double[] expenses = TotalExpenses(expenseCategories, expenseAmounts);
-
         // Algorithm 3: 0 out everything from bottom of list
         outer:
         while(true)
@@ -145,8 +132,6 @@ public class Tyler
                 }
             }
         }
-
-        return expenses;
     }
 
     public static double[] TotalExpenses(final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)

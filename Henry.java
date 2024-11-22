@@ -108,14 +108,12 @@ public class Henry {
         sceneOne = new Scene(vBoxSceneOne, 400, 400);
         sceneTwo = new Scene(vBoxSceneTwo, 400, 400);
 
-
-        /* 
-
+        /*
         // Audio
         File file = new File("content/money.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
-        
+        */
 
         // Button Actions
         sceneOneButtonOne.setOnAction(e -> {
@@ -129,7 +127,6 @@ public class Henry {
 
         // Exit button 
         sceneOneButtonTwo.setOnAction(e -> Platform.exit());
-
 
         // Go back button
         sceneTwoButtonOne.setOnAction(e -> {
@@ -146,18 +143,13 @@ public class Henry {
                 incomeField.setText("");
                 frequencyComboBox.setValue(null);
 
-
                 // goes back to first scene;
                 primaryStage.setScene(sceneOne);
             }
             else if (incomeField.getText().isEmpty() || frequencyComboBox.getValue().isEmpty()) {
                 errorLabel.setVisible(true);
-            
-                
             }
-
         });
-        */
             
     }
     
