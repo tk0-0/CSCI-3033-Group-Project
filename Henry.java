@@ -34,19 +34,22 @@ public class Henry {
         vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
         // Image
-        Image image = new Image("file:content/2.png");
+        Image image = new Image("file:content/6.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
         
         StackPane stackPane = new StackPane(); 
         stackPane.getChildren().addAll(imageView);
-        
 
         // Title Label
-        Label sceneOneLabelOne = new Label("Welcome to the Personal Budget Planner");
-        sceneOneLabelOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
-        sceneOneLabelOne.setStyle("-fx-text-fill: #333;");
+        Text sceneOneTextOne = new Text("Welcome to the Personal Budget Planner");
+        StrokeTransition strans = new StrokeTransition(new Duration(3000), sceneOneTextOne, Color.GREEN, Color.WHITE);
+        strans.setCycleCount(Timeline.INDEFINITE);
+        strans.play();
+        sceneOneTextOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
+        sceneOneTextOne.setStyle("-fx-text-fill: #333;");
+        sceneOneTextOne.setStrokeWidth(.4);
 
         // Buttons
         sceneOneButtonOne = new Button("Start Budget Planning");
@@ -55,7 +58,7 @@ public class Henry {
         sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
         // Adding nodes to the layout
-        vBoxSceneOne.getChildren().addAll(stackPane,sceneOneLabelOne, sceneOneButtonOne, sceneOneButtonTwo);
+        vBoxSceneOne.getChildren().addAll(stackPane,sceneOneTextOne, sceneOneButtonOne, sceneOneButtonTwo);
         /****************************************************/
 
         // Second Scene
@@ -97,7 +100,6 @@ public class Henry {
         errorLabel = new Label("Please fill in all information!"); 
         errorLabel.setVisible(false);
         
-
         vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
         
         /****************************************************/
