@@ -45,6 +45,8 @@ public class SceneController extends Application {
         henry.sceneTwoButtonOne.setOnAction(e -> {
             primaryStage.setScene(sceneOne); 
             henry.errorLabel.setVisible(false);
+            henry.incomeField.setText("");
+            henry.frequencyComboBox.setValue(null);
         });
 
         // Confirm button
