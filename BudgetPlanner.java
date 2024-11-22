@@ -179,21 +179,31 @@ public class BudgetPlanner extends Application {
         Label selectSubCategories = new Label("Select a Subcategory!");     
         selectSubCategories.setVisible(false);
 
-        Label amtEnter_message = new Label("Enter Amount:");             
+        Label amtEnter_message = new Label("Enter Amount:");   
+        
+        Label errorMessage = new Label("Please enter a valid amount!");
+        errorMessage.setVisible(false);
 
         //Buttons to continue and add to list
-        Button add = new Button("Add to List");      
-        add.setPrefWidth(100);
-        add.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
+        Button add = new Button("Add");      
+        add.setPrefWidth(90);
+        add.setPrefHeight(15);
+        add.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20;");
 
         Button next = new Button("Continue");        
-        next.setPrefWidth(100);
+        next.setPrefWidth(90);
+        next.setPrefHeight(15);
         next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
 
         Button reset = new Button("Reset");
-        reset.setPrefWidth(100);
+        reset.setPrefWidth(90);
+        reset.setPrefHeight(15);
         reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
+        Button back = new Button("Go Back");
+        back.setPrefWidth(90);
+        back.setPrefHeight(15);
+        back.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
         //Categories
         categories.getItems().addAll(   "Home and Utilities", "Food/Groceries", "Health/Personal Care", 
                                         "Personal Insurance", "Savings", "Transportation", 
@@ -273,32 +283,37 @@ public class BudgetPlanner extends Application {
                 String selectedCategory = categories.getValue();
                 String subCategory;
                 String enteredAmount = amount.getText();
-            
-                if (custom.isVisible()) {
-                    subCategory = custom.getText();
+                if (!amount.getText().isEmpty() && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0){
+                    if (custom.isVisible()) {
+                        subCategory = custom.getText();
+                    }
+                    else {
+                        subCategory = subCategories.getValue();
+                    }
+                
+                    if (selectedCategory != null && !enteredAmount.isEmpty()) {
+                        expenseCategories.add(selectedCategory);
+
+                        if (subCategory != null) {
+                            expenseSubCategories.add(subCategory);
+                        } 
+                        else {
+                            expenseSubCategories.add("");
+                        }
+
+                        expenseAmounts.add(enteredAmount);
+                
+                        categories.setValue(null);
+                        subCategories.setValue(null);
+                        custom.clear();
+                        amount.clear();
+                        subCategories.setVisible(false);
+                        custom.setVisible(false);
+                        errorMessage.setVisible(false);
+                    }
                 }
                 else {
-                    subCategory = subCategories.getValue();
-                }
-            
-                if (selectedCategory != null && !enteredAmount.isEmpty()) {
-                    expenseCategories.add(selectedCategory);
-
-                    if (subCategory != null) {
-                        expenseSubCategories.add(subCategory);
-                    } 
-                    else {
-                        expenseSubCategories.add("");
-                    }
-
-                    expenseAmounts.add(enteredAmount);
-            
-                    categories.setValue(null);
-                    subCategories.setValue(null);
-                    custom.clear();
-                    amount.clear();
-                    subCategories.setVisible(false);
-                    custom.setVisible(false);
+                    errorMessage.setVisible(true);
                 }
             });
 
@@ -320,14 +335,16 @@ public class BudgetPlanner extends Application {
         //Creates the bottom area 
         HBox amount_area = new HBox(10, amtEnter_message, amount); 
         amount_area.setAlignment(Pos.CENTER);
-        HBox bottom_buttons = new HBox(10, reset, add, next); 
+        HBox bottom_buttons = new HBox(10, back, reset, add, next); 
         bottom_buttons.setAlignment(Pos.CENTER);
 
         //Combines the category area and bottom area
         VBox category_areas = new VBox(15, category_box, subCategory_box);
         VBox bottom_area = new VBox(30, amount_area, bottom_buttons);
         VBox menu = new VBox(50, category_areas, bottom_area);
-        menu.setAlignment(Pos.CENTER);
+
+        VBox updated_menu = new VBox(10, menu, errorMessage);
+        updated_menu.setAlignment(Pos.CENTER);
 
         //Menu for the Second Scene
         //Make a VBox for the Scenes
@@ -353,8 +370,8 @@ public class BudgetPlanner extends Application {
         expenseOutput.setAlignment(Pos.CENTER);
 
         //Background color for the Scenes
-        Scene sceneThree = new Scene(menu, 400, 400);
-        menu.setStyle("-fx-background-color: #f0f8ff;");
+        Scene sceneThree = new Scene(updated_menu, 400, 400);
+        updated_menu.setStyle("-fx-background-color: #f0f8ff;");
         Scene sceneFour = new Scene(expenseOutput, 400, 400);
         expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
