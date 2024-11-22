@@ -1,57 +1,13 @@
 import java.util.*;
-// import javafx.application.Application;
-// import javafx.stage.Stage;
-// import javafx.scene.Scene;
-// import javafx.scene.layout.BorderPane;
 
-public class Tyler //extends Application
+public class Tyler
 {
-    static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other"};
+    private static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
 
-    static ArrayList<String> expenseCategories = new ArrayList<>(Arrays.asList("Home and Utilities", "Food/Groceries", "Communication", "Shopping and Entertainment"));
-    static ArrayList<Double> expenseAmounts = new ArrayList<>(Arrays.asList(1400.00, 500.00, 150.00, 100.00));
-    static double monthlyIncome = 2000;
-
-    public static void main(String[] args)
-    {
-        ArrayList<Integer> expenseChanges = new ArrayList<>();
-        double[] expenses = TotalExpenses();
-
-        for(double expense : expenses)
-        {
-            System.out.print(expense + " ");
-        }
-        System.out.println();
-
-        double total = 0.0;
-        for(double expense : expenseAmounts)
-            total += expense;
-
-        if(total < monthlyIncome)
-        {
-            double savings = monthlyIncome - total;
-            expenses[13] += savings;
-        }
-        else if(total != monthlyIncome)
-        {
-            expenses = Algorithm1(expenseChanges, total);
-            //expenses = Algorithm2(expenseChanges, total);
-            //expenses = Algorithm3(expenseChanges, total);
-        }
-
-        for(double expense : expenses)
-        {
-            System.out.print(expense + " ");
-        }
-        System.out.println();
-
-        //launch(args);
-    }
-
-    public static double[] Algorithm1(ArrayList<Integer> expenseChanges, double total)
+    public static double[] Algorithm1(ArrayList<Integer> expenseChanges, double monthlyIncome, double total, final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
     {
         // holds the expenses spent for each main category
-        double[] expenses = TotalExpenses();
+        double[] expenses = TotalExpenses(expenseCategories, expenseAmounts);
 
         // Algorithm 1: Priority of top 4, starts at bottom of priority list, goes up to 5, cutting set percentages until breaking even
             // Percentage Cuts: 12-0: 75%, 70%, 60%, 55%, 50%, 45%, 30%, 25%, 10%, 10%, 10%, 10%, 10%
@@ -116,10 +72,10 @@ public class Tyler //extends Application
         return expenses;
     }
 
-    public static double[] Algorithm2(ArrayList<Integer> expenseChanges, double total)
+    public static double[] Algorithm2(ArrayList<Integer> expenseChanges, double monthlyIncome, double total, final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
     {
         // holds the expenses spent for each main category
-        double[] expenses = TotalExpenses();
+        double[] expenses = TotalExpenses(expenseCategories, expenseAmounts);
 
         // Algorithm 2: Cut 10% from bottom of priority list
         outer:
@@ -159,10 +115,10 @@ public class Tyler //extends Application
         return expenses;
     }
 
-    public static double[] Algorithm3(ArrayList<Integer> expenseChanges, double total)
+    public static double[] Algorithm3(ArrayList<Integer> expenseChanges, double monthlyIncome, double total, final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
     {
         // holds the expenses spent for each main category
-        double[] expenses = TotalExpenses();
+        double[] expenses = TotalExpenses(expenseCategories, expenseAmounts);
 
         // Algorithm 3: 0 out everything from bottom of list
         outer:
@@ -193,7 +149,7 @@ public class Tyler //extends Application
         return expenses;
     }
 
-    public static double[] TotalExpenses()
+    public static double[] TotalExpenses(final ArrayList<String> expenseCategories, final ArrayList<Double> expenseAmounts)
     {
         double[] expenses = new double[categories.length];
 
@@ -231,20 +187,4 @@ public class Tyler //extends Application
 
         return expenses;
     }
-
-    // @Override
-    // public void start(Stage primaryStage)
-    // {
-	// 	try
-    //     {
-	// 		BorderPane root = new BorderPane();
-	// 		Scene scene = new Scene(root,500,500);
-	// 		primaryStage.setScene(scene);
-	// 		primaryStage.show();
-	// 	}
-    //     catch(Exception e)
-    //     {
-	// 		e.printStackTrace();
-	// 	}
-	// }
 }

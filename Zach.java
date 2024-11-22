@@ -8,25 +8,48 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Zach extends Application {
-    //static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Savings", "Transportation", "Education", "Communication", "Pets", "Shopping and Entertainment", "Emergencies", "Travel", "Miscellaneous", "Other"};
-    //double[] expenses = Algorithm1();
+    private static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
+    // Will come from Ryan's code
+    private ArrayList<String> expenseCategories = new ArrayList<>(Arrays.asList("Home and Utilities", "Food/Groceries", "Communication", "Shopping and Entertainment"));
+    private ArrayList<Double> expenseAmounts = new ArrayList<>(Arrays.asList(1400.00, 500.00, 150.00, 100.00));
+
+    // Will come from Henry's code
+    private double monthlyIncome = 3000;
+
+    // Keeps track of changed categories
+    private ArrayList<Integer> expenseChanges = new ArrayList<>();
+    // Holds all expenses made by user
+    private double[] expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
 
     private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     private ArrayList<Expense> expenses = new ArrayList<>();
-    private double totalAmount = 1000; // Example total amount
-
+    private double totalAmount = 0.0;
+    
     @Override
     public void start(Stage primaryStage) {
-        // Example expenses added to the ArrayList
-        expenses.add(new Expense("Rent", 400));
-        expenses.add(new Expense("Groceries", 150));
-        expenses.add(new Expense("Utilities", 100));
-        expenses.add(new Expense("Entertainment", 75));
+        for(double expense : expenseAmounts)
+            totalAmount += expense;
 
+        if(totalAmount < monthlyIncome)
+        {
+            double savings = monthlyIncome - totalAmount;
+            expenseItems[13] += savings;
+        }
+        else if(totalAmount != monthlyIncome)
+        {
+            //expenseItems = Tyler.Algorithm1(expenseChanges, monthlyIncome, totalAmount, expenseCategories, expenseAmounts);
+            //expenseItems = Tyler.Algorithm2(expenseChanges, monthlyIncome, totalAmount, expenseCategories, expenseAmounts);
+            expenseItems = Tyler.Algorithm3(expenseChanges, monthlyIncome, totalAmount, expenseCategories, expenseAmounts);
+        }
+
+        for(int i = 0; i < 14; i++)
+            if(expenseItems[i] > 0.0)
+                expenses.add(new Expense(categories[i], expenseItems[i]));
+        
         // Pie chart
         PieChart pieChart = new PieChart(pieChartData);
         pieChart.setTitle("Expense Distribution");
@@ -72,7 +95,7 @@ public class Zach extends Application {
         root.setBottom(buttonBox);
 
         // Scene setup
-        Scene scene = new Scene(root, 750, 500);
+        Scene scene = new Scene(root, 1000, 500);
         primaryStage.setTitle("Interactive Pie Chart Example");
         primaryStage.setScene(scene);
         primaryStage.show();
