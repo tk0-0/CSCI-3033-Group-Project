@@ -184,7 +184,7 @@ public class BudgetPlanner extends Application {
         Label amtEnter_message = new Label("Enter Amount:");  
         amtEnter_message.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;"); 
         
-        Label errorMessage = new Label("Please enter a valid amount!");
+        Label errorMessage = new Label("Please Enter Valid Information!!");
         errorMessage.setVisible(false);
 
         //Buttons to continue and add to list
@@ -286,7 +286,7 @@ public class BudgetPlanner extends Application {
                 String selectedCategory = categories.getValue();
                 String subCategory;
                 String enteredAmount = amount.getText();
-                if (!amount.getText().isEmpty() && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0){
+                try{ if (!amount.getText().isEmpty() && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0){
                     if (custom.isVisible()) {
                         subCategory = custom.getText();
                     }
@@ -317,6 +317,10 @@ public class BudgetPlanner extends Application {
                 }
                 else {
                     errorMessage.setVisible(true);
+                }} catch (NumberFormatException ex) {
+                    // If parsing fails, show error for invalid income input
+                    errorMessage.setText("Please Enter Valid Information!");
+                    errorMessage.setVisible(true);
                 }
             });
 
@@ -324,6 +328,14 @@ public class BudgetPlanner extends Application {
                 expenseAmounts.clear();
                 expenseCategories.clear();
                 expenseSubCategories.clear();
+
+                categories.setValue(null);
+                subCategories.setValue(null);
+                custom.clear();
+                amount.clear();
+                subCategories.setVisible(false);
+                custom.setVisible(false);
+                errorMessage.setVisible(false);
             });
         });
 
@@ -372,7 +384,7 @@ public class BudgetPlanner extends Application {
         bottomButtons.setAlignment(Pos.CENTER);
         VBox list_of_expenses = new VBox(5, expenseList, scrollPane);
         list_of_expenses.setAlignment(Pos.CENTER);
-        VBox expenseOutput = new VBox(55, list_of_expenses, bottomButtons);
+        VBox expenseOutput = new VBox(45, list_of_expenses, bottomButtons);
         expenseOutput.setAlignment(Pos.CENTER);
 
         //Background color for the Scenes
