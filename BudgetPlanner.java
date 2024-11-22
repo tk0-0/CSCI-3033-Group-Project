@@ -390,6 +390,10 @@ public class BudgetPlanner extends Application {
             primaryStage.show();
         });
 
+        back.setOnAction(l -> {
+            primaryStage.setScene(sceneTwo);
+        });
+
         //Action event for the go back button in the 4th scene
         goBack.setOnAction(o -> {
             //Show sceneThree
