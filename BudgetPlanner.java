@@ -32,7 +32,6 @@ public class BudgetPlanner extends Application {
     public TextField incomeField;
     public Label errorLabel;
 
-    // Ryan's Code
     public ArrayList<String> expenseCategories = new ArrayList<>();
     public ArrayList<String> expenseAmounts = new ArrayList<>();
     public ArrayList<String> expenseSubCategories = new ArrayList<>();
@@ -110,7 +109,7 @@ public class BudgetPlanner extends Application {
         HBox hBoxSceneTwo = new HBox(20, sceneTwoButtonOne, sceneTwoButtonTwo);
         hBoxSceneTwo.setAlignment(Pos.CENTER);
 
-        errorLabel = new Label("Please fill in all information!"); 
+        errorLabel = new Label("Please fill in all information with valid info!"); 
         errorLabel.setVisible(false);
         
         vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
@@ -284,12 +283,14 @@ public class BudgetPlanner extends Application {
             
                 if (selectedCategory != null && !enteredAmount.isEmpty()) {
                     expenseCategories.add(selectedCategory);
+
                     if (subCategory != null) {
                         expenseSubCategories.add(subCategory);
                     } 
                     else {
                         expenseSubCategories.add("");
                     }
+
                     expenseAmounts.add(enteredAmount);
             
                     categories.setValue(null);
@@ -327,7 +328,6 @@ public class BudgetPlanner extends Application {
         VBox bottom_area = new VBox(30, amount_area, bottom_buttons);
         VBox menu = new VBox(50, category_areas, bottom_area);
         menu.setAlignment(Pos.CENTER);
-
 
         //Menu for the Second Scene
         //Make a VBox for the Scenes
@@ -383,7 +383,7 @@ public class BudgetPlanner extends Application {
         // Henry's Confirm button
         sceneTwoButtonTwo.setOnAction(e -> {
             try {
-                if (!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null) {
+                if (!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0) {
                     // Try to parse income as a Double
                     income = Double.parseDouble(incomeField.getText()); 
                     payFrequency = new String(frequencyComboBox.getValue());
