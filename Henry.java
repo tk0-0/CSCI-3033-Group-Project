@@ -152,6 +152,15 @@ public class Henry extends Application {
         primaryStage.setTitle("Personal Budget Planner");
         primaryStage.show();
 
+
+
+
+
+
+
+
+
+
         // Ryan's Code
         //ComboBoxes for the categories
         ComboBox<String> categories = new ComboBox<>();
@@ -259,6 +268,7 @@ public class Henry extends Application {
                                                     selectSubCategories.setVisible(false); 
                                                     custom.setVisible(true);
                                                     subCategories.setValue(custom.getText());   }
+            
             //Action event for add
             add.setOnAction(x -> {
                 String selectedCategory = categories.getValue();
@@ -343,9 +353,9 @@ public class Henry extends Application {
         expenseOutput.setAlignment(Pos.CENTER);
 
         //Background color for the Scenes
-        Scene scene3 = new Scene(menu, 400, 400);
+        Scene sceneThree = new Scene(menu, 400, 400);
         menu.setStyle("-fx-background-color: #f0f8ff;");
-        Scene scene4 = new Scene(expenseOutput, 400, 400);
+        Scene sceneFour = new Scene(expenseOutput, 400, 400);
         expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
         //Action event for the continue button
@@ -357,19 +367,20 @@ public class Henry extends Application {
                 Label expenseLabel = new Label(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + expenseAmounts.get(i));
                 expensesList.getChildren().add(expenseLabel);
             }
-            //Show Scene4
-            primaryStage.setScene(scene4);
+
+            //Show sceneFour
+            primaryStage.setScene(sceneFour);
             primaryStage.show();
         });
 
         //Action event for the go back button in the 4th scene
         goBack.setOnAction(o -> {
-            //Show Scene3
-            primaryStage.setScene(scene3);
+            //Show sceneThree
+            primaryStage.setScene(sceneThree);
             primaryStage.show();
         });
 
-        // Confirm button
+        // Henry's Confirm button
         sceneTwoButtonTwo.setOnAction(e -> {
             try {
                 if (!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null) {
@@ -379,7 +390,7 @@ public class Henry extends Application {
                     monthlyIncome = CalculateMonthlyAverage();
         
                     // Goes back to the first scene
-                    primaryStage.setScene(scene3);
+                    primaryStage.setScene(sceneThree);
                 }
                 else {
                     errorLabel.setVisible(true); 
