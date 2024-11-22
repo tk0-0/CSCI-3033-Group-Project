@@ -294,42 +294,43 @@ public class BudgetPlanner extends Application {
                 String selectedCategory = categories.getValue();
                 String subCategory;
                 String enteredAmount = amount.getText();
-                try{ if (!amount.getText().isEmpty() && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0){
-                    if (custom.isVisible()) {
-                        subCategory = custom.getText();
+                try{ 
+                    if (!amount.getText().isEmpty() && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0){
+                        if (custom.isVisible()) {
+                            subCategory = custom.getText();
+                        }
+                        else {
+                            subCategory = subCategories.getValue();
+                        }
+                    
+                        if (selectedCategory != null && !enteredAmount.isEmpty()) {
+                            expenseCategories.add(selectedCategory);
+
+                            if (subCategory != null) {
+                                expenseSubCategories.add(subCategory);
+                            } 
+                            else {
+                                expenseSubCategories.add("");
+                            }
+
+                            expenseAmounts.add(enteredAmount);
+                    
+                            categories.setValue(null);
+                            subCategories.setValue(null);
+                            custom.clear();
+                            amount.clear();
+                            subCategories.setVisible(false);
+                            custom.setVisible(false);
+                            errorMessage.setVisible(false);
+                        }
                     }
                     else {
-                        subCategory = subCategories.getValue();
+                        errorMessage.setVisible(true);
                     }
-                
-                    if (selectedCategory != null && !enteredAmount.isEmpty()) {
-                        expenseCategories.add(selectedCategory);
-
-                        if (subCategory != null) {
-                            expenseSubCategories.add(subCategory);
-                        } 
-                        else {
-                            expenseSubCategories.add("");
-                        }
-
-                        expenseAmounts.add(enteredAmount);
-                
-                        categories.setValue(null);
-                        subCategories.setValue(null);
-                        custom.clear();
-                        amount.clear();
-                        subCategories.setVisible(false);
-                        custom.setVisible(false);
-                        errorMessage.setVisible(false);
+                }   catch (NumberFormatException ex) {
+                        errorMessage.setText("Please Enter Valid Information!");
+                        errorMessage.setVisible(true);
                     }
-                }
-                else {
-                    errorMessage.setVisible(true);
-                }} catch (NumberFormatException ex) {
-                    // If parsing fails, show error for invalid income input
-                    errorMessage.setText("Please Enter Valid Information!");
-                    errorMessage.setVisible(true);
-                }
             });
 
             reset.setOnAction(y -> {
