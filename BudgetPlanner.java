@@ -51,8 +51,8 @@ public class BudgetPlanner extends Application {
         imageView.setFitHeight(150);
         imageView.setFitWidth(150);
         
-        StackPane stackPane = new StackPane(); 
-        stackPane.getChildren().addAll(imageView);
+        
+        
 
         // Title Label
         Text sceneOneTextOne = new Text("Welcome to the Personal Budget Planner");
@@ -62,6 +62,42 @@ public class BudgetPlanner extends Application {
         sceneOneTextOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
         sceneOneTextOne.setStyle("-fx-text-fill: #333;");
         sceneOneTextOne.setStrokeWidth(.4);
+
+        Pane paneOne = new Pane();
+        String text = "The Personal Budget Planner ";
+        double radius = 120; 
+
+        // Adjust the starting angle (180 degrees for the left side)
+        double startAngle = 180;
+
+        for (int i = 0; i < text.length(); i++) {
+            char letter = text.charAt(i);
+            // Adjust each character's angle based on the starting angle
+            double angle = startAngle + (360.0 / text.length() * i);
+
+            // Calculate x and y position for each letter
+            double x = 180 + radius * Math.cos(Math.toRadians(angle));
+            double y = 210 + radius * Math.sin(Math.toRadians(angle));
+
+            Text ch = new Text(String.valueOf(letter));
+            ch.setFont(Font.font("times new roman", 30));
+            ch.setFill(Color.BLACK);
+            // Generate random color for each letter
+            //ch.setStroke(Color.color(Math.random(), Math.random(), Math.random()));
+            ch.setX(x);
+            ch.setY(y);
+            ch.setRotate(angle + 90); // Align the rotation to the tangent of the circle
+            paneOne.getChildren().add(ch);
+        }
+
+
+        VBox vBoxTitle = new VBox();
+
+        vBoxTitle.getChildren().addAll(paneOne);
+        vBoxTitle.setTranslateY(-50);
+
+        StackPane stackPane = new StackPane(); 
+        stackPane.getChildren().addAll(imageView,vBoxTitle);
 
         RotateTransition rtrans  = new RotateTransition(new Duration(5000), imageView); 
         rtrans.setFromAngle(0); 
@@ -78,7 +114,7 @@ public class BudgetPlanner extends Application {
         sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
         // Adding nodes to the layout
-        vBoxSceneOne.getChildren().addAll(stackPane,sceneOneTextOne, sceneOneButtonOne, sceneOneButtonTwo);
+        vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
         /****************************************************/
 
         // Second Scene
