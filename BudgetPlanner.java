@@ -108,7 +108,7 @@ public class BudgetPlanner extends Application {
         // Adding nodes to the layout
         vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
         vBoxSceneOne.setPadding(new Insets(50, 0, 0, 0));
-        VBox.setMargin(sceneOneButtonOne, new Insets(40, 0, 0, 0));
+        VBox.setMargin(sceneOneButtonOne, new Insets(60, 0, 0, 0));
         /****************************************************/
 
         // Second Scene
