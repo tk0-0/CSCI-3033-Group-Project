@@ -238,7 +238,7 @@ public class BudgetPlanner extends Application {
         add.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         Button next = new Button("Continue");        
-        next.setPrefWidth(90);
+        next.setPrefWidth(95);
         next.setPrefHeight(15);
         next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
@@ -455,6 +455,7 @@ public class BudgetPlanner extends Application {
         });
 
         back.setOnAction(l -> {
+            errorLabel.setVisible(false);
             primaryStage.setScene(sceneTwo);
         });
 
