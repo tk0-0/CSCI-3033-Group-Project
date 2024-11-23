@@ -51,10 +51,8 @@ public class BudgetPlanner extends Application {
         imageView.setFitHeight(150);
         imageView.setFitWidth(150);
         
-        
-        
-
         // Title Label
+        /* 
         Text sceneOneTextOne = new Text("Welcome to the Personal Budget Planner");
         StrokeTransition strans = new StrokeTransition(new Duration(3000), sceneOneTextOne, Color.GREEN, Color.WHITE);
         strans.setCycleCount(Timeline.INDEFINITE);
@@ -62,43 +60,37 @@ public class BudgetPlanner extends Application {
         sceneOneTextOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
         sceneOneTextOne.setStyle("-fx-text-fill: #333;");
         sceneOneTextOne.setStrokeWidth(.4);
+        */
 
-        Pane paneOne = new Pane();
+        StackPane stackPane = new StackPane();
+        stackPane.setAlignment(Pos.CENTER); // Center everything in the StackPane
+
+        // Create Title
         String text = "The Personal Budget Planner ";
-        double radius = 120; 
-
-        // Adjust the starting angle (180 degrees for the left side)
-        double startAngle = 180;
+        double radius = 110; 
+        double startAngle = 180; 
 
         for (int i = 0; i < text.length(); i++) {
             char letter = text.charAt(i);
-            // Adjust each character's angle based on the starting angle
             double angle = startAngle + (360.0 / text.length() * i);
 
-            // Calculate x and y position for each letter
-            double x = 180 + radius * Math.cos(Math.toRadians(angle));
-            double y = 210 + radius * Math.sin(Math.toRadians(angle));
+            // Calculate position relative to center
+            double x = radius * Math.cos(Math.toRadians(angle));
+            double y = radius * Math.sin(Math.toRadians(angle));
 
+            // Create individual Text node for each letter
             Text ch = new Text(String.valueOf(letter));
-            ch.setFont(Font.font("times new roman", 30));
+            ch.setFont(Font.font("Times New Roman", 30));
             ch.setFill(Color.BLACK);
-            // Generate random color for each letter
-            //ch.setStroke(Color.color(Math.random(), Math.random(), Math.random()));
-            ch.setX(x);
-            ch.setY(y);
-            ch.setRotate(angle + 90); // Align the rotation to the tangent of the circle
-            paneOne.getChildren().add(ch);
+            ch.setRotate(angle + 90); // Rotate each letter to align with the circle
+            ch.setTranslateX(x); // Position relative to center
+            ch.setTranslateY(y); // Position relative to center
+
+            // Add letter directly to StackPane
+            stackPane.getChildren().add(ch);
         }
-
-
-        VBox vBoxTitle = new VBox();
-
-        vBoxTitle.getChildren().addAll(paneOne);
-        vBoxTitle.setTranslateY(-50);
-
-        StackPane stackPane = new StackPane(); 
-        stackPane.getChildren().addAll(imageView,vBoxTitle);
-
+        stackPane.getChildren().add(0, imageView);
+        
         RotateTransition rtrans  = new RotateTransition(new Duration(5000), imageView); 
         rtrans.setFromAngle(0); 
         rtrans.setToAngle(360);
@@ -115,6 +107,8 @@ public class BudgetPlanner extends Application {
 
         // Adding nodes to the layout
         vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
+        vBoxSceneOne.setPadding(new Insets(50, 0, 0, 0));
+        VBox.setMargin(sceneOneButtonOne, new Insets(40, 0, 0, 0));
         /****************************************************/
 
         // Second Scene
