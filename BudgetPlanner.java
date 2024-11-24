@@ -49,7 +49,9 @@ public class BudgetPlanner extends Application {
     private ArrayList<Integer> expenseChanges = new ArrayList<>();
     // Holds all expenses made by user
     private double[] expenseItems; // = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-    public BorderPane root = new BorderPane();
+    private BorderPane root = new BorderPane();
+    private HBox hboxbottom = new HBox(20);
+
 
     @Override
     public void start(Stage primaryStage)
@@ -197,7 +199,7 @@ public class BudgetPlanner extends Application {
         sceneTwo = new Scene(vBoxSceneTwo, 400, 400);
 
         // Audio Files
-        File file = new File("content/monkey.mp3");
+        File file = new File("content/money1.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
 
@@ -576,19 +578,13 @@ public class BudgetPlanner extends Application {
             }
         });
 
-        // Zach's Code
-
-
-        
-
         // Tyler's Code
         Button pie1 = new Button("Budget Plan #1");
         Button list1 = new Button("Show Recommendations");
-        Button pie2 = new Button("Budget Plan #1");
+        Button pie2 = new Button("Budget Plan #2");
         Button list2 = new Button("Show Recommendations");
-        Button pie3 = new Button("Budget Plan #1");
+        Button pie3 = new Button("Budget Plan #3");
         Button list3 = new Button("Show Recommendations");
-        Button clear = new Button("Clear");
         Button backS5 = new Button("Go Back");
 
         VBox vbox1 = new VBox(5,pie1,list1);
@@ -602,10 +598,19 @@ public class BudgetPlanner extends Application {
         root.setTop(hboxtop);
         hboxtop.setAlignment(Pos.CENTER);
 
+        hboxbottom.getChildren().add(backS5);
+        root.setBottom(hboxbottom);
+        hboxbottom.setAlignment(Pos.CENTER);
+
         Scene sceneFive = new Scene(root, 1000, 500);
 
         // Ryan's Calculate Expenses Button Event
-        calculateExpenses.setOnAction(e -> {
+        calculateExpenses.setOnAction(e -> {primaryStage.setScene(sceneFive);});
+
+        pie1.setOnAction(e -> {
+            root.setCenter(null);
+            totalAmount = 0.0;
+
             expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
 
             for(double expense : expenseAmounts)
@@ -619,13 +624,63 @@ public class BudgetPlanner extends Application {
             else if(totalAmount != monthlyIncome)
             {
                 Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-                //Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-                //Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
             }
 
-            createPieChart();
+            pieChartData.clear();
+            expenses.clear();
 
-            primaryStage.setScene(sceneFive);});
+            createPieChart();
+        });
+
+        pie2.setOnAction(e -> {
+            root.setCenter(null);
+            totalAmount = 0.0;
+
+            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+
+            for(double expense : expenseAmounts)
+                totalAmount += expense;
+
+            if(totalAmount < monthlyIncome)
+            {
+                double savings = monthlyIncome - totalAmount;
+                expenseItems[13] += savings;
+            }
+            else if(totalAmount != monthlyIncome)
+            {
+                Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            }
+
+            pieChartData.clear();
+            expenses.clear();
+
+            createPieChart();
+        });
+
+        pie3.setOnAction(e -> {
+            root.setCenter(null);
+            totalAmount = 0.0;
+
+            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+
+            for(double expense : expenseAmounts)
+                totalAmount += expense;
+
+            if(totalAmount < monthlyIncome)
+            {
+                double savings = monthlyIncome - totalAmount;
+                expenseItems[13] += savings;
+            }
+            else if(totalAmount != monthlyIncome)
+            {
+                Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            }
+
+            pieChartData.clear();
+            expenses.clear();
+
+            createPieChart();
+        });
     }
 
     private double CalculateMonthlyAverage() {
@@ -651,6 +706,7 @@ public class BudgetPlanner extends Application {
                 percentage = (expense.getAmount() / totalAmount) * 100;
             else
                 percentage = 100;
+            
             pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + String.format("%.2f", expense.getAmount()) + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
         }
     }
@@ -672,9 +728,10 @@ public class BudgetPlanner extends Application {
         updatePieChart();
 
         // Reset button clears the pie chart
-        Button resetButton = new Button("Go Back");
+        Button resetButton = new Button("Clear");
         resetButton.setOnAction(e -> {
-            //TO DO
+            root.setCenter(null);
+            hboxbottom.getChildren().remove(resetButton);
         });
 
         // Add interactivity to Pie Chart (hover effect for both slice and label)
@@ -696,12 +753,8 @@ public class BudgetPlanner extends Application {
             });
         }
 
-        // Layout
-        HBox buttonBox = new HBox(10, resetButton);
-        buttonBox.setAlignment(Pos.CENTER);
-
         root.setCenter(pieChart);
-        root.setBottom(buttonBox);
+        hboxbottom.getChildren().add(resetButton);
     }
 
     public static void main(String[] args) {
