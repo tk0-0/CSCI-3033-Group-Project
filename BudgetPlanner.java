@@ -731,7 +731,10 @@ public class BudgetPlanner extends Application {
         {
             double savings = monthlyIncome - totalAmount;
 
-            expenseChanges.put(13, expenseChanges.get(13) - savings);
+            if(expenseChanges.containsKey(13))
+                expenseChanges.put(13, expenseChanges.get(13) - savings);
+            else
+                expenseChanges.put(13, -savings);
 
             expenseItems[13] += savings;
         }
