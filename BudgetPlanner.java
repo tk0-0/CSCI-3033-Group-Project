@@ -232,7 +232,7 @@ public class BudgetPlanner extends Application {
         Label errorMessage = new Label("Please Enter Valid Information!!");
         errorMessage.setVisible(false);
 
-        //Buttons for Scene3: Adding to List, Next Button, Reset Button, go Back button
+        //Buttons for sceneThree: Adding to List, Next Button, Reset Button, go Back button
         Button add = new Button("Add");      
         add.setPrefWidth(90);
         add.setPrefHeight(15);
@@ -341,7 +341,7 @@ public class BudgetPlanner extends Application {
 
                 try{ 
                     //If textbox for amount not empty, category & subcategory is not empty, and the amount the user entered is not less than 0
-                    if (!amount.getText().isEmpty() && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0){
+                    if (!amount.getText().isEmpty() && (categories.getValue() != "Other" || !custom.getText().isEmpty()) && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0) {
                         //If the user had selected "Other"
                         if (custom.isVisible()) {
                             subCategory = custom.getText();
@@ -381,17 +381,19 @@ public class BudgetPlanner extends Application {
                     else {
                         //In case user has not filled out all fields
                         goodExpense.setText("Sorry not all fields have been entered");
+                        goodExpense.setStyle("-fx-font-weight: bold");
                         goodExpense.setVisible(true);
                         errorMessage.setVisible(true);
                     }
                 }   catch (NumberFormatException ex) {
                         //In case user enters letters in the amount
                         errorMessage.setText("Please Enter Valid Information!");
+                        errorMessage.setStyle("-fx-font-weight: bold");
                         errorMessage.setVisible(true);
                     }
             });
 
-            //Reset Button on Scene4 to revert everything back to original
+            //Reset Button on sceneFour to revert everything back to original
             reset.setOnAction(y -> {
                 expenseAmounts.clear();
                 expenseCategories.clear();
@@ -456,15 +458,15 @@ public class BudgetPlanner extends Application {
         Label expenseList = new Label("Your Expenses: ");
         expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
 
-        //Show Recommendations Button for Scene4
+        //Show Recommendations Button for sceneFour
         Button calculateExpenses = new Button("Show Recommendations!");
         calculateExpenses.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        //Go Back button for Scene4
+        //Go Back button for sceneFour
         Button goBack = new Button("Go Back");
         goBack.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        //Contains the Buttons for Scene4
+        //Contains the Buttons for sceneFour
         HBox bottomButtons = new HBox(10, goBack, calculateExpenses);
         bottomButtons.setAlignment(Pos.CENTER);
 
@@ -472,7 +474,7 @@ public class BudgetPlanner extends Application {
         VBox list_of_expenses = new VBox(5, expenseList, scrollPane);
         list_of_expenses.setAlignment(Pos.CENTER);
 
-        //Shows the List of expenses and the Buttons on Scene4
+        //Shows the List of expenses and the Buttons on sceneFour
         VBox expenseOutput = new VBox(45, list_of_expenses, bottomButtons);
         expenseOutput.setAlignment(Pos.CENTER);
 
@@ -522,6 +524,8 @@ public class BudgetPlanner extends Application {
                     monthlyIncome = CalculateMonthlyAverage();
         
                     // Goes back to the first scene
+                    errorMessage.setVisible(false);
+                    goodExpense.setVisible(false);
                     primaryStage.setScene(sceneThree);
                 }
                 else {
