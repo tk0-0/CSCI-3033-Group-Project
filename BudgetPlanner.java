@@ -3,11 +3,14 @@ import javafx.animation.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
 import javafx.event.*;
@@ -16,6 +19,7 @@ import java.io.*;
 import java.util.ArrayList;
 import javafx.util.Duration;
 import javafx.scene.shape.*;
+import java.util.Arrays;
 
 public class BudgetPlanner extends Application {
 
@@ -32,9 +36,20 @@ public class BudgetPlanner extends Application {
     public TextField incomeField;
     public Label errorLabel;
 
-    public ArrayList<String> expenseCategories = new ArrayList<>();
-    public ArrayList<String> expenseAmounts = new ArrayList<>();
-    public ArrayList<String> expenseSubCategories = new ArrayList<>();
+    private ArrayList<String> expenseCategories = new ArrayList<>();
+    private ArrayList<Double> expenseAmounts = new ArrayList<>();
+    private ArrayList<String> expenseSubCategories = new ArrayList<>();
+
+    private static final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
+    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    private ArrayList<Expense> expenses = new ArrayList<>();
+    private double totalAmount = 0.0;
+
+    // Keeps track of changed categories
+    private ArrayList<Integer> expenseChanges = new ArrayList<>();
+    // Holds all expenses made by user
+    private double[] expenseItems; // = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+    public BorderPane root = new BorderPane();
 
     @Override
     public void start(Stage primaryStage)
@@ -362,7 +377,7 @@ public class BudgetPlanner extends Application {
                                 expenseSubCategories.add("");
                             }
                             //Add the amount to the array
-                            expenseAmounts.add(enteredAmount);
+                            expenseAmounts.add(Double.parseDouble(enteredAmount));
 
                             //Output a message saying expense was added
                             goodExpense.setText("Expense Added to List!");
@@ -490,7 +505,7 @@ public class BudgetPlanner extends Application {
             expensesList.getChildren().clear();
             //For loop to add each expense to the VBox list
             for (int i = 0; i < expenseCategories.size(); i++) {
-                Text expenseText = new Text(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + expenseAmounts.get(i));
+                Text expenseText = new Text(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + String.format("%.2f", expenseAmounts.get(i)));
                 expenseText.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
                 expensesList.getChildren().add(expenseText);
             }
@@ -537,9 +552,60 @@ public class BudgetPlanner extends Application {
                 errorLabel.setVisible(true);
             }
         });
+
+        // Zach's Code
+
+
+        
+
+        // Tyler's Code
+        Button pie1 = new Button("Budget Plan #1");
+        Button list1 = new Button("Show Recommendations");
+        Button pie2 = new Button("Budget Plan #1");
+        Button list2 = new Button("Show Recommendations");
+        Button pie3 = new Button("Budget Plan #1");
+        Button list3 = new Button("Show Recommendations");
+        Button clear = new Button("Clear");
+        Button backS5 = new Button("Go Back");
+
+        VBox vbox1 = new VBox(5,pie1,list1);
+        vbox1.setAlignment(Pos.CENTER);
+        VBox vbox2 = new VBox(5,pie2,list2);
+        vbox2.setAlignment(Pos.CENTER);
+        VBox vbox3 = new VBox(5,pie3,list3);
+        vbox3.setAlignment(Pos.CENTER);
+        HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3);
+
+        root.setTop(hboxtop);
+        hboxtop.setAlignment(Pos.CENTER);
+
+        Scene sceneFive = new Scene(root, 1000, 500);
+
+        // Ryan's Calculate Expenses Button Event
+        calculateExpenses.setOnAction(e -> {
+            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+
+            for(double expense : expenseAmounts)
+                totalAmount += expense;
+
+            if(totalAmount < monthlyIncome)
+            {
+                double savings = monthlyIncome - totalAmount;
+                expenseItems[13] += savings;
+            }
+            else if(totalAmount != monthlyIncome)
+            {
+                Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+                //Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+                //Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            }
+
+            createPieChart();
+
+            primaryStage.setScene(sceneFive);});
     }
 
-    public double CalculateMonthlyAverage() {
+    private double CalculateMonthlyAverage() {
         double monthlyAverage = 0.0;
 
         if(payFrequency.equals("Weekly"))
@@ -552,7 +618,89 @@ public class BudgetPlanner extends Application {
         return monthlyAverage;
     }
 
+    private void updatePieChart() {
+        pieChartData.clear();
+
+        for (Expense expense : expenses) {
+            double percentage;
+
+            if(totalAmount > 0.0)
+                percentage = (expense.getAmount() / totalAmount) * 100;
+            else
+                percentage = 100;
+            pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + String.format("%.2f", expense.getAmount()) + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
+        }
+    }
+
+    private void createPieChart() {
+        for(int i = 0; i < 14; i++)
+        if(expenseItems[i] > 0.0)
+            expenses.add(new Expense(mainCategories[i], expenseItems[i]));
+        
+        // Pie chart
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Expense Distribution");
+        pieChart.setLegendVisible(true);
+
+        // Apply styling to the PieChart
+        pieChart.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px;");
+
+        // Populate chart data from the ArrayList
+        updatePieChart();
+
+        // Reset button clears the pie chart
+        Button resetButton = new Button("Go Back");
+        resetButton.setOnAction(e -> {
+            //TO DO
+        });
+
+        // Add interactivity to Pie Chart (hover effect for both slice and label)
+        for (PieChart.Data data : pieChartData) {
+            data.getNode().setOnMouseEntered(event -> {
+                // Highlight the slice
+                data.getNode().setStyle("-fx-effect: dropshadow(gaussian, darkblue, 20, 0, 0, 0);");
+
+                // Emphasize the corresponding label
+                pieChart.setTitle(data.getName());
+            });
+
+            data.getNode().setOnMouseExited(event -> {
+                // Remove slice highlight
+                data.getNode().setStyle("-fx-effect: none;");
+
+                // Reset title
+                pieChart.setTitle("Expense Distribution");
+            });
+        }
+
+        // Layout
+        HBox buttonBox = new HBox(10, resetButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        root.setCenter(pieChart);
+        root.setBottom(buttonBox);
+    }
+
     public static void main(String[] args) {
         launch(args);
+    }
+
+    // Expense class
+    class Expense {
+        private String label;
+        private double amount;
+
+        public Expense(String label, double amount) {
+            this.label = label;
+            this.amount = amount;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public double getAmount() {
+            return amount;
+        }
     }
 }
