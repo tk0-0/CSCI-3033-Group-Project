@@ -24,37 +24,40 @@ public class BudgetPlanner extends Application {
 
     private Scene sceneOne;
     private Scene sceneTwo;
+    private Scene sceneThree;
+    private Scene sceneFour;
+    private Scene sceneFive;
+
+    private final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
 
     private double income;
     private double monthlyIncome;
     private String payFrequency;
-
-    private MediaPlayer player;
-    private Button sceneOneButtonOne, sceneOneButtonTwo, sceneTwoButtonOne, sceneTwoButtonTwo;
-    private ComboBox<String> frequencyComboBox;
-    private TextField incomeField;
-    private Label errorLabel;
+    private double totalAmount;
 
     private ArrayList<String> expenseCategories = new ArrayList<>();
-    private ArrayList<Double> expenseAmounts = new ArrayList<>();
     private ArrayList<String> expenseSubCategories = new ArrayList<>();
+    private ArrayList<Double> expenseAmounts = new ArrayList<>();
+    private HashMap<Integer,Double> expenseChanges = new HashMap<>();
+    private double[] expenseItems;
 
-    private static final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
     private ObservableList<PieChart.Data> pieChartData;
     private ArrayList<Expense> expenses = new ArrayList<>();
-    private double totalAmount = 0.0;
-
-    // Holds all expenses made by user
-    private double[] expenseItems;
-    private BorderPane root = new BorderPane();
-    private HBox hboxbottom = new HBox(20);
-    private HashMap<Integer,Double> expenseChanges = new HashMap<>();
-    private Button resetButton = new Button("Clear");
+    
+    // Scene 5 Nodes
     private Button backS5 = new Button("Go Back");
+    private Button resetButton = new Button("Clear");
+    private HBox hboxbottom = new HBox(20);
+    private BorderPane root = new BorderPane();
 
     @Override
     public void start(Stage primaryStage)
     {
+        Button sceneOneButtonOne, sceneOneButtonTwo, sceneTwoButtonOne, sceneTwoButtonTwo;
+        ComboBox<String> frequencyComboBox;
+        TextField incomeField;
+        Label errorLabel;
+
         // First Scene
         /****************************************************/
         VBox vBoxSceneOne = new VBox(20);
@@ -186,7 +189,8 @@ public class BudgetPlanner extends Application {
         HBox hBoxSceneTwo = new HBox(20, sceneTwoButtonOne, sceneTwoButtonTwo);
         hBoxSceneTwo.setAlignment(Pos.CENTER);
 
-        errorLabel = new Label("Please fill in all information with valid info!"); 
+        errorLabel = new Label("Please Enter All Fields With Valid Info!");
+        errorLabel.setStyle("-fx-font-weight: bold");
         errorLabel.setVisible(false);
         
         vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
@@ -268,7 +272,8 @@ public class BudgetPlanner extends Application {
         goodExpense.setStyle("-fx-font-size: 15px Arial;");
         goodExpense.setVisible(false);
         
-        Label errorMessage = new Label("Please Enter Valid Information!!");
+        Label errorMessage = new Label();
+        errorMessage.setStyle("-fx-font-weight: bold");
         errorMessage.setVisible(false);
 
         //Buttons for sceneThree: Adding to List, Next Button, Reset Button, go Back button
@@ -378,6 +383,9 @@ public class BudgetPlanner extends Application {
                 String enteredAmount = amount.getText();
                 String subCategory;
 
+                errorMessage.setVisible(false);
+                goodExpense.setVisible(false);
+
                 try{ 
                     //If textbox for amount not empty, category & subcategory is not empty, and the amount the user entered is not less than 0
                     if (!amount.getText().isEmpty() && (categories.getValue() != "Other" || !custom.getText().isEmpty()) && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0) {
@@ -411,23 +419,29 @@ public class BudgetPlanner extends Application {
                             categories.setValue(null);
                             subCategories.setValue(null);
                             subCategories.setVisible(false);
-                            errorMessage.setVisible(false);
                             custom.setVisible(false);
                             custom.clear();
                             amount.clear();
                         }
                     }
                     else {
-                        //In case user has not filled out all fields
-                        goodExpense.setText("Sorry not all fields have been entered");
-                        goodExpense.setStyle("-fx-font-weight: bold");
-                        goodExpense.setVisible(true);
-                        errorMessage.setVisible(true);
+                        if(!(!amount.getText().isEmpty() && (categories.getValue() != "Other" || !custom.getText().isEmpty()) && categories.getValue() != null && subCategories.getValue() != null))
+                        {
+                            //In case user has not filled out all fields
+                            goodExpense.setText("Not All Fields Have Been Entered!");
+                            goodExpense.setStyle("-fx-font-weight: bold");
+                            goodExpense.setVisible(true);
+                        }
+
+                        if(Double.parseDouble(amount.getText()) < 0.0)
+                        {
+                            errorMessage.setText("Please Enter Valid Information!");
+                            errorMessage.setVisible(true);
+                        }
                     }
                 }   catch (NumberFormatException ex) {
                         //In case user enters letters in the amount
                         errorMessage.setText("Please Enter Valid Information!");
-                        errorMessage.setStyle("-fx-font-weight: bold");
                         errorMessage.setVisible(true);
                     }
             });
@@ -518,9 +532,9 @@ public class BudgetPlanner extends Application {
         expenseOutput.setAlignment(Pos.CENTER);
 
         //Background color for the Scenes
-        Scene sceneThree = new Scene(updated_menu, 1000, 500);
+        sceneThree = new Scene(updated_menu, 1000, 500);
         updated_menu.setStyle("-fx-background-color: #f0f8ff;");
-        Scene sceneFour = new Scene(expenseOutput, 1000, 500);
+        sceneFour = new Scene(expenseOutput, 1000, 500);
         expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
         //Action event for the continue button
@@ -615,7 +629,7 @@ public class BudgetPlanner extends Application {
         hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
         hboxbottom.setPadding(new Insets(20));
 
-        Scene sceneFive = new Scene(root, 1000, 500);
+        sceneFive = new Scene(root, 1000, 500);
         root.setStyle("-fx-background-color: #f0f8ff;");
 
         // Ryan's Calculate Expenses Button Event
@@ -704,9 +718,21 @@ public class BudgetPlanner extends Application {
         for(double expense : expenseAmounts)
             totalAmount += expense;
 
+        if((expenseItems[13] > 0.0) && (totalAmount > monthlyIncome))
+        {
+            totalAmount -= expenseItems[13];
+            
+            expenseChanges.put(13, expenseItems[13]);
+
+            expenseItems[13] = 0;
+        }
+
         if(totalAmount < monthlyIncome)
         {
             double savings = monthlyIncome - totalAmount;
+
+            expenseChanges.put(13, expenseChanges.get(13) - savings);
+
             expenseItems[13] += savings;
         }
         else if(totalAmount != monthlyIncome)
@@ -740,7 +766,7 @@ public class BudgetPlanner extends Application {
     private void createPieChart() {
         expenses.clear();
 
-        for(int i = 0; i < 14; i++)
+        for(int i = 0; i < expenseItems.length; i++)
             if(expenseItems[i] > 0.0)
                 expenses.add(new Expense(mainCategories[i], expenseItems[i]));
         
