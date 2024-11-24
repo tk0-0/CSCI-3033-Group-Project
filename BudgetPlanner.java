@@ -130,9 +130,9 @@ public class BudgetPlanner extends Application {
 
         // Buttons
         sceneOneButtonOne = new Button("Start Budget Planning");
-        sceneOneButtonOne.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
+        sceneOneButtonOne.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         sceneOneButtonTwo = new Button("Quit");
-        sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
+        sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         ScaleTransition scale = new ScaleTransition(new Duration(2000), sceneOneButtonOne); 
         scale.setFromX(1); 
@@ -179,9 +179,9 @@ public class BudgetPlanner extends Application {
 
         // Buttons
         sceneTwoButtonOne = new Button("Go Back");
-        sceneTwoButtonOne.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20;");
+        sceneTwoButtonOne.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         sceneTwoButtonTwo = new Button("Confirm");
-        sceneTwoButtonTwo.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
+        sceneTwoButtonTwo.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         HBox hBoxSceneTwo = new HBox(20, sceneTwoButtonOne, sceneTwoButtonTwo);
         hBoxSceneTwo.setAlignment(Pos.CENTER);
@@ -584,6 +584,15 @@ public class BudgetPlanner extends Application {
         Button list2 = new Button("Show Recommendations");
         Button pie3 = new Button("Budget Plan #3");
         Button list3 = new Button("Show Recommendations");
+        pie1.setPrefHeight(15);
+        pie1.setStyle("-fx-background-color: #994fb2; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        pie2.setPrefHeight(15);
+        pie2.setStyle("-fx-background-color: #f58024; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        pie3.setPrefHeight(15);
+        pie3.setStyle("-fx-background-color: #7bb662; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        list1.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        list2.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        list3.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         VBox vbox1 = new VBox(5,pie1,list1);
         vbox1.setAlignment(Pos.CENTER);
@@ -592,10 +601,14 @@ public class BudgetPlanner extends Application {
         VBox vbox3 = new VBox(5,pie3,list3);
         vbox3.setAlignment(Pos.CENTER);
         Button quit = new Button("Quit");
+        quit.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3, quit);
 
         root.setTop(hboxtop);
         hboxtop.setAlignment(Pos.CENTER);
+
+        backS5.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        resetButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         hboxbottom.getChildren().add(backS5);
         root.setBottom(hboxbottom);
@@ -603,6 +616,7 @@ public class BudgetPlanner extends Application {
         hboxbottom.setPadding(new Insets(20));
 
         Scene sceneFive = new Scene(root, 1000, 500);
+        root.setStyle("-fx-background-color: #f0f8ff;");
 
         // Ryan's Calculate Expenses Button Event
         calculateExpenses.setOnAction(e -> {
