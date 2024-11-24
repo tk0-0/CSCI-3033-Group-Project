@@ -97,6 +97,8 @@ public class BudgetPlanner extends Application {
         Circle sceneOneCircleOne = new Circle(90);
         sceneOneCircleOne.setFill(null);
         sceneOneCircleOne.setStroke(Color.BLACK);
+        sceneOneCircleOne.setStrokeWidth(2);
+
         
         FadeTransition ftrans = new FadeTransition(new Duration(2000), imageView);
         ftrans.setFromValue(1); 
@@ -131,7 +133,7 @@ public class BudgetPlanner extends Application {
         sceneOneButtonTwo = new Button("Quit");
         sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
 
-        ScaleTransition scale = new ScaleTransition(new Duration(3000), sceneOneButtonOne); 
+        ScaleTransition scale = new ScaleTransition(new Duration(2000), sceneOneButtonOne); 
         scale.setFromX(1); 
         scale.setFromY(1);
         scale.setToX(1.2); 
