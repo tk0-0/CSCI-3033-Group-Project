@@ -488,9 +488,9 @@ public class BudgetPlanner extends Application {
             expensesList.getChildren().clear();
             //For loop to add each expense to the VBox list
             for (int i = 0; i < expenseCategories.size(); i++) {
-                Label expenseLabel = new Label(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + expenseAmounts.get(i));
-                expenseLabel.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
-                expensesList.getChildren().add(expenseLabel);
+                Text expenseText = new Text(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + expenseAmounts.get(i));
+                expenseText.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
+                expensesList.getChildren().add(expenseText);
             }
 
             //Show sceneFour
