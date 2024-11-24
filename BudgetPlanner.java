@@ -629,9 +629,6 @@ public class BudgetPlanner extends Application {
                 Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
             }
 
-            pieChartData.clear();
-            expenses.clear();
-
             createPieChart();
         });
 
@@ -657,16 +654,13 @@ public class BudgetPlanner extends Application {
                 Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
             }
 
-            pieChartData.clear();
-            expenses.clear();
-
             createPieChart();
         });
 
         pie3.setOnAction(e -> {
             hboxbottom.getChildren().clear();
             hboxbottom.getChildren().add(backS5);
-            
+
             root.setCenter(null);
             totalAmount = 0.0;
 
@@ -684,9 +678,6 @@ public class BudgetPlanner extends Application {
             {
                 Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
             }
-
-            pieChartData.clear();
-            expenses.clear();
 
             createPieChart();
         });
@@ -718,10 +709,16 @@ public class BudgetPlanner extends Application {
     }
 
     private void createPieChart() {
+        expenses.clear();
+
         for(int i = 0; i < 14; i++)
             if(expenseItems[i] > 0.0)
                 expenses.add(new Expense(mainCategories[i], expenseItems[i]));
         
+        pieChartData = FXCollections.observableArrayList();
+        // Populate chart data from the ArrayList
+        updatePieChart();
+
         // Pie chart
         PieChart pieChart = new PieChart(pieChartData);
         pieChart.setTitle("Expense Distribution");
@@ -729,9 +726,6 @@ public class BudgetPlanner extends Application {
 
         // Apply styling to the PieChart
         pieChart.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px;");
-
-        // Populate chart data from the ArrayList
-        updatePieChart();
 
         Button resetButton = new Button("Clear");
         // Reset button clears the pie chart
