@@ -51,7 +51,6 @@ public class BudgetPlanner extends Application {
     private double[] expenseItems; // = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
     private BorderPane root = new BorderPane();
     private HBox hboxbottom = new HBox(20);
-    private Button resetButton = new Button("Clear");
 
     @Override
     public void start(Stage primaryStage)
@@ -609,6 +608,9 @@ public class BudgetPlanner extends Application {
         calculateExpenses.setOnAction(e -> {primaryStage.setScene(sceneFive);});
 
         pie1.setOnAction(e -> {
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+
             root.setCenter(null);
             totalAmount = 0.0;
 
@@ -634,6 +636,9 @@ public class BudgetPlanner extends Application {
         });
 
         pie2.setOnAction(e -> {
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+
             root.setCenter(null);
             totalAmount = 0.0;
 
@@ -659,6 +664,9 @@ public class BudgetPlanner extends Application {
         });
 
         pie3.setOnAction(e -> {
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+            
             root.setCenter(null);
             totalAmount = 0.0;
 
@@ -725,6 +733,7 @@ public class BudgetPlanner extends Application {
         // Populate chart data from the ArrayList
         updatePieChart();
 
+        Button resetButton = new Button("Clear");
         // Reset button clears the pie chart
         resetButton.setOnAction(e -> {
             root.setCenter(null);
