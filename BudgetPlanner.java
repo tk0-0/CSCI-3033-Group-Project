@@ -61,20 +61,16 @@ public class BudgetPlanner extends Application {
         vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
         // Image
-        Image image = new Image("file:content/6.png");
+        Image image = new Image("file:content/1.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(150);
+        imageView.setFitHeight(130);
+        imageView.setFitWidth(130);
         
         // Title Label
         /* 
-        Text sceneOneTextOne = new Text("Welcome to the Personal Budget Planner");
         StrokeTransition strans = new StrokeTransition(new Duration(3000), sceneOneTextOne, Color.GREEN, Color.WHITE);
         strans.setCycleCount(Timeline.INDEFINITE);
         strans.play();
-        sceneOneTextOne.setFont(Font.font("Arial", FontWeight.BOLD, 19));
-        sceneOneTextOne.setStyle("-fx-text-fill: #333;");
-        sceneOneTextOne.setStrokeWidth(.4);
         */
 
         StackPane stackPane = new StackPane();
@@ -95,7 +91,7 @@ public class BudgetPlanner extends Application {
 
             // Create individual Text node for each letter
             Text ch = new Text(String.valueOf(letter));
-            ch.setFont(Font.font("Times New Roman", 30));
+            ch.setFont(Font.font("Arial", 30));
             ch.setFill(Color.BLACK);
             ch.setRotate(angle + 90); // Rotate each letter to align with the circle
             ch.setTranslateX(x); // Position relative to center
@@ -104,7 +100,12 @@ public class BudgetPlanner extends Application {
             // Add letter directly to StackPane
             stackPane.getChildren().add(ch);
         }
+
+        Circle sceneOneCircle = new Circle(90);
+        sceneOneCircle.setFill(null);
+        sceneOneCircle.setStroke(Color.BLACK);
         stackPane.getChildren().add(0, imageView);
+        stackPane.getChildren().addAll(sceneOneCircle);
         
         RotateTransition rtrans  = new RotateTransition(new Duration(5000), imageView); 
         rtrans.setFromAngle(0); 
@@ -122,8 +123,8 @@ public class BudgetPlanner extends Application {
 
         // Adding nodes to the layout
         vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
-        vBoxSceneOne.setPadding(new Insets(50, 0, 0, 0));
-        VBox.setMargin(sceneOneButtonOne, new Insets(60, 0, 0, 0));
+        vBoxSceneOne.setPadding(new Insets(20, 0, 0, 0));
+        VBox.setMargin(sceneOneButtonOne, new Insets(30, 0, 0, 0));
         /****************************************************/
 
         // Second Scene
@@ -174,7 +175,7 @@ public class BudgetPlanner extends Application {
         sceneTwo = new Scene(vBoxSceneTwo, 400, 400);
 
         // Audio Files
-        File file = new File("content/money1.mp3");
+        File file = new File("content/monkey.mp3");
         Media media = new Media(file.toURI().toString()); 
         MediaPlayer player = new MediaPlayer(media);
 
