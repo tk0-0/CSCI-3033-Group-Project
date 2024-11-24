@@ -65,13 +65,6 @@ public class BudgetPlanner extends Application {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(130);
         imageView.setFitWidth(130);
-        
-        // Title Label
-        /* 
-        StrokeTransition strans = new StrokeTransition(new Duration(3000), sceneOneTextOne, Color.GREEN, Color.WHITE);
-        strans.setCycleCount(Timeline.INDEFINITE);
-        strans.play();
-        */
 
         StackPane stackPane = new StackPane();
         stackPane.setAlignment(Pos.CENTER); // Center everything in the StackPane
@@ -101,25 +94,52 @@ public class BudgetPlanner extends Application {
             stackPane.getChildren().add(ch);
         }
 
-        Circle sceneOneCircle = new Circle(90);
-        sceneOneCircle.setFill(null);
-        sceneOneCircle.setStroke(Color.BLACK);
-        stackPane.getChildren().add(0, imageView);
-        stackPane.getChildren().addAll(sceneOneCircle);
+        Circle sceneOneCircleOne = new Circle(90);
+        sceneOneCircleOne.setFill(null);
+        sceneOneCircleOne.setStroke(Color.BLACK);
         
-        RotateTransition rtrans  = new RotateTransition(new Duration(5000), imageView); 
-        rtrans.setFromAngle(0); 
-        rtrans.setToAngle(360);
-        rtrans.setAutoReverse(false);
-        rtrans.setInterpolator(Interpolator.LINEAR);
-        rtrans.setCycleCount(Timeline.INDEFINITE);
-        rtrans.play();    
+        FadeTransition ftrans = new FadeTransition(new Duration(2000), imageView);
+        ftrans.setFromValue(1); 
+        ftrans.setCycleCount(Timeline.INDEFINITE);
+        ftrans.setToValue(0.5);
+        ftrans.setAutoReverse(true);
+        ftrans.play();
+
+        Circle sceneOneCircleTwo = new Circle(4);
+        sceneOneCircleTwo.setStroke(Color.BLACK);
+
+        PathTransition pt = new PathTransition(); 
+        pt.setDuration(Duration.millis(5000)); 
+        pt.setPath(sceneOneCircleOne);
+        pt.setNode(sceneOneCircleTwo); 
+        pt.setCycleCount(Timeline.INDEFINITE);
+        pt.setInterpolator(Interpolator.LINEAR);
+        pt.setAutoReverse(false); 
+        pt.play();
+
+        FillTransition filler = new FillTransition(new Duration(2000), sceneOneCircleTwo, Color.GREEN, Color.YELLOW); 
+        filler.setCycleCount(Timeline.INDEFINITE);
+        filler.setAutoReverse(true);
+        filler.play();
+
+        stackPane.getChildren().add(0, imageView);
+        stackPane.getChildren().addAll(sceneOneCircleOne,sceneOneCircleTwo);
 
         // Buttons
         sceneOneButtonOne = new Button("Start Budget Planning");
         sceneOneButtonOne.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20;");
         sceneOneButtonTwo = new Button("Quit");
         sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20;");
+
+        ScaleTransition scale = new ScaleTransition(new Duration(3000), sceneOneButtonOne); 
+        scale.setFromX(1); 
+        scale.setFromY(1);
+        scale.setToX(1.2); 
+        scale.setToY(1.2); 
+        scale.setCycleCount(Timeline.INDEFINITE);
+        scale.setAutoReverse(true);
+        
+        scale.play(); 
 
         // Adding nodes to the layout
         vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
