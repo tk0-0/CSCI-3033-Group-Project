@@ -51,7 +51,7 @@ public class BudgetPlanner extends Application {
     private double[] expenseItems; // = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
     private BorderPane root = new BorderPane();
     private HBox hboxbottom = new HBox(20);
-
+    private Button resetButton = new Button("Clear");
 
     @Override
     public void start(Stage primaryStage)
@@ -600,7 +600,8 @@ public class BudgetPlanner extends Application {
 
         hboxbottom.getChildren().add(backS5);
         root.setBottom(hboxbottom);
-        hboxbottom.setAlignment(Pos.CENTER);
+        hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
+        hboxbottom.setPadding(new Insets(20));
 
         Scene sceneFive = new Scene(root, 1000, 500);
 
@@ -702,10 +703,7 @@ public class BudgetPlanner extends Application {
         for (Expense expense : expenses) {
             double percentage;
 
-            if(totalAmount > 0.0)
-                percentage = (expense.getAmount() / totalAmount) * 100;
-            else
-                percentage = 100;
+            percentage = (expense.getAmount() / monthlyIncome) * 100;
             
             pieChartData.add(new PieChart.Data(expense.getLabel() + " ($" + String.format("%.2f", expense.getAmount()) + ") (" + String.format("%.2f", percentage) + "%)", expense.getAmount()));
         }
@@ -713,8 +711,8 @@ public class BudgetPlanner extends Application {
 
     private void createPieChart() {
         for(int i = 0; i < 14; i++)
-        if(expenseItems[i] > 0.0)
-            expenses.add(new Expense(mainCategories[i], expenseItems[i]));
+            if(expenseItems[i] > 0.0)
+                expenses.add(new Expense(mainCategories[i], expenseItems[i]));
         
         // Pie chart
         PieChart pieChart = new PieChart(pieChartData);
@@ -728,7 +726,6 @@ public class BudgetPlanner extends Application {
         updatePieChart();
 
         // Reset button clears the pie chart
-        Button resetButton = new Button("Clear");
         resetButton.setOnAction(e -> {
             root.setCenter(null);
             hboxbottom.getChildren().remove(resetButton);
