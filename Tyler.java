@@ -4,7 +4,7 @@ public class Tyler
 {
     private static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
 
-    public static void Algorithm1(double[] expenses, ArrayList<Integer> expenseChanges, double monthlyIncome, double total)
+    public static void Algorithm1(double[] expenses, HashMap<Integer,Double> expenseChanges, double monthlyIncome, double total)
     {
         expenseChanges.clear();
 
@@ -44,23 +44,38 @@ public class Tyler
                     if((expenses[i] * percent) >= 0.01)
                     {
                         total -= (expenses[i] * percent);
+
+                        if(expenses[i] * percent > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, (expenses[i] * percent));
+                        else if(expenses[i] * percent > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + (expenses[i] * percent));
+                        
                         expenses[i] -= (expenses[i] * percent);
-                        expenseChanges.add(i);
                     }
                     else
                     {
                         total -= expenses[i];
+
+                        if(expenses[i] > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, expenses[i]);
+                        else if(expenses[i] > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + expenses[i]);
+                        
                         expenses[i] = 0.0;
-                        expenseChanges.add(i);
                     }
                 }
                 else
                 {
                     if(total - monthlyIncome > 0.0)
                     {
+                        if(total - monthlyIncome > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, total - monthlyIncome);
+                        else if(total - monthlyIncome > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + total - monthlyIncome);
+                        
                         expenses[i] -= (total - monthlyIncome);
+
                         total = monthlyIncome;
-                        expenseChanges.add(i);
                     }
 
                     break outer;
@@ -69,7 +84,7 @@ public class Tyler
         }
     }
 
-    public static void Algorithm2(double[] expenses, ArrayList<Integer> expenseChanges, double monthlyIncome, double total)
+    public static void Algorithm2(double[] expenses, HashMap<Integer,Double> expenseChanges, double monthlyIncome, double total)
     {
         expenseChanges.clear();
 
@@ -84,23 +99,38 @@ public class Tyler
                     if((expenses[i] * 0.1) >= 0.01)
                     {
                         total -= (expenses[i] * 0.1);
+
+                        if(expenses[i] * 0.1 > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, expenses[i] * 0.1);
+                        else if(expenses[i] * 0.1 > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + expenses[i] * 0.1);
+                        
                         expenses[i] -= (expenses[i] * 0.1);
-                        expenseChanges.add(i);
                     }
                     else
                     {
                         total -= expenses[i];
+
+                        if(expenses[i] > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, expenses[i]);
+                        else if(expenses[i] > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + expenses[i]);
+                        
                         expenses[i] = 0.0;
-                        expenseChanges.add(i);
                     }
                 }
                 else
                 {
                     if(total - monthlyIncome > 0.0)
                     {
+                        if(total - monthlyIncome > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, total - monthlyIncome);
+                        else if(total - monthlyIncome > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + total - monthlyIncome);
+                        
                         expenses[i] -= (total - monthlyIncome);
+
                         total = monthlyIncome;
-                        expenseChanges.add(i);
                     }
 
                     break outer;
@@ -109,7 +139,7 @@ public class Tyler
         }
     }
 
-    public static void Algorithm3(double[] expenses, ArrayList<Integer> expenseChanges, double monthlyIncome, double total)
+    public static void Algorithm3(double[] expenses, HashMap<Integer,Double> expenseChanges, double monthlyIncome, double total)
     {
         expenseChanges.clear();
 
@@ -122,16 +152,26 @@ public class Tyler
                 if((total - expenses[i]) > monthlyIncome)
                 {
                     total -= expenses[i];
+
+                    if(expenses[i] > 0.0 && expenseChanges.get(i) == null)
+                        expenseChanges.put(i, expenses[i]);
+                    else if(expenses[i] > 0.0 && expenseChanges.get(i) != null)
+                        expenseChanges.put(i, expenseChanges.get(i) + expenses[i]);
+                    
                     expenses[i] = 0.0;
-                    expenseChanges.add(i);
                 }
                 else
                 {
                     if(total - monthlyIncome > 0.0)
                     {
+                        if(total - monthlyIncome > 0.0 && expenseChanges.get(i) == null)
+                            expenseChanges.put(i, total - monthlyIncome);
+                        else if(total - monthlyIncome > 0.0 && expenseChanges.get(i) != null)
+                            expenseChanges.put(i, expenseChanges.get(i) + total - monthlyIncome);
+
                         expenses[i] -= (total - monthlyIncome);
+
                         total = monthlyIncome;
-                        expenseChanges.add(i);
                     }
 
                     break outer;

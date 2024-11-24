@@ -1,25 +1,24 @@
-import javafx.scene.paint.*;
-import javafx.animation.*;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.application.Platform;
+import javafx.util.Duration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.application.Platform;
+import javafx.scene.paint.*;
+import javafx.animation.*;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
-import javafx.event.*;
 import javafx.scene.media.*;
 import java.io.*;
-import java.util.ArrayList;
-import javafx.util.Duration;
 import javafx.scene.shape.*;
-import java.util.Arrays;
+import java.util.*;
 
 public class BudgetPlanner extends Application {
 
@@ -41,16 +40,16 @@ public class BudgetPlanner extends Application {
     private ArrayList<String> expenseSubCategories = new ArrayList<>();
 
     private static final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
-    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    private ObservableList<PieChart.Data> pieChartData;
     private ArrayList<Expense> expenses = new ArrayList<>();
     private double totalAmount = 0.0;
 
-    // Keeps track of changed categories
-    private ArrayList<Integer> expenseChanges = new ArrayList<>();
     // Holds all expenses made by user
-    private double[] expenseItems; // = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+    private double[] expenseItems;
     private BorderPane root = new BorderPane();
     private HBox hboxbottom = new HBox(20);
+    private HashMap<Integer,Double> expenseChanges = new HashMap<>();
+    private Button resetButton = new Button("Clear");
 
     @Override
     public void start(Stage primaryStage)
@@ -592,7 +591,8 @@ public class BudgetPlanner extends Application {
         vbox2.setAlignment(Pos.CENTER);
         VBox vbox3 = new VBox(5,pie3,list3);
         vbox3.setAlignment(Pos.CENTER);
-        HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3);
+        Button quit = new Button("Quit");
+        HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3, quit);
 
         root.setTop(hboxtop);
         hboxtop.setAlignment(Pos.CENTER);
@@ -605,7 +605,101 @@ public class BudgetPlanner extends Application {
         Scene sceneFive = new Scene(root, 1000, 500);
 
         // Ryan's Calculate Expenses Button Event
-        calculateExpenses.setOnAction(e -> {primaryStage.setScene(sceneFive);});
+        calculateExpenses.setOnAction(e -> {
+            primaryStage.setScene(sceneFive);
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+            root.setCenter(null);});
+
+        backS5.setOnAction(e -> primaryStage.setScene(sceneFour));
+
+        quit.setOnAction(e -> Platform.exit());
+
+        list1.setOnAction(e -> {
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+
+            root.setCenter(null);
+            totalAmount = 0.0;
+
+            hboxbottom.getChildren().add(resetButton);
+
+            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+
+            for(double expense : expenseAmounts)
+                totalAmount += expense;
+
+            if(totalAmount < monthlyIncome)
+            {
+                double savings = monthlyIncome - totalAmount;
+                expenseItems[13] += savings;
+            }
+            else if(totalAmount != monthlyIncome)
+            {
+                Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            }
+
+            createList();
+        });
+
+        list2.setOnAction(e -> {
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+
+            root.setCenter(null);
+            totalAmount = 0.0;
+
+            hboxbottom.getChildren().add(resetButton);
+
+            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+
+            for(double expense : expenseAmounts)
+                totalAmount += expense;
+
+            if(totalAmount < monthlyIncome)
+            {
+                double savings = monthlyIncome - totalAmount;
+                expenseItems[13] += savings;
+            }
+            else if(totalAmount != monthlyIncome)
+            {
+                Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            }
+
+            createList();
+        });
+
+        list3.setOnAction(e -> {
+            hboxbottom.getChildren().clear();
+            hboxbottom.getChildren().add(backS5);
+
+            root.setCenter(null);
+            totalAmount = 0.0;
+
+            hboxbottom.getChildren().add(resetButton);
+
+            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
+
+            for(double expense : expenseAmounts)
+                totalAmount += expense;
+
+            if(totalAmount < monthlyIncome)
+            {
+                double savings = monthlyIncome - totalAmount;
+                expenseItems[13] += savings;
+            }
+            else if(totalAmount != monthlyIncome)
+            {
+                Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+            }
+
+            createList();
+        });
+        
+        resetButton.setOnAction(e -> {
+            root.setCenter(null);
+            hboxbottom.getChildren().remove(resetButton);
+        });
 
         pie1.setOnAction(e -> {
             hboxbottom.getChildren().clear();
@@ -727,13 +821,6 @@ public class BudgetPlanner extends Application {
         // Apply styling to the PieChart
         pieChart.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px;");
 
-        Button resetButton = new Button("Clear");
-        // Reset button clears the pie chart
-        resetButton.setOnAction(e -> {
-            root.setCenter(null);
-            hboxbottom.getChildren().remove(resetButton);
-        });
-
         // Add interactivity to Pie Chart (hover effect for both slice and label)
         for (PieChart.Data data : pieChartData) {
             data.getNode().setOnMouseEntered(event -> {
@@ -755,6 +842,42 @@ public class BudgetPlanner extends Application {
 
         root.setCenter(pieChart);
         hboxbottom.getChildren().add(resetButton);
+    }
+
+    private void createList() {
+        //ExpenseList Title
+        Label expenseList = new Label("Expense Cutbacks: ");
+        expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
+
+        //Make a VBox for the Scenes
+        VBox expensesList = new VBox(10);
+        expensesList.setPadding(new Insets(5));
+        expensesList.setAlignment(Pos.CENTER);
+
+        //ScrollPane to hold the list of expenses
+        ScrollPane scrollPane = new ScrollPane(expensesList);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefSize(375, 240);
+        scrollPane.setMaxWidth(375);
+        scrollPane.setStyle("-fx-background-color: #696969;");
+
+        //Contains the list of expenses
+        VBox list_of_expenses = new VBox(5, expenseList, scrollPane);
+        list_of_expenses.setAlignment(Pos.CENTER);
+
+        //Clear the VBox list if it has elements already
+        expensesList.getChildren().clear();
+        //For loop to add each expense to the VBox list
+        for (int i = 0; i < expenseItems.length; i++) {
+            if(expenseChanges.containsKey(i))
+            {
+                Text expenseText = new Text(mainCategories[i] + ":  Cutback $" + String.format("%.2f", expenseChanges.get(i)));
+                expenseText.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
+                expensesList.getChildren().add(expenseText);
+            }
+        }
+
+        root.setCenter(list_of_expenses);
     }
 
     public static void main(String[] args) {
