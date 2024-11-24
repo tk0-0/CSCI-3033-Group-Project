@@ -25,15 +25,15 @@ public class BudgetPlanner extends Application {
     private Scene sceneOne;
     private Scene sceneTwo;
 
-    public double income;
-    public double monthlyIncome;
-    public String payFrequency;
+    private double income;
+    private double monthlyIncome;
+    private String payFrequency;
 
-    public MediaPlayer player;
-    public Button sceneOneButtonOne, sceneOneButtonTwo, sceneTwoButtonOne, sceneTwoButtonTwo;
-    public ComboBox<String> frequencyComboBox;
-    public TextField incomeField;
-    public Label errorLabel;
+    private MediaPlayer player;
+    private Button sceneOneButtonOne, sceneOneButtonTwo, sceneTwoButtonOne, sceneTwoButtonTwo;
+    private ComboBox<String> frequencyComboBox;
+    private TextField incomeField;
+    private Label errorLabel;
 
     private ArrayList<String> expenseCategories = new ArrayList<>();
     private ArrayList<Double> expenseAmounts = new ArrayList<>();
@@ -50,6 +50,7 @@ public class BudgetPlanner extends Application {
     private HBox hboxbottom = new HBox(20);
     private HashMap<Integer,Double> expenseChanges = new HashMap<>();
     private Button resetButton = new Button("Clear");
+    private Button backS5 = new Button("Go Back");
 
     @Override
     public void start(Stage primaryStage)
@@ -193,8 +194,8 @@ public class BudgetPlanner extends Application {
         /****************************************************/
         
         // Scenes
-        sceneOne = new Scene(vBoxSceneOne, 400, 400);
-        sceneTwo = new Scene(vBoxSceneTwo, 400, 400);
+        sceneOne = new Scene(vBoxSceneOne, 1000, 500);
+        sceneTwo = new Scene(vBoxSceneTwo, 1000, 500);
 
         // Audio Files
         File file = new File("content/money1.mp3");
@@ -517,9 +518,9 @@ public class BudgetPlanner extends Application {
         expenseOutput.setAlignment(Pos.CENTER);
 
         //Background color for the Scenes
-        Scene sceneThree = new Scene(updated_menu, 400, 400);
+        Scene sceneThree = new Scene(updated_menu, 1000, 500);
         updated_menu.setStyle("-fx-background-color: #f0f8ff;");
-        Scene sceneFour = new Scene(expenseOutput, 400, 400);
+        Scene sceneFour = new Scene(expenseOutput, 1000, 500);
         expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
         //Action event for the continue button
@@ -561,7 +562,7 @@ public class BudgetPlanner extends Application {
                     payFrequency = new String(frequencyComboBox.getValue());
                     monthlyIncome = CalculateMonthlyAverage();
         
-                    // Goes back to the first scene
+                    // Goes to third scene
                     errorMessage.setVisible(false);
                     goodExpense.setVisible(false);
                     primaryStage.setScene(sceneThree);
@@ -583,7 +584,6 @@ public class BudgetPlanner extends Application {
         Button list2 = new Button("Show Recommendations");
         Button pie3 = new Button("Budget Plan #3");
         Button list3 = new Button("Show Recommendations");
-        Button backS5 = new Button("Go Back");
 
         VBox vbox1 = new VBox(5,pie1,list1);
         vbox1.setAlignment(Pos.CENTER);
@@ -608,90 +608,34 @@ public class BudgetPlanner extends Application {
         calculateExpenses.setOnAction(e -> {
             primaryStage.setScene(sceneFive);
             hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-            root.setCenter(null);});
+            hboxbottom.getChildren().add(backS5);});
 
-        backS5.setOnAction(e -> primaryStage.setScene(sceneFour));
+        backS5.setOnAction(e -> {
+            root.setCenter(null);
+            primaryStage.setScene(sceneFour);});
 
         quit.setOnAction(e -> Platform.exit());
 
         list1.setOnAction(e -> {
-            hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-
-            root.setCenter(null);
-            totalAmount = 0.0;
+            AlgorithmCall(1);
 
             hboxbottom.getChildren().add(resetButton);
-
-            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-
-            for(double expense : expenseAmounts)
-                totalAmount += expense;
-
-            if(totalAmount < monthlyIncome)
-            {
-                double savings = monthlyIncome - totalAmount;
-                expenseItems[13] += savings;
-            }
-            else if(totalAmount != monthlyIncome)
-            {
-                Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-            }
 
             createList();
         });
 
         list2.setOnAction(e -> {
-            hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-
-            root.setCenter(null);
-            totalAmount = 0.0;
+            AlgorithmCall(2);
 
             hboxbottom.getChildren().add(resetButton);
-
-            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-
-            for(double expense : expenseAmounts)
-                totalAmount += expense;
-
-            if(totalAmount < monthlyIncome)
-            {
-                double savings = monthlyIncome - totalAmount;
-                expenseItems[13] += savings;
-            }
-            else if(totalAmount != monthlyIncome)
-            {
-                Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-            }
 
             createList();
         });
 
         list3.setOnAction(e -> {
-            hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-
-            root.setCenter(null);
-            totalAmount = 0.0;
+            AlgorithmCall(3);
 
             hboxbottom.getChildren().add(resetButton);
-
-            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-
-            for(double expense : expenseAmounts)
-                totalAmount += expense;
-
-            if(totalAmount < monthlyIncome)
-            {
-                double savings = monthlyIncome - totalAmount;
-                expenseItems[13] += savings;
-            }
-            else if(totalAmount != monthlyIncome)
-            {
-                Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-            }
 
             createList();
         });
@@ -702,76 +646,19 @@ public class BudgetPlanner extends Application {
         });
 
         pie1.setOnAction(e -> {
-            hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-
-            root.setCenter(null);
-            totalAmount = 0.0;
-
-            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-
-            for(double expense : expenseAmounts)
-                totalAmount += expense;
-
-            if(totalAmount < monthlyIncome)
-            {
-                double savings = monthlyIncome - totalAmount;
-                expenseItems[13] += savings;
-            }
-            else if(totalAmount != monthlyIncome)
-            {
-                Tyler.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-            }
+            AlgorithmCall(1);
 
             createPieChart();
         });
 
         pie2.setOnAction(e -> {
-            hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-
-            root.setCenter(null);
-            totalAmount = 0.0;
-
-            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-
-            for(double expense : expenseAmounts)
-                totalAmount += expense;
-
-            if(totalAmount < monthlyIncome)
-            {
-                double savings = monthlyIncome - totalAmount;
-                expenseItems[13] += savings;
-            }
-            else if(totalAmount != monthlyIncome)
-            {
-                Tyler.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-            }
+            AlgorithmCall(2);
 
             createPieChart();
         });
 
         pie3.setOnAction(e -> {
-            hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);
-
-            root.setCenter(null);
-            totalAmount = 0.0;
-
-            expenseItems = Tyler.TotalExpenses(expenseCategories, expenseAmounts);
-
-            for(double expense : expenseAmounts)
-                totalAmount += expense;
-
-            if(totalAmount < monthlyIncome)
-            {
-                double savings = monthlyIncome - totalAmount;
-                expenseItems[13] += savings;
-            }
-            else if(totalAmount != monthlyIncome)
-            {
-                Tyler.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
-            }
+            AlgorithmCall(3);
 
             createPieChart();
         });
@@ -788,6 +675,40 @@ public class BudgetPlanner extends Application {
             monthlyAverage = income;
 
         return monthlyAverage;
+    }
+
+    private void AlgorithmCall(final int num)
+    {
+        hboxbottom.getChildren().clear();
+        hboxbottom.getChildren().add(backS5);
+
+        root.setCenter(null);
+        totalAmount = 0.0;
+
+        expenseItems = BudgetAlgorithms.TotalExpenses(expenseCategories, expenseAmounts);
+
+        for(double expense : expenseAmounts)
+            totalAmount += expense;
+
+        if(totalAmount < monthlyIncome)
+        {
+            double savings = monthlyIncome - totalAmount;
+            expenseItems[13] += savings;
+        }
+        else if(totalAmount != monthlyIncome)
+        {
+            switch(num){
+                case 1:
+                    BudgetAlgorithms.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+                    break;
+                case 2:
+                    BudgetAlgorithms.Algorithm2(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+                    break;
+                case 3:
+                    BudgetAlgorithms.Algorithm3(expenseItems, expenseChanges, monthlyIncome, totalAmount);
+                    break;
+            }
+        }
     }
 
     private void updatePieChart() {

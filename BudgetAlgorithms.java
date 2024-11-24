@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Tyler
+public class BudgetAlgorithms
 {
     private static final String[] categories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
 
