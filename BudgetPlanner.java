@@ -62,14 +62,14 @@ public class BudgetPlanner extends Application
     
     // Scene 5 Nodes
     // Used in different scopes, so made private global for ease of use in current file
-    private Button backButton5_4 = new Button("Go Back");
-    private HBox hboxbottom = new HBox(20);
-    private BorderPane root = new BorderPane();
+    private Button backButton5_4 = new Button("Go Back"); // button to go back to scene 4
+    private HBox hboxbottom = new HBox(20);                    // hbox to hold buttons at bottom of pane
+    private BorderPane root = new BorderPane();                // root pane for scene 5
 
     @Override
     public void start(Stage primaryStage)
     {
-        Button startButton, quitButton, backButton2_1, confirmButton;
+        Button startButton, quitButton1, backButton2_1, confirmButton;
         ComboBox<String> frequencyComboBox;
         TextField incomeField;
         Label errorLabel;
@@ -79,12 +79,13 @@ public class BudgetPlanner extends Application
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
 
-        // Image
+        // Image of Money Bag
         Image image = new Image("file:content/MoneyBag.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(130);
         imageView.setFitWidth(130);
 
+        // Image of MT Logo
         Image image2 = new Image("file:content/MTLogo.png"); 
         ImageView imageView2 = new ImageView(image2);
         imageView2.setFitHeight(900);
@@ -124,7 +125,6 @@ public class BudgetPlanner extends Application
         sceneOneCircleOne.setFill(null);
         sceneOneCircleOne.setStroke(Color.BLACK);
         sceneOneCircleOne.setStrokeWidth(2);
-
         
         FadeTransition ftrans = new FadeTransition(new Duration(2000), imageView);
         ftrans.setFromValue(1); 
@@ -156,8 +156,8 @@ public class BudgetPlanner extends Application
         // Buttons
         startButton = new Button("Start Budget Planning");
         startButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        quitButton = new Button("Quit");
-        quitButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        quitButton1 = new Button("Quit");
+        quitButton1.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         ScaleTransition scale = new ScaleTransition(new Duration(2000), startButton);
         scale.setFromX(1);
@@ -170,7 +170,7 @@ public class BudgetPlanner extends Application
         scale.play();
 
         // Adding nodes to the layout
-        vBoxSceneOne.getChildren().addAll(stackPane, startButton, quitButton);
+        vBoxSceneOne.getChildren().addAll(stackPane, startButton, quitButton1);
         vBoxSceneOne.setPadding(new Insets(20, 0, 0, 0));
         VBox.setMargin(startButton, new Insets(30, 0, 0, 0));
 
@@ -226,7 +226,6 @@ public class BudgetPlanner extends Application
 
         StackPane stackPaneTwo = new StackPane(); 
         stackPaneTwo.getChildren().addAll(imageView3,vBoxSceneTwo);
-        /****************************************************/
         
         // Scenes
         sceneOne = new Scene(stackPaneOne, 1000, 500);
@@ -237,34 +236,12 @@ public class BudgetPlanner extends Application
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
 
-        // Button Actions
-        startButton.setOnAction(e -> {
-            primaryStage.setScene(sceneTwo);
-
-            player.play();
-            player.setCycleCount(Timeline.INDEFINITE);
-
-            // reset to the beginning
-            //player.seek(Duration.ZERO);
-        });
-
-        // Exit button 
-        quitButton.setOnAction(e -> Platform.exit());
-
-        // Go back button
-        backButton2_1.setOnAction(e -> {
-            primaryStage.setScene(sceneOne);
-            errorLabel.setVisible(false);
-            incomeField.setText("");
-            frequencyComboBox.setValue(null);
-            player.stop();
-        });
-
         // Set the initial scene and show the stage
         primaryStage.setScene(sceneOne);
         
         primaryStage.setTitle("Personal Budget Planner");
         primaryStage.show();
+        /****************************************************/
 
         // Scene Three
         /****************************************************/
@@ -302,29 +279,223 @@ public class BudgetPlanner extends Application
         statusMessage2.setVisible(false);
 
         //Buttons for sceneThree: Adding to List, Next Button, Reset Button, go Back button
-        Button add = new Button("Add");
-        add.setPrefWidth(90);
-        add.setPrefHeight(15);
-        add.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        Button addButton = new Button("Add");
+        addButton.setPrefWidth(90);
+        addButton.setPrefHeight(15);
+        addButton.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        Button next = new Button("Continue");
-        next.setPrefWidth(95);
-        next.setPrefHeight(15);
-        next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        Button nextButton = new Button("Continue");
+        nextButton.setPrefWidth(95);
+        nextButton.setPrefHeight(15);
+        nextButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        Button reset = new Button("Reset");
-        reset.setPrefWidth(90);
-        reset.setPrefHeight(15);
-        reset.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        Button resetButton1 = new Button("Reset");
+        resetButton1.setPrefWidth(90);
+        resetButton1.setPrefHeight(15);
+        resetButton1.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        Button back = new Button("Go Back");
-        back.setPrefWidth(90);
-        back.setPrefHeight(15);
-        back.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        Button backButton3_2 = new Button("Go Back");
+        backButton3_2.setPrefWidth(90);
+        backButton3_2.setPrefHeight(15);
+        backButton3_2.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         //Categories
         categories.getItems().addAll(Arrays.asList(mainCategories));
+        /****************************************************/
 
+        // Scene Four
+        /****************************************************/
+        //Creates the category area
+        HBox customcat = new HBox(10, custom);
+        customcat.setAlignment(Pos.CENTER);
+
+        VBox category_box = new VBox(10, selectCategory, categories, customcat);
+        category_box.setAlignment(Pos.CENTER);
+
+        VBox subCategory_box = new VBox(10, selectSubCategories, subCategories);
+        subCategory_box.setAlignment(Pos.CENTER);
+
+        //Creates the bottom area 
+        HBox amount_area = new HBox(10, amtEnter_message, amount);
+        amount_area.setAlignment(Pos.CENTER);
+
+        VBox amountw_Error = new VBox(15, amount_area, statusMessage1);
+        amountw_Error.setAlignment(Pos.CENTER);
+
+        HBox bottom_buttons = new HBox(10, backButton3_2, resetButton1, addButton, nextButton);
+        bottom_buttons.setAlignment(Pos.CENTER);
+
+        //Combines the category area and bottom area
+        VBox category_areas = new VBox(15, category_box, subCategory_box);
+
+        VBox bottom_area = new VBox(30, amountw_Error, bottom_buttons);
+
+        VBox menu = new VBox(50, category_areas, bottom_area);
+
+        //Holds the whole menu with the error message
+        VBox updated_menu = new VBox(10, menu, statusMessage2);
+        updated_menu.setAlignment(Pos.CENTER);
+
+        //Menu for the Second Scene
+        //Make a VBox for the Scenes
+        VBox expensesList = new VBox(10);
+        expensesList.setPadding(new Insets(5));
+        expensesList.setAlignment(Pos.CENTER);
+
+        //ScrollPane to hold the list of expenses
+        ScrollPane scrollPane = new ScrollPane(expensesList);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefSize(375, 240);
+        scrollPane.setMaxWidth(375);
+        scrollPane.setStyle("-fx-background-color: #696969;");
+
+        //ExpenseList Title
+        Label expenseList = new Label("Your Expenses: ");
+        expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
+
+        //Show Recommendations Button for sceneFour
+        Button recommendationsButton = new Button("Show Recommendations!");
+        recommendationsButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+
+        //Go Back button for sceneFour
+        Button backButton4_3 = new Button("Go Back");
+        backButton4_3.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+
+        //Contains the Buttons for sceneFour
+        HBox bottomButtons = new HBox(10, backButton4_3, recommendationsButton);
+        bottomButtons.setAlignment(Pos.CENTER);
+
+        //Contains the list of expenses
+        VBox listOfExpenses = new VBox(5, expenseList, scrollPane);
+        listOfExpenses.setAlignment(Pos.CENTER);
+
+        //Shows the List of expenses and the Buttons on sceneFour
+        VBox expenseOutput = new VBox(45, listOfExpenses, bottomButtons);
+        expenseOutput.setAlignment(Pos.CENTER);
+
+        ImageView imageView4 = new ImageView(image2);
+        imageView4.setFitHeight(900);
+        imageView4.setFitWidth(900);
+        imageView4.setOpacity(0.05);
+
+        StackPane stackPaneThree = new StackPane(); 
+        stackPaneThree.getChildren().addAll(imageView4,updated_menu);
+
+        ImageView imageView5 = new ImageView(image2);
+        imageView5.setFitHeight(900);
+        imageView5.setFitWidth(900);
+        imageView5.setOpacity(0.05);
+
+        StackPane stackPaneFour = new StackPane(); 
+        stackPaneFour.getChildren().addAll(imageView5,expenseOutput);
+
+        //Background color for the Scenes
+        sceneThree = new Scene(stackPaneThree, 1000, 500);
+        sceneFour = new Scene(stackPaneFour, 1000, 500);
+        /****************************************************/
+
+        // Scene Five
+        /****************************************************/
+        Button pie1 = new Button("Budget Plan #1");
+        Button list1 = new Button("Show Recommendations");
+        Button pie2 = new Button("Budget Plan #2");
+        Button list2 = new Button("Show Recommendations");
+        Button pie3 = new Button("Budget Plan #3");
+        Button list3 = new Button("Show Recommendations");
+        pie1.setPrefHeight(15);
+        pie1.setStyle("-fx-background-color: #994fb2; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        pie2.setPrefHeight(15);
+        pie2.setStyle("-fx-background-color: #f58024; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        pie3.setPrefHeight(15);
+        pie3.setStyle("-fx-background-color: #7bb662; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        list1.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        list2.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        list3.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+
+        VBox vbox1 = new VBox(5,pie1,list1);
+        vbox1.setAlignment(Pos.CENTER);
+        VBox vbox2 = new VBox(5,pie2,list2);
+        vbox2.setAlignment(Pos.CENTER);
+        VBox vbox3 = new VBox(5,pie3,list3);
+        vbox3.setAlignment(Pos.CENTER);
+        Button quitButton2 = new Button("Quit");
+        quitButton2.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3, quitButton2);
+
+        root.setTop(hboxtop);
+        hboxtop.setAlignment(Pos.CENTER);
+        Button resetButton = new Button("Clear");
+
+        backButton5_4.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        resetButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+
+        hboxbottom.getChildren().add(backButton5_4);
+        root.setBottom(hboxbottom);
+        hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
+        hboxbottom.setPadding(new Insets(20));
+
+        ImageView imageView6 = new ImageView(image2);
+        imageView6.setFitHeight(900);
+        imageView6.setFitWidth(900);
+        imageView6.setOpacity(0.05);
+
+        StackPane stackPaneFive = new StackPane(); 
+        stackPaneFive.getChildren().addAll(imageView6,root);
+
+        sceneFive = new Scene(stackPaneFive, 1000, 500);
+        /****************************************************/
+
+
+
+        // Scene 1 Events
+        /****************************************************/
+        // Button Actions
+        startButton.setOnAction(e -> {
+            primaryStage.setScene(sceneTwo);
+
+            player.play();
+            player.setCycleCount(Timeline.INDEFINITE);
+        });
+
+        // Exit button 
+        quitButton1.setOnAction(e -> Platform.exit());
+        /****************************************************/
+
+
+
+        // Scene 2 Events
+        /****************************************************/
+        // Henry's Confirm button
+        confirmButton.setOnAction(e -> {
+            try {
+                if(!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0)
+                {
+                    // Try to parse income as a Double
+                    income = Double.parseDouble(incomeField.getText());
+                    payFrequency = new String(frequencyComboBox.getValue());
+                    monthlyIncome = CalculateMonthlyAverage();
+
+                    // Goes to third scene
+                    statusMessage2.setVisible(false);
+                    statusMessage1.setVisible(false);
+                    primaryStage.setScene(sceneThree);
+                }
+                else
+                {
+                    errorLabel.setVisible(true);
+                }
+            } catch (NumberFormatException ex) {
+                // If parsing fails, show error for invalid income input
+                errorLabel.setText("Please enter a valid number for income.");
+                errorLabel.setVisible(true);
+            }
+        });
+        /****************************************************/
+
+
+
+        // Scene 3 Events
+        /****************************************************/
         //Action events for Category Combo Box
         categories.setOnAction(e -> {
             //Get value of category combobox
@@ -398,7 +569,7 @@ public class BudgetPlanner extends Application
                                                     subCategories.setValue(custom.getText());     }
             
             //Action event for adding an expense
-            add.setOnAction(x -> {
+            addButton.setOnAction(x -> {
                 //Variables to hold user items to add to arrayLists
                 String selectedCategory = categories.getValue();
                 String enteredAmount = amount.getText();
@@ -466,7 +637,7 @@ public class BudgetPlanner extends Application
             });
 
             //Reset Button on sceneThree to revert everything back to original
-            reset.setOnAction(y -> {
+            resetButton1.setOnAction(y -> {
                 expenseAmounts.clear();
                 expenseCategories.clear();
                 expenseSubCategories.clear();
@@ -483,100 +654,10 @@ public class BudgetPlanner extends Application
                 statusMessage2.setVisible(true);
             });
         });
-        /****************************************************/
 
-        // Scene Four
-        /****************************************************/
-        //Creates the category area
-        HBox customcat = new HBox(10, custom);
-        customcat.setAlignment(Pos.CENTER);
-
-        VBox category_box = new VBox(10, selectCategory, categories, customcat);
-        category_box.setAlignment(Pos.CENTER);
-
-        VBox subCategory_box = new VBox(10, selectSubCategories, subCategories);
-        subCategory_box.setAlignment(Pos.CENTER);
-
-        //Creates the bottom area 
-        HBox amount_area = new HBox(10, amtEnter_message, amount);
-        amount_area.setAlignment(Pos.CENTER);
-
-        VBox amountw_Error = new VBox(15, amount_area, statusMessage1);
-        amountw_Error.setAlignment(Pos.CENTER);
-
-        HBox bottom_buttons = new HBox(10, back, reset, add, next);
-        bottom_buttons.setAlignment(Pos.CENTER);
-
-        //Combines the category area and bottom area
-        VBox category_areas = new VBox(15, category_box, subCategory_box);
-
-        VBox bottom_area = new VBox(30, amountw_Error, bottom_buttons);
-
-        VBox menu = new VBox(50, category_areas, bottom_area);
-
-        //Holds the whole menu with the error message
-        VBox updated_menu = new VBox(10, menu, statusMessage2);
-        updated_menu.setAlignment(Pos.CENTER);
-
-        //Menu for the Second Scene
-        //Make a VBox for the Scenes
-        VBox expensesList = new VBox(10);
-        expensesList.setPadding(new Insets(5));
-        expensesList.setAlignment(Pos.CENTER);
-
-        //ScrollPane to hold the list of expenses
-        ScrollPane scrollPane = new ScrollPane(expensesList);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefSize(375, 240);
-        scrollPane.setMaxWidth(375);
-        scrollPane.setStyle("-fx-background-color: #696969;");
-
-        //ExpenseList Title
-        Label expenseList = new Label("Your Expenses: ");
-        expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
-
-        //Show Recommendations Button for sceneFour
-        Button calculateExpenses = new Button("Show Recommendations!");
-        calculateExpenses.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-
-        //Go Back button for sceneFour
-        Button goBack = new Button("Go Back");
-        goBack.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-
-        //Contains the Buttons for sceneFour
-        HBox bottomButtons = new HBox(10, goBack, calculateExpenses);
-        bottomButtons.setAlignment(Pos.CENTER);
-
-        //Contains the list of expenses
-        VBox list_of_expenses = new VBox(5, expenseList, scrollPane);
-        list_of_expenses.setAlignment(Pos.CENTER);
-
-        //Shows the List of expenses and the Buttons on sceneFour
-        VBox expenseOutput = new VBox(45, list_of_expenses, bottomButtons);
-        expenseOutput.setAlignment(Pos.CENTER);
-
-        ImageView imageView4 = new ImageView(image2);
-        imageView4.setFitHeight(900);
-        imageView4.setFitWidth(900);
-        imageView4.setOpacity(0.05);
-
-        StackPane stackPaneThree = new StackPane(); 
-        stackPaneThree.getChildren().addAll(imageView4,updated_menu);
-
-        ImageView imageView5 = new ImageView(image2);
-        imageView5.setFitHeight(900);
-        imageView5.setFitWidth(900);
-        imageView5.setOpacity(0.05);
-
-        StackPane stackPaneFour = new StackPane(); 
-        stackPaneFour.getChildren().addAll(imageView5,expenseOutput);
-
-        //Background color for the Scenes
-        sceneThree = new Scene(stackPaneThree, 1000, 500);
-        sceneFour = new Scene(stackPaneFour, 1000, 500);
-
+        
         //Action event for the continue button
-        next.setOnAction(e -> {
+        nextButton.setOnAction(e -> {
             //Clear the VBox list if it has elements already
             expensesList.getChildren().clear();
             //For loop to add each expense to the VBox list
@@ -591,112 +672,27 @@ public class BudgetPlanner extends Application
             primaryStage.setScene(sceneFour);
             primaryStage.show();
         });
-
-        //Action event for the go back button in the 4th scene
-        goBack.setOnAction(e -> {
-            //Show sceneThree
-            primaryStage.setScene(sceneThree);
-            statusMessage2.setVisible(false);
-            statusMessage1.setVisible(false);
-            primaryStage.show();
-        });
-
-        //Go Back to Henrys Scene2
-        back.setOnAction(e -> primaryStage.setScene(sceneTwo));
-
-        // Henry's Confirm button
-        confirmButton.setOnAction(e -> {
-            try {
-                if(!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0)
-                {
-                    // Try to parse income as a Double
-                    income = Double.parseDouble(incomeField.getText());
-                    payFrequency = new String(frequencyComboBox.getValue());
-                    monthlyIncome = CalculateMonthlyAverage();
-        
-                    // Goes to third scene
-                    statusMessage2.setVisible(false);
-                    statusMessage1.setVisible(false);
-                    primaryStage.setScene(sceneThree);
-                }
-                else
-                {
-                    errorLabel.setVisible(true);
-                }
-            } catch (NumberFormatException ex) {
-                // If parsing fails, show error for invalid income input
-                errorLabel.setText("Please enter a valid number for income.");
-                errorLabel.setVisible(true);
-            }
-        });
         /****************************************************/
 
-        // Scene Five
+
+
+        // Scene 4 Events
         /****************************************************/
-        Button pie1 = new Button("Budget Plan #1");
-        Button list1 = new Button("Show Recommendations");
-        Button pie2 = new Button("Budget Plan #2");
-        Button list2 = new Button("Show Recommendations");
-        Button pie3 = new Button("Budget Plan #3");
-        Button list3 = new Button("Show Recommendations");
-        pie1.setPrefHeight(15);
-        pie1.setStyle("-fx-background-color: #994fb2; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        pie2.setPrefHeight(15);
-        pie2.setStyle("-fx-background-color: #f58024; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        pie3.setPrefHeight(15);
-        pie3.setStyle("-fx-background-color: #7bb662; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        list1.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        list2.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        list3.setStyle("-fx-background-color: #6fc0db; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-
-        VBox vbox1 = new VBox(5,pie1,list1);
-        vbox1.setAlignment(Pos.CENTER);
-        VBox vbox2 = new VBox(5,pie2,list2);
-        vbox2.setAlignment(Pos.CENTER);
-        VBox vbox3 = new VBox(5,pie3,list3);
-        vbox3.setAlignment(Pos.CENTER);
-        Button quit = new Button("Quit");
-        quit.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3, quit);
-
-        root.setTop(hboxtop);
-        hboxtop.setAlignment(Pos.CENTER);
-        Button resetButton = new Button("Clear");
-
-        backButton5_4.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        resetButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-
-        hboxbottom.getChildren().add(backButton5_4);
-        root.setBottom(hboxbottom);
-        hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
-        hboxbottom.setPadding(new Insets(20));
-
-        ImageView imageView6 = new ImageView(image2);
-        imageView6.setFitHeight(900);
-        imageView6.setFitWidth(900);
-        imageView6.setOpacity(0.05);
-
-        StackPane stackPaneFive = new StackPane(); 
-        stackPaneFive.getChildren().addAll(imageView6,root);
-
-        sceneFive = new Scene(stackPaneFive, 1000, 500);
-
         // Ryan's Calculate Expenses Button Event
-        calculateExpenses.setOnAction(e -> {
+        recommendationsButton.setOnAction(e -> {
             primaryStage.setScene(sceneFive);
 
             hboxbottom.getChildren().clear();
 
             hboxbottom.getChildren().add(backButton5_4);
         });
+        /****************************************************/
 
-        backButton5_4.setOnAction(e -> {
-            root.setCenter(null);
 
-            primaryStage.setScene(sceneFour);
-        });
 
-        quit.setOnAction(e -> Platform.exit());
+        // Scene 5 Events
+        /****************************************************/
+        quitButton2.setOnAction(e -> Platform.exit());
 
         resetButton.setOnAction(e -> {
             root.setCenter(null);
@@ -750,6 +746,35 @@ public class BudgetPlanner extends Application
             hboxbottom.getChildren().add(resetButton);
 
             CreatePieChart();
+        });
+        /****************************************************/
+
+
+
+        // Back Button Events
+        /****************************************************/
+        backButton2_1.setOnAction(e -> {
+            primaryStage.setScene(sceneOne);
+            errorLabel.setVisible(false);
+            incomeField.setText("");
+            frequencyComboBox.setValue(null);
+            player.stop();
+        });
+
+        backButton3_2.setOnAction(e -> primaryStage.setScene(sceneTwo));
+
+        backButton4_3.setOnAction(e -> {
+            //Show sceneThree
+            primaryStage.setScene(sceneThree);
+            statusMessage2.setVisible(false);
+            statusMessage1.setVisible(false);
+            primaryStage.show();
+        });
+        
+        backButton5_4.setOnAction(e -> {
+            root.setCenter(null);
+
+            primaryStage.setScene(sceneFour);
         });
         /****************************************************/
     }
@@ -898,8 +923,8 @@ public class BudgetPlanner extends Application
         scrollPane.setStyle("-fx-background-color: #696969;");
 
         //Contains the list of expenses
-        VBox list_of_expenses = new VBox(5, expenseList, scrollPane);
-        list_of_expenses.setAlignment(Pos.CENTER);
+        VBox listOfExpenses = new VBox(5, expenseList, scrollPane);
+        listOfExpenses.setAlignment(Pos.CENTER);
 
         //Clear the VBox list if it has elements already
         expensesList.getChildren().clear();
@@ -914,7 +939,7 @@ public class BudgetPlanner extends Application
             }
         }
 
-        root.setCenter(list_of_expenses);
+        root.setCenter(listOfExpenses);
     }
 
     // Expense class used by CreatePieChart
@@ -924,15 +949,18 @@ public class BudgetPlanner extends Application
         private String label;
         private double amount;
 
+        // Constructor to initialize label and amount
         public Expense(String label, double amount) {
             this.label = label;
             this.amount = amount;
         }
 
+        // Getter for label
         public String getLabel() {
             return label;
         }
 
+        // Getter for amount
         public double getAmount() {
             return amount;
         }
