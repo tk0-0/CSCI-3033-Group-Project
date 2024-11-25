@@ -1,4 +1,15 @@
 
+/*
+ * Authors:    Tyler Kramer, Henry Ngo, Zachary Taylor, Ryan Thieu 
+ * Class:      CSCI 3033-001
+ * Instructor: Dr. Rafet Al-Tobasei
+ * Project:    Group Project
+ * Purpose:    The program allows a user to enter their income and how much 
+ *             they spend on different things. The program then offers recommendations 
+ *             on how the user’s expenditures can be managed and improved, if needed.
+*/
+
+// Various import statements
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -20,7 +31,8 @@ import java.io.*;
 import javafx.scene.shape.*;
 import java.util.*;
 
-public class BudgetPlanner extends Application {
+public class BudgetPlanner extends Application
+{
     // All Scenes
     private Scene sceneOne;   // Welcome Menu
     private Scene sceneTwo;   // Enter Income
@@ -31,23 +43,27 @@ public class BudgetPlanner extends Application {
     // All main categories
     private final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
 
-    private double income;
-    private double monthlyIncome;
-    private String payFrequency;
-    private double totalAmount;
+    // Various income-related information
+    private double income;        // amount entered by user
+    private double monthlyIncome; // monthly income calculated from income entered by user
+    private String payFrequency;  // pay frequency selected by user
+    private double totalAmount;   // total amount of expenses
 
-    private ArrayList<String> expenseCategories = new ArrayList<>();
-    private ArrayList<String> expenseSubCategories = new ArrayList<>();
-    private ArrayList<Double> expenseAmounts = new ArrayList<>();
-    private HashMap<Integer,Double> expenseChanges = new HashMap<>();
-    private double[] expenseItems;
+    // Lists of various expense information
+    private ArrayList<String> expenseCategories = new ArrayList<>();    // list of main categories of user-entered expense entries
+    private ArrayList<String> expenseSubCategories = new ArrayList<>(); // list of subcategories of user-entered expense entries
+    private ArrayList<Double> expenseAmounts = new ArrayList<>();       // list of amounts of user-entered expense entries
+    private HashMap<Integer,Double> expenseChanges = new HashMap<>();   // hash map for keeping track of which expenses are changed
+                                                                        // links index of expenses to the amount needed to cutback
+    private double[] expenseItems;                                      // holds the total number of expenses for each main category
 
-    private ObservableList<PieChart.Data> pieChartData;
-    private ArrayList<Expense> expenses = new ArrayList<>();
+    // Data used in pie chart
+    private ObservableList<PieChart.Data> pieChartData;      // info on slices in pie chart
+    private ArrayList<Expense> expenses = new ArrayList<>(); // list of labels and amounts for slices
     
     // Scene 5 Nodes
+    // Used in different scopes, so made private global for ease of use in current file
     private Button backS5 = new Button("Go Back");
-    private Button resetButton = new Button("Clear");
     private HBox hboxbottom = new HBox(20);
     private BorderPane root = new BorderPane();
 
@@ -79,7 +95,8 @@ public class BudgetPlanner extends Application {
         double radius = 110; 
         double startAngle = 180; 
 
-        for (int i = 0; i < text.length(); i++) {
+        for(int i = 0; i < text.length(); i++)
+        {
             char letter = text.charAt(i);
             double angle = startAngle + (360.0 / text.length() * i);
 
@@ -210,6 +227,7 @@ public class BudgetPlanner extends Application {
         // Button Actions
         sceneOneButtonOne.setOnAction(e -> {
             primaryStage.setScene(sceneTwo);
+
             player.play();
 
             // reset to the beginning
@@ -307,63 +325,63 @@ public class BudgetPlanner extends Application {
             custom.setVisible(false);
 
             //String Comparisons
-            if ("Home and Utilities".equals(category)) {    selectSubCategories.setVisible(true);
+            if("Home and Utilities".equals(category)) {     selectSubCategories.setVisible(true);
                                                             subCategories.setVisible(true);
-                                                            subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");    }
+                                                            subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");     }
 
-            else if ("Food/Groceries".equals(category)) {   selectSubCategories.setVisible(true);
+            else if("Food/Groceries".equals(category)) {    selectSubCategories.setVisible(true);
                                                             subCategories.setVisible(true);
-                                                            subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery");   }
+                                                            subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery");    }
 
-            else if ("Health/Personal Care".equals(category)) { selectSubCategories.setVisible(true);
+            else if("Health/Personal Care".equals(category)) {  selectSubCategories.setVisible(true);
                                                                 subCategories.setVisible(true);
-                                                                subCategories.getItems().setAll("Medicine", "Medical Bill");    }
+                                                                subCategories.getItems().setAll("Medicine", "Medical Bill");  }
 
-            else if ("Personal Insurance".equals(category)) {   selectSubCategories.setVisible(true);
+            else if("Personal Insurance".equals(category)) {    selectSubCategories.setVisible(true);
                                                                 subCategories.setVisible(true);
-                                                                subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");   }
+                                                                subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");    }
 
-            else if ("Savings".equals(category)) {  selectSubCategories.setVisible(false);
+            else if("Savings".equals(category)) {   selectSubCategories.setVisible(false);
                                                     subCategories.setVisible(false);
                                                     subCategories.getItems().setAll("");
-                                                    subCategories.setValue(" ");    }
+                                                    subCategories.setValue(" ");   }
 
-            else if ("Transportation".equals(category)) {   selectSubCategories.setVisible(true);
+            else if("Transportation".equals(category)) {    selectSubCategories.setVisible(true);
                                                             subCategories.setVisible(true);
-                                                            subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");   }
+                                                            subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");    }
 
-            else if ("Education".equals(category)) {    selectSubCategories.setVisible(true);
+            else if("Education".equals(category)) {     selectSubCategories.setVisible(true);
                                                         subCategories.setVisible(true);
-                                                        subCategories.getItems().setAll("Tuition", "School Supplies");  }
+                                                        subCategories.getItems().setAll("Tuition", "School Supplies");     }
 
-            else if ("Communication".equals(category)) {    selectSubCategories.setVisible(true);
+            else if("Communication".equals(category)) {     selectSubCategories.setVisible(true);
                                                             subCategories.setVisible(true);
-                                                            subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");    }
+                                                            subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");     }
 
-            else if ("Pets".equals(category)) { selectSubCategories.setVisible(true);
+            else if("Pets".equals(category)) {  selectSubCategories.setVisible(true);
                                                 subCategories.setVisible(true);
                                                 subCategories.getItems().setAll("Pet Supplies", "Vet Visit", "Pet Insurance");  }
 
-            else if ("Shopping and Entertainment".equals(category)) {   selectSubCategories.setVisible(true);
+            else if("Shopping and Entertainment".equals(category)) {    selectSubCategories.setVisible(true);
                                                                         subCategories.setVisible(true);
-                                                                        subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game");  }
+                                                                        subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game");    }
 
-            else if ("Emergencies".equals(category)) {  selectSubCategories.setVisible(true);
+            else if("Emergencies".equals(category)) {   selectSubCategories.setVisible(true);
                                                         subCategories.setVisible(true);
                                                         subCategories.getItems().setAll("Funeral", "Family Support");   }
 
-            else if ("Travel".equals(category)) {   selectSubCategories.setVisible(true);
+            else if("Travel".equals(category)) {    selectSubCategories.setVisible(true);
                                                     subCategories.setVisible(true);
-                                                    subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");   }
+                                                    subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");    }
 
-            else if ("Miscellaneous".equals(category)) {    selectSubCategories.setVisible(true);
+            else if("Miscellaneous".equals(category)) {     selectSubCategories.setVisible(true);
                                                             subCategories.setVisible(true);
-                                                            subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw");  }
+                                                            subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw");     }
 
-            else if ("Other".equals(category)) {    subCategories.setVisible(false);
+            else if("Other".equals(category)) {     subCategories.setVisible(false);
                                                     selectSubCategories.setVisible(false);
                                                     custom.setVisible(true);
-                                                    subCategories.setValue(custom.getText());   }
+                                                    subCategories.setValue(custom.getText());     }
             
             //Action event for adding an expense
             add.setOnAction(x -> {
@@ -375,28 +393,26 @@ public class BudgetPlanner extends Application {
                 statusMessage2.setVisible(false);
                 statusMessage1.setVisible(false);
 
-                try{ 
+                try { 
                     //If textbox for amount not empty, category & subcategory is not empty, and the amount the user entered is not less than 0
-                    if (!amount.getText().isEmpty() && (categories.getValue() != "Other" || !custom.getText().isEmpty()) && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0) {
+                    if(!amount.getText().isEmpty() && (categories.getValue() != "Other" || !custom.getText().isEmpty()) && categories.getValue() != null && subCategories.getValue() != null && Double.parseDouble(amount.getText()) >= 0.0) {
                         //If the user had selected "Other"
-                        if (custom.isVisible()) {
+                        if(custom.isVisible())
                             subCategory = custom.getText();
-                        }
-                        else {
+                        else
                             subCategory = subCategories.getValue();
-                        }
                         
                         //If main expense & amount is not empty
-                        if (selectedCategory != null && !enteredAmount.isEmpty()) {
+                        if(selectedCategory != null && !enteredAmount.isEmpty())
+                        {
                             expenseCategories.add(selectedCategory);
 
                             //If the subcategory is empty (for cases of savings)
-                            if (subCategory != null) {
+                            if(subCategory != null)
                                 expenseSubCategories.add(subCategory);
-                            } 
-                            else {
+                            else
                                 expenseSubCategories.add("");
-                            }
+
                             //Add the amount to the array
                             expenseAmounts.add(Double.parseDouble(enteredAmount));
 
@@ -533,7 +549,8 @@ public class BudgetPlanner extends Application {
             //Clear the VBox list if it has elements already
             expensesList.getChildren().clear();
             //For loop to add each expense to the VBox list
-            for (int i = 0; i < expenseCategories.size(); i++) {
+            for(int i = 0; i < expenseCategories.size(); i++)
+            {
                 Text expenseText = new Text(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + String.format("%.2f", expenseAmounts.get(i)));
                 expenseText.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
                 expensesList.getChildren().add(expenseText);
@@ -561,7 +578,8 @@ public class BudgetPlanner extends Application {
         // Henry's Confirm button
         sceneTwoButtonTwo.setOnAction(e -> {
             try {
-                if (!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0) {
+                if(!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0)
+                {
                     // Try to parse income as a Double
                     income = Double.parseDouble(incomeField.getText());
                     payFrequency = new String(frequencyComboBox.getValue());
@@ -572,7 +590,8 @@ public class BudgetPlanner extends Application {
                     statusMessage1.setVisible(false);
                     primaryStage.setScene(sceneThree);
                 }
-                else {
+                else
+                {
                     errorLabel.setVisible(true);
                 }
             } catch (NumberFormatException ex) {
@@ -611,6 +630,7 @@ public class BudgetPlanner extends Application {
 
         root.setTop(hboxtop);
         hboxtop.setAlignment(Pos.CENTER);
+        Button resetButton = new Button("Clear");
 
         backS5.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         resetButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
@@ -626,21 +646,32 @@ public class BudgetPlanner extends Application {
         // Ryan's Calculate Expenses Button Event
         calculateExpenses.setOnAction(e -> {
             primaryStage.setScene(sceneFive);
+
             hboxbottom.getChildren().clear();
-            hboxbottom.getChildren().add(backS5);});
+
+            hboxbottom.getChildren().add(backS5);
+        });
 
         backS5.setOnAction(e -> {
             root.setCenter(null);
-            primaryStage.setScene(sceneFour);});
+
+            primaryStage.setScene(sceneFour);
+        });
 
         quit.setOnAction(e -> Platform.exit());
+
+        resetButton.setOnAction(e -> {
+            root.setCenter(null);
+
+            hboxbottom.getChildren().remove(resetButton);
+        });
 
         list1.setOnAction(e -> {
             AlgorithmCall(1);
 
             hboxbottom.getChildren().add(resetButton);
 
-            createList();
+            CreateList();
         });
 
         list2.setOnAction(e -> {
@@ -648,7 +679,7 @@ public class BudgetPlanner extends Application {
 
             hboxbottom.getChildren().add(resetButton);
 
-            createList();
+            CreateList();
         });
 
         list3.setOnAction(e -> {
@@ -656,34 +687,36 @@ public class BudgetPlanner extends Application {
 
             hboxbottom.getChildren().add(resetButton);
 
-            createList();
-        });
-        
-        resetButton.setOnAction(e -> {
-            root.setCenter(null);
-            hboxbottom.getChildren().remove(resetButton);
+            CreateList();
         });
 
         pie1.setOnAction(e -> {
             AlgorithmCall(1);
 
-            createPieChart();
+            hboxbottom.getChildren().add(resetButton);
+
+            CreatePieChart();
         });
 
         pie2.setOnAction(e -> {
             AlgorithmCall(2);
 
-            createPieChart();
+            hboxbottom.getChildren().add(resetButton);
+
+            CreatePieChart();
         });
 
         pie3.setOnAction(e -> {
             AlgorithmCall(3);
 
-            createPieChart();
+            hboxbottom.getChildren().add(resetButton);
+
+            CreatePieChart();
         });
     }
 
-    private double CalculateMonthlyAverage() {
+    private double CalculateMonthlyAverage()
+    {
         double monthlyAverage = 0.0;
 
         if(payFrequency.equals("Weekly"))
@@ -691,7 +724,7 @@ public class BudgetPlanner extends Application {
         else if(payFrequency.equals("Bi-Weekly"))
             monthlyAverage = income * 2;
         else if(payFrequency.equals("Yearly"))
-        monthlyAverage = income / 12;
+            monthlyAverage = income / 12;
         else
             monthlyAverage = income;
 
@@ -735,7 +768,8 @@ public class BudgetPlanner extends Application {
         }
         else if(totalAmount != monthlyIncome)
         {
-            switch(num){
+            switch(num)
+            {
                 case 1:
                     BudgetAlgorithms.Algorithm1(expenseItems, expenseChanges, monthlyIncome, totalAmount);
                     break;
@@ -749,10 +783,12 @@ public class BudgetPlanner extends Application {
         }
     }
 
-    private void updatePieChart() {
+    private void UpdatePieChart()
+    {
         pieChartData.clear();
 
-        for (Expense expense : expenses) {
+        for(Expense expense : expenses)
+        {
             double percentage;
 
             percentage = (expense.getAmount() / monthlyIncome) * 100;
@@ -761,7 +797,8 @@ public class BudgetPlanner extends Application {
         }
     }
 
-    private void createPieChart() {
+    private void CreatePieChart()
+    {
         expenses.clear();
 
         for(int i = 0; i < expenseItems.length; i++)
@@ -770,7 +807,7 @@ public class BudgetPlanner extends Application {
         
         pieChartData = FXCollections.observableArrayList();
         // Populate chart data from the ArrayList
-        updatePieChart();
+        UpdatePieChart();
 
         // Pie chart
         PieChart pieChart = new PieChart(pieChartData);
@@ -781,7 +818,8 @@ public class BudgetPlanner extends Application {
         pieChart.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px;");
 
         // Add interactivity to Pie Chart (hover effect for both slice and label)
-        for (PieChart.Data data : pieChartData) {
+        for(PieChart.Data data : pieChartData)
+        {
             data.getNode().setOnMouseEntered(event -> {
                 // Highlight the slice
                 data.getNode().setStyle("-fx-effect: dropshadow(gaussian, darkblue, 20, 0, 0, 0);");
@@ -800,10 +838,10 @@ public class BudgetPlanner extends Application {
         }
 
         root.setCenter(pieChart);
-        hboxbottom.getChildren().add(resetButton);
     }
 
-    private void createList() {
+    private void CreateList()
+    {
         //ExpenseList Title
         Label expenseList = new Label("Expense Cutbacks: ");
         expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
@@ -827,7 +865,8 @@ public class BudgetPlanner extends Application {
         //Clear the VBox list if it has elements already
         expensesList.getChildren().clear();
         //For loop to add each expense to the VBox list
-        for (int i = 0; i < expenseItems.length; i++) {
+        for(int i = 0; i < expenseItems.length; i++)
+        {
             if(expenseChanges.containsKey(i) && expenseChanges.get(i) > 0.0)
             {
                 Text expenseText = new Text(mainCategories[i] + ":  Cutback $" + String.format("%.2f", expenseChanges.get(i)));
@@ -839,12 +878,10 @@ public class BudgetPlanner extends Application {
         root.setCenter(list_of_expenses);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    // Expense class
-    class Expense {
+    // Expense class used by CreatePieChart
+    // creates label for slice and amount in slice
+    class Expense
+    {
         private String label;
         private double amount;
 
@@ -860,5 +897,11 @@ public class BudgetPlanner extends Application {
         public double getAmount() {
             return amount;
         }
+    }
+    
+    // main launches GUI
+    public static void main(String[] args)
+    {
+        launch(args);
     }
 }
