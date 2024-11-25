@@ -78,15 +78,14 @@ public class BudgetPlanner extends Application
         /****************************************************/
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
-        //vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
         // Image
-        Image image = new Image("file:content/1.png");
+        Image image = new Image("file:content/MoneyBag.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(130);
         imageView.setFitWidth(130);
 
-        Image image2 = new Image("file:content/2.png"); 
+        Image image2 = new Image("file:content/MTLogo.png"); 
         ImageView imageView2 = new ImageView(image2);
         imageView2.setFitHeight(900);
         imageView2.setFitWidth(900);
@@ -183,7 +182,6 @@ public class BudgetPlanner extends Application
         /****************************************************/
         VBox vBoxSceneTwo = new VBox(30);
         vBoxSceneTwo.setAlignment(Pos.CENTER);
-        //vBoxSceneTwo.setStyle("-fx-background-color: #f0f8ff;");
 
         // label and combo box
         Label sceneTwoLabelOne = new Label("Select Pay Frequency");
@@ -531,7 +529,6 @@ public class BudgetPlanner extends Application
         scrollPane.setPrefSize(375, 240);
         scrollPane.setMaxWidth(375);
         scrollPane.setStyle("-fx-background-color: #696969;");
-        
 
         //ExpenseList Title
         Label expenseList = new Label("Your Expenses: ");
@@ -575,9 +572,7 @@ public class BudgetPlanner extends Application
 
         //Background color for the Scenes
         sceneThree = new Scene(stackPaneThree, 1000, 500);
-        //updated_menu.setStyle("-fx-background-color: #f0f8ff;");
         sceneFour = new Scene(stackPaneFour, 1000, 500);
-        //expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
         //Action event for the continue button
         next.setOnAction(e -> {
@@ -684,7 +679,6 @@ public class BudgetPlanner extends Application
         stackPaneFive.getChildren().addAll(imageView6,root);
 
         sceneFive = new Scene(stackPaneFive, 1000, 500);
-        //root.setStyle("-fx-background-color: #f0f8ff;");
 
         // Ryan's Calculate Expenses Button Event
         calculateExpenses.setOnAction(e -> {
