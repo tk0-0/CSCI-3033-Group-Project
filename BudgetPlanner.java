@@ -76,6 +76,11 @@ public class BudgetPlanner extends Application
 
         // Scene One
         /****************************************************/
+        // Audio Files
+        File file = new File("content/BackgroundMusic.mp3");
+        Media media = new Media(file.toURI().toString());
+        MediaPlayer player = new MediaPlayer(media);
+        
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
 
@@ -176,6 +181,13 @@ public class BudgetPlanner extends Application
 
         StackPane stackPaneOne = new StackPane(); 
         stackPaneOne.getChildren().addAll(imageView2,vBoxSceneOne);
+        sceneOne = new Scene(stackPaneOne, 1000, 500);
+
+        // Set the initial scene and show the stage
+        primaryStage.setScene(sceneOne);
+        
+        primaryStage.setTitle("Personal Budget Planner");
+        primaryStage.show();
         /****************************************************/
 
         // Scene Two
@@ -227,20 +239,7 @@ public class BudgetPlanner extends Application
         StackPane stackPaneTwo = new StackPane(); 
         stackPaneTwo.getChildren().addAll(imageView3,vBoxSceneTwo);
         
-        // Scenes
-        sceneOne = new Scene(stackPaneOne, 1000, 500);
         sceneTwo = new Scene(stackPaneTwo, 1000, 500);
-
-        // Audio Files
-        File file = new File("content/BackgroundMusic.mp3");
-        Media media = new Media(file.toURI().toString());
-        MediaPlayer player = new MediaPlayer(media);
-
-        // Set the initial scene and show the stage
-        primaryStage.setScene(sceneOne);
-        
-        primaryStage.setTitle("Personal Budget Planner");
-        primaryStage.show();
         /****************************************************/
 
         // Scene Three
@@ -301,19 +300,16 @@ public class BudgetPlanner extends Application
 
         //Categories
         categories.getItems().addAll(Arrays.asList(mainCategories));
-        /****************************************************/
 
-        // Scene Four
-        /****************************************************/
         //Creates the category area
-        HBox customcat = new HBox(10, custom);
-        customcat.setAlignment(Pos.CENTER);
+        HBox customCat = new HBox(10, custom);
+        customCat.setAlignment(Pos.CENTER);
 
-        VBox category_box = new VBox(10, selectCategory, categories, customcat);
-        category_box.setAlignment(Pos.CENTER);
+        VBox categoryBox = new VBox(10, selectCategory, categories, customCat);
+        categoryBox.setAlignment(Pos.CENTER);
 
-        VBox subCategory_box = new VBox(10, selectSubCategories, subCategories);
-        subCategory_box.setAlignment(Pos.CENTER);
+        VBox subCategoryBox = new VBox(10, selectSubCategories, subCategories);
+        subCategoryBox.setAlignment(Pos.CENTER);
 
         //Creates the bottom area 
         HBox amount_area = new HBox(10, amtEnter_message, amount);
@@ -326,7 +322,7 @@ public class BudgetPlanner extends Application
         bottom_buttons.setAlignment(Pos.CENTER);
 
         //Combines the category area and bottom area
-        VBox category_areas = new VBox(15, category_box, subCategory_box);
+        VBox category_areas = new VBox(15, categoryBox, subCategoryBox);
 
         VBox bottom_area = new VBox(30, amountw_Error, bottom_buttons);
 
@@ -335,7 +331,20 @@ public class BudgetPlanner extends Application
         //Holds the whole menu with the error message
         VBox updated_menu = new VBox(10, menu, statusMessage2);
         updated_menu.setAlignment(Pos.CENTER);
+        
+        ImageView imageView4 = new ImageView(image2);
+        imageView4.setFitHeight(900);
+        imageView4.setFitWidth(900);
+        imageView4.setOpacity(0.05);
 
+        StackPane stackPaneThree = new StackPane(); 
+        stackPaneThree.getChildren().addAll(imageView4,updated_menu);
+
+        sceneThree = new Scene(stackPaneThree, 1000, 500);
+        /****************************************************/
+
+        // Scene Four
+        /****************************************************/
         //Menu for the Second Scene
         //Make a VBox for the Scenes
         VBox expensesList = new VBox(10);
@@ -373,14 +382,6 @@ public class BudgetPlanner extends Application
         VBox expenseOutput = new VBox(45, listOfExpenses, bottomButtons);
         expenseOutput.setAlignment(Pos.CENTER);
 
-        ImageView imageView4 = new ImageView(image2);
-        imageView4.setFitHeight(900);
-        imageView4.setFitWidth(900);
-        imageView4.setOpacity(0.05);
-
-        StackPane stackPaneThree = new StackPane(); 
-        stackPaneThree.getChildren().addAll(imageView4,updated_menu);
-
         ImageView imageView5 = new ImageView(image2);
         imageView5.setFitHeight(900);
         imageView5.setFitWidth(900);
@@ -389,8 +390,6 @@ public class BudgetPlanner extends Application
         StackPane stackPaneFour = new StackPane(); 
         stackPaneFour.getChildren().addAll(imageView5,expenseOutput);
 
-        //Background color for the Scenes
-        sceneThree = new Scene(stackPaneThree, 1000, 500);
         sceneFour = new Scene(stackPaneFour, 1000, 500);
         /****************************************************/
 
