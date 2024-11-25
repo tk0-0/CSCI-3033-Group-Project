@@ -378,40 +378,39 @@ public class BudgetPlanner extends Application
 
         // Scene Four
         /****************************************************/
-        // Menu for the Second Scene
-        // Make a VBox for the Scenes
+        // Makes a VBox for nodes in scene 4
         VBox expensesList = new VBox(10);
         expensesList.setPadding(new Insets(5));
         expensesList.setAlignment(Pos.CENTER);
 
-        // ScrollPane to hold the list of expenses and Set Border Color
+        // ScrollPane holds the list of expenses
         ScrollPane scrollPane = new ScrollPane(expensesList);
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefSize(375, 240);
         scrollPane.setMaxWidth(375);
         scrollPane.setStyle("-fx-background-color: #696969;");
 
-        // Title for Scene4 for the expense list
+        // Header for the expense list in scene 4
         Label expenseList = new Label("Your Expenses: ");
         expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
 
-        // Show Recommendations Button for sceneFour to go to the Next Scene
+        // Shows Recommendations Button for scene 4 to go to the next scene
         Button recommendationsButton = new Button("Show Recommendations!");
         recommendationsButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        // Go Back button for sceneFour to go to Scene3
+        // Go Back Button for scene 4 to go to scene 3
         Button backButton4_3 = new Button("Go Back");
         backButton4_3.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        // Formats the buttons to be placed at the bottom of the scene4
+        // Formats the buttons to be placed at the bottom of scene 4
         HBox bottomButtonsSceneFour = new HBox(10, backButton4_3, recommendationsButton);
         bottomButtonsSceneFour.setAlignment(Pos.CENTER);
 
-        // Formatting of the Expenses List
+        // Formats the Expenses List VBox
         VBox listOfExpenses = new VBox(5, expenseList, scrollPane);
         listOfExpenses.setAlignment(Pos.CENTER);
 
-        // Combines the List of expenses and the Buttons on sceneFour
+        // Combines the list of expenses and the Buttons of scene 4
         VBox expenseOutput = new VBox(45, listOfExpenses, bottomButtonsSceneFour);
         expenseOutput.setAlignment(Pos.CENTER);
 
