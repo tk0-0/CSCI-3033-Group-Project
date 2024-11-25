@@ -1,4 +1,3 @@
-
 /*
  * Authors:    Tyler Kramer, Henry Ngo, Zachary Taylor, Ryan Thieu 
  * Class:      CSCI 3033-001
@@ -63,19 +62,19 @@ public class BudgetPlanner extends Application
     
     // Scene 5 Nodes
     // Used in different scopes, so made private global for ease of use in current file
-    private Button backS5 = new Button("Go Back");
+    private Button backButton5_4 = new Button("Go Back");
     private HBox hboxbottom = new HBox(20);
     private BorderPane root = new BorderPane();
 
     @Override
     public void start(Stage primaryStage)
     {
-        Button sceneOneButtonOne, sceneOneButtonTwo, sceneTwoButtonOne, sceneTwoButtonTwo;
+        Button startButton, quitButton, backButton2_1, confirmButton;
         ComboBox<String> frequencyComboBox;
         TextField incomeField;
         Label errorLabel;
 
-        // First Scene
+        // Scene One
         /****************************************************/
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
@@ -150,12 +149,12 @@ public class BudgetPlanner extends Application
         stackPane.getChildren().addAll(sceneOneCircleOne,sceneOneCircleTwo);
 
         // Buttons
-        sceneOneButtonOne = new Button("Start Budget Planning");
-        sceneOneButtonOne.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        sceneOneButtonTwo = new Button("Quit");
-        sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        startButton = new Button("Start Budget Planning");
+        startButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        quitButton = new Button("Quit");
+        quitButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        ScaleTransition scale = new ScaleTransition(new Duration(2000), sceneOneButtonOne);
+        ScaleTransition scale = new ScaleTransition(new Duration(2000), startButton);
         scale.setFromX(1);
         scale.setFromY(1);
         scale.setToX(1.2);
@@ -166,12 +165,12 @@ public class BudgetPlanner extends Application
         scale.play();
 
         // Adding nodes to the layout
-        vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
+        vBoxSceneOne.getChildren().addAll(stackPane, startButton, quitButton);
         vBoxSceneOne.setPadding(new Insets(20, 0, 0, 0));
-        VBox.setMargin(sceneOneButtonOne, new Insets(30, 0, 0, 0));
+        VBox.setMargin(startButton, new Insets(30, 0, 0, 0));
         /****************************************************/
 
-        // Second Scene
+        // Scene Two
         /****************************************************/
         VBox vBoxSceneTwo = new VBox(30);
         vBoxSceneTwo.setAlignment(Pos.CENTER);
@@ -199,12 +198,12 @@ public class BudgetPlanner extends Application
         inputBox.setAlignment(Pos.CENTER);
 
         // Buttons
-        sceneTwoButtonOne = new Button("Go Back");
-        sceneTwoButtonOne.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        sceneTwoButtonTwo = new Button("Confirm");
-        sceneTwoButtonTwo.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        backButton2_1 = new Button("Go Back");
+        backButton2_1.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        confirmButton = new Button("Confirm");
+        confirmButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        HBox hBoxSceneTwo = new HBox(20, sceneTwoButtonOne, sceneTwoButtonTwo);
+        HBox hBoxSceneTwo = new HBox(20, backButton2_1, confirmButton);
         hBoxSceneTwo.setAlignment(Pos.CENTER);
 
         errorLabel = new Label("Please Enter All Fields With Valid Info!");
@@ -212,7 +211,6 @@ public class BudgetPlanner extends Application
         errorLabel.setVisible(false);
         
         vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
-        
         /****************************************************/
         
         // Scenes
@@ -225,7 +223,7 @@ public class BudgetPlanner extends Application
         MediaPlayer player = new MediaPlayer(media);
 
         // Button Actions
-        sceneOneButtonOne.setOnAction(e -> {
+        startButton.setOnAction(e -> {
             primaryStage.setScene(sceneTwo);
 
             player.play();
@@ -235,10 +233,10 @@ public class BudgetPlanner extends Application
         });
 
         // Exit button 
-        sceneOneButtonTwo.setOnAction(e -> Platform.exit());
+        quitButton.setOnAction(e -> Platform.exit());
 
         // Go back button
-        sceneTwoButtonOne.setOnAction(e -> {
+        backButton2_1.setOnAction(e -> {
             primaryStage.setScene(sceneOne);
             errorLabel.setVisible(false);
             incomeField.setText("");
@@ -251,9 +249,8 @@ public class BudgetPlanner extends Application
         primaryStage.setTitle("Personal Budget Planner");
         primaryStage.show();
 
-
-        // Ryan's Code
-
+        // Scene Three
+        /****************************************************/
         //ComboBoxes for the categories
         ComboBox<String> categories = new ComboBox<>();
 
@@ -451,7 +448,7 @@ public class BudgetPlanner extends Application
                     }
             });
 
-            //Reset Button on sceneFour to revert everything back to original
+            //Reset Button on sceneThree to revert everything back to original
             reset.setOnAction(y -> {
                 expenseAmounts.clear();
                 expenseCategories.clear();
@@ -469,7 +466,10 @@ public class BudgetPlanner extends Application
                 statusMessage2.setVisible(true);
             });
         });
+        /****************************************************/
 
+        // Scene Four
+        /****************************************************/
         //Creates the category area
         HBox customcat = new HBox(10, custom);
         customcat.setAlignment(Pos.CENTER);
@@ -545,7 +545,7 @@ public class BudgetPlanner extends Application
         expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
         //Action event for the continue button
-        next.setOnAction(p -> {
+        next.setOnAction(e -> {
             //Clear the VBox list if it has elements already
             expensesList.getChildren().clear();
             //For loop to add each expense to the VBox list
@@ -562,7 +562,7 @@ public class BudgetPlanner extends Application
         });
 
         //Action event for the go back button in the 4th scene
-        goBack.setOnAction(o -> {
+        goBack.setOnAction(e -> {
             //Show sceneThree
             primaryStage.setScene(sceneThree);
             statusMessage2.setVisible(false);
@@ -571,12 +571,10 @@ public class BudgetPlanner extends Application
         });
 
         //Go Back to Henrys Scene2
-        back.setOnAction(l -> {
-            primaryStage.setScene(sceneTwo);
-        });
+        back.setOnAction(e -> primaryStage.setScene(sceneTwo));
 
         // Henry's Confirm button
-        sceneTwoButtonTwo.setOnAction(e -> {
+        confirmButton.setOnAction(e -> {
             try {
                 if(!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0)
                 {
@@ -600,8 +598,10 @@ public class BudgetPlanner extends Application
                 errorLabel.setVisible(true);
             }
         });
+        /****************************************************/
 
-        // Tyler's Code
+        // Scene Five
+        /****************************************************/
         Button pie1 = new Button("Budget Plan #1");
         Button list1 = new Button("Show Recommendations");
         Button pie2 = new Button("Budget Plan #2");
@@ -632,10 +632,10 @@ public class BudgetPlanner extends Application
         hboxtop.setAlignment(Pos.CENTER);
         Button resetButton = new Button("Clear");
 
-        backS5.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
+        backButton5_4.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         resetButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        hboxbottom.getChildren().add(backS5);
+        hboxbottom.getChildren().add(backButton5_4);
         root.setBottom(hboxbottom);
         hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
         hboxbottom.setPadding(new Insets(20));
@@ -649,10 +649,10 @@ public class BudgetPlanner extends Application
 
             hboxbottom.getChildren().clear();
 
-            hboxbottom.getChildren().add(backS5);
+            hboxbottom.getChildren().add(backButton5_4);
         });
 
-        backS5.setOnAction(e -> {
+        backButton5_4.setOnAction(e -> {
             root.setCenter(null);
 
             primaryStage.setScene(sceneFour);
@@ -713,6 +713,7 @@ public class BudgetPlanner extends Application
 
             CreatePieChart();
         });
+        /****************************************************/
     }
 
     private double CalculateMonthlyAverage()
@@ -734,7 +735,7 @@ public class BudgetPlanner extends Application
     private void AlgorithmCall(final int num)
     {
         hboxbottom.getChildren().clear();
-        hboxbottom.getChildren().add(backS5);
+        hboxbottom.getChildren().add(backButton5_4);
 
         root.setCenter(null);
         totalAmount = 0.0;
@@ -820,7 +821,7 @@ public class BudgetPlanner extends Application
         // Add interactivity to Pie Chart (hover effect for both slice and label)
         for(PieChart.Data data : pieChartData)
         {
-            data.getNode().setOnMouseEntered(event -> {
+            data.getNode().setOnMouseEntered(e -> {
                 // Highlight the slice
                 data.getNode().setStyle("-fx-effect: dropshadow(gaussian, darkblue, 20, 0, 0, 0);");
 
@@ -828,7 +829,7 @@ public class BudgetPlanner extends Application
                 pieChart.setTitle(data.getName());
             });
 
-            data.getNode().setOnMouseExited(event -> {
+            data.getNode().setOnMouseExited(e -> {
                 // Remove slice highlight
                 data.getNode().setStyle("-fx-effect: none;");
 
