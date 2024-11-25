@@ -78,13 +78,19 @@ public class BudgetPlanner extends Application
         /****************************************************/
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
-        vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
+        //vBoxSceneOne.setStyle("-fx-background-color: #f0f8ff;");
 
         // Image
         Image image = new Image("file:content/1.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(130);
         imageView.setFitWidth(130);
+
+        Image image2 = new Image("file:content/2.png"); 
+        ImageView imageView2 = new ImageView(image2);
+        imageView2.setFitHeight(900);
+        imageView2.setFitWidth(900);
+        imageView2.setOpacity(0.05);
 
         StackPane stackPane = new StackPane();
         stackPane.setAlignment(Pos.CENTER); // Center everything in the StackPane
@@ -168,13 +174,16 @@ public class BudgetPlanner extends Application
         vBoxSceneOne.getChildren().addAll(stackPane, startButton, quitButton);
         vBoxSceneOne.setPadding(new Insets(20, 0, 0, 0));
         VBox.setMargin(startButton, new Insets(30, 0, 0, 0));
+
+        StackPane stackPaneOne = new StackPane(); 
+        stackPaneOne.getChildren().addAll(imageView2,vBoxSceneOne);
         /****************************************************/
 
         // Scene Two
         /****************************************************/
         VBox vBoxSceneTwo = new VBox(30);
         vBoxSceneTwo.setAlignment(Pos.CENTER);
-        vBoxSceneTwo.setStyle("-fx-background-color: #f0f8ff;");
+        //vBoxSceneTwo.setStyle("-fx-background-color: #f0f8ff;");
 
         // label and combo box
         Label sceneTwoLabelOne = new Label("Select Pay Frequency");
@@ -211,14 +220,22 @@ public class BudgetPlanner extends Application
         errorLabel.setVisible(false);
         
         vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
+
+        ImageView imageView3 = new ImageView(image2);
+        imageView3.setFitHeight(900);
+        imageView3.setFitWidth(900);
+        imageView3.setOpacity(0.05);
+
+        StackPane stackPaneTwo = new StackPane(); 
+        stackPaneTwo.getChildren().addAll(imageView3,vBoxSceneTwo);
         /****************************************************/
         
         // Scenes
-        sceneOne = new Scene(vBoxSceneOne, 1000, 500);
-        sceneTwo = new Scene(vBoxSceneTwo, 1000, 500);
+        sceneOne = new Scene(stackPaneOne, 1000, 500);
+        sceneTwo = new Scene(stackPaneTwo, 1000, 500);
 
         // Audio Files
-        File file = new File("content/money1.mp3");
+        File file = new File("content/music2.mp3");
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
 
@@ -241,6 +258,7 @@ public class BudgetPlanner extends Application
             errorLabel.setVisible(false);
             incomeField.setText("");
             frequencyComboBox.setValue(null);
+            player.stop();
         });
 
         // Set the initial scene and show the stage
@@ -513,6 +531,7 @@ public class BudgetPlanner extends Application
         scrollPane.setPrefSize(375, 240);
         scrollPane.setMaxWidth(375);
         scrollPane.setStyle("-fx-background-color: #696969;");
+        
 
         //ExpenseList Title
         Label expenseList = new Label("Your Expenses: ");
@@ -538,11 +557,27 @@ public class BudgetPlanner extends Application
         VBox expenseOutput = new VBox(45, list_of_expenses, bottomButtons);
         expenseOutput.setAlignment(Pos.CENTER);
 
+        ImageView imageView4 = new ImageView(image2);
+        imageView4.setFitHeight(900);
+        imageView4.setFitWidth(900);
+        imageView4.setOpacity(0.05);
+
+        StackPane stackPaneThree = new StackPane(); 
+        stackPaneThree.getChildren().addAll(imageView4,updated_menu);
+
+        ImageView imageView5 = new ImageView(image2);
+        imageView5.setFitHeight(900);
+        imageView5.setFitWidth(900);
+        imageView5.setOpacity(0.05);
+
+        StackPane stackPaneFour = new StackPane(); 
+        stackPaneFour.getChildren().addAll(imageView5,expenseOutput);
+
         //Background color for the Scenes
-        sceneThree = new Scene(updated_menu, 1000, 500);
-        updated_menu.setStyle("-fx-background-color: #f0f8ff;");
-        sceneFour = new Scene(expenseOutput, 1000, 500);
-        expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
+        sceneThree = new Scene(stackPaneThree, 1000, 500);
+        //updated_menu.setStyle("-fx-background-color: #f0f8ff;");
+        sceneFour = new Scene(stackPaneFour, 1000, 500);
+        //expenseOutput.setStyle("-fx-background-color: #f0f8ff;");
 
         //Action event for the continue button
         next.setOnAction(e -> {
@@ -640,8 +675,16 @@ public class BudgetPlanner extends Application
         hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
         hboxbottom.setPadding(new Insets(20));
 
-        sceneFive = new Scene(root, 1000, 500);
-        root.setStyle("-fx-background-color: #f0f8ff;");
+        ImageView imageView6 = new ImageView(image2);
+        imageView6.setFitHeight(900);
+        imageView6.setFitWidth(900);
+        imageView6.setOpacity(0.05);
+
+        StackPane stackPaneFive = new StackPane(); 
+        stackPaneFive.getChildren().addAll(imageView6,root);
+
+        sceneFive = new Scene(stackPaneFive, 1000, 500);
+        //root.setStyle("-fx-background-color: #f0f8ff;");
 
         // Ryan's Calculate Expenses Button Event
         calculateExpenses.setOnAction(e -> {
