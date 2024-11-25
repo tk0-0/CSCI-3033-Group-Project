@@ -233,7 +233,7 @@ public class BudgetPlanner extends Application
         sceneTwo = new Scene(stackPaneTwo, 1000, 500);
 
         // Audio Files
-        File file = new File("content/music2.mp3");
+        File file = new File("content/BackgroundMusic.mp3");
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
 
