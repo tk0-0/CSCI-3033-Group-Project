@@ -244,9 +244,10 @@ public class BudgetPlanner extends Application
             primaryStage.setScene(sceneTwo);
 
             player.play();
+            player.setCycleCount(Timeline.INDEFINITE);
 
             // reset to the beginning
-            player.seek(Duration.ZERO);
+            //player.seek(Duration.ZERO);
         });
 
         // Exit button 
