@@ -1,6 +1,7 @@
 import java.util.*;
 
 // This class implements the algorithms to calculate three different budget plans.
+// This class also includes a function that totals the amount of expenses for each main category.
 public class BudgetAlgorithms
 {
     // All main categories

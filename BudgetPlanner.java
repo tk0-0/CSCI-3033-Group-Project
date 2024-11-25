@@ -71,13 +71,14 @@ public class BudgetPlanner extends Application
     {
         // Scene One
         /****************************************************/
-        // Audio Files
+        // Creates Audio File
         File file = new File("content/BackgroundMusic.mp3");
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
 
         Button startButton, quitButton1; // Buttons used in scene 1
         
+        // holds all nodes for scene 1
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
 
@@ -94,40 +95,45 @@ public class BudgetPlanner extends Application
         imageView2.setFitWidth(900);
         imageView2.setOpacity(0.05);
 
-        StackPane stackPane = new StackPane();
-        stackPane.setAlignment(Pos.CENTER); // Center everything in the StackPane
+        StackPane stackPane = new StackPane(); // pane for menu screen (text pattern)
+        stackPane.setAlignment(Pos.CENTER);    // center everything in the StackPane
 
-        // Create Title
+        // Creates title (text to be wrapped into a circle)
         String text = "The Personal Budget Planner ";
+
+        // set radius and starting angle for text in a circle
         double radius = 110; 
         double startAngle = 180; 
 
+        // Creates text going around in a circle
         for(int i = 0; i < text.length(); i++)
         {
             char letter = text.charAt(i);
             double angle = startAngle + (360.0 / text.length() * i);
 
-            // Calculate position relative to center
+            // calculates position relative to center
             double x = radius * Math.cos(Math.toRadians(angle));
             double y = radius * Math.sin(Math.toRadians(angle));
 
-            // Create individual Text node for each letter
+            // creates individual Text node for each letter
             Text ch = new Text(String.valueOf(letter));
             ch.setFont(Font.font("Arial", 30));
             ch.setFill(Color.BLACK);
             ch.setRotate(angle + 90); // Rotate each letter to align with the circle
-            ch.setTranslateX(x); // Position relative to center
-            ch.setTranslateY(y); // Position relative to center
+            ch.setTranslateX(x);      // Position relative to center
+            ch.setTranslateY(y);      // Position relative to center
 
-            // Add letter directly to StackPane
+            // adds letter directly to StackPane
             stackPane.getChildren().add(ch);
         }
 
+        // Creates circle for menu design
         Circle sceneOneCircleOne = new Circle(90);
         sceneOneCircleOne.setFill(null);
         sceneOneCircleOne.setStroke(Color.BLACK);
         sceneOneCircleOne.setStrokeWidth(2);
         
+        // Creates animation for money bag image on menu
         FadeTransition ftrans = new FadeTransition(new Duration(2000), imageView);
         ftrans.setFromValue(1); 
         ftrans.setCycleCount(Timeline.INDEFINITE);
@@ -135,9 +141,11 @@ public class BudgetPlanner extends Application
         ftrans.setAutoReverse(true);
         ftrans.play();
 
+        // Creates circle for menu design
         Circle sceneOneCircleTwo = new Circle(4);
         sceneOneCircleTwo.setStroke(Color.BLACK);
 
+        // Creates path for circles in the menu design
         PathTransition pt = new PathTransition();
         pt.setDuration(Duration.millis(5000));
         pt.setPath(sceneOneCircleOne);
@@ -147,20 +155,23 @@ public class BudgetPlanner extends Application
         pt.setAutoReverse(false);
         pt.play();
 
+        // Makes smaller circle in menu design change colors
         FillTransition filler = new FillTransition(new Duration(2000), sceneOneCircleTwo, Color.GREEN, Color.YELLOW);
         filler.setCycleCount(Timeline.INDEFINITE);
         filler.setAutoReverse(true);
         filler.play();
 
+        // adds nodes to StackPane to create menu design
         stackPane.getChildren().add(0, imageView);
-        stackPane.getChildren().addAll(sceneOneCircleOne,sceneOneCircleTwo);
+        stackPane.getChildren().addAll(sceneOneCircleOne, sceneOneCircleTwo);
 
-        // Buttons
+        // start and quit buttons given text and styles
         startButton = new Button("Start Budget Planning");
         startButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         quitButton1 = new Button("Quit");
         quitButton1.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
+        // Makes start button have a pulsing (scaling) animation
         ScaleTransition scale = new ScaleTransition(new Duration(2000), startButton);
         scale.setFromX(1);
         scale.setFromY(1);
@@ -168,22 +179,25 @@ public class BudgetPlanner extends Application
         scale.setToY(1.2);
         scale.setCycleCount(Timeline.INDEFINITE);
         scale.setAutoReverse(true);
-        
         scale.play();
 
-        // Adding nodes to the layout
+        // Adds nodes to the layout
         vBoxSceneOne.getChildren().addAll(stackPane, startButton, quitButton1);
         vBoxSceneOne.setPadding(new Insets(20, 0, 0, 0));
         VBox.setMargin(startButton, new Insets(30, 0, 0, 0));
 
+        // Creates StackPane that holds all nodes and background image
         StackPane stackPaneOne = new StackPane(); 
-        stackPaneOne.getChildren().addAll(imageView2,vBoxSceneOne);
+        stackPaneOne.getChildren().addAll(imageView2, vBoxSceneOne);
         sceneOne = new Scene(stackPaneOne, 1000, 500);
 
-        // Set the initial scene and show the stage
+        // sets the initial scene and show the stage
         primaryStage.setScene(sceneOne);
         
+        // sets stage title
         primaryStage.setTitle("Personal Budget Planner");
+
+        // shows stage
         primaryStage.show();
         /****************************************************/
 
@@ -235,6 +249,7 @@ public class BudgetPlanner extends Application
         imageView3.setFitWidth(900);
         imageView3.setOpacity(0.05);
 
+        // Creates StackPane that holds all nodes and background image
         StackPane stackPaneTwo = new StackPane(); 
         stackPaneTwo.getChildren().addAll(imageView3,vBoxSceneTwo);
         
@@ -336,6 +351,7 @@ public class BudgetPlanner extends Application
         imageView4.setFitWidth(900);
         imageView4.setOpacity(0.05);
 
+        // Creates StackPane that holds all nodes and background image
         StackPane stackPaneThree = new StackPane(); 
         stackPaneThree.getChildren().addAll(imageView4,updatedMenu);
 
@@ -386,6 +402,7 @@ public class BudgetPlanner extends Application
         imageView5.setFitWidth(900);
         imageView5.setOpacity(0.05);
 
+        // Creates StackPane that holds all nodes and background image
         StackPane stackPaneFour = new StackPane(); 
         stackPaneFour.getChildren().addAll(imageView5,expenseOutput);
 
@@ -437,6 +454,7 @@ public class BudgetPlanner extends Application
         imageView6.setFitWidth(900);
         imageView6.setOpacity(0.05);
 
+        // Creates StackPane that holds all nodes and background image
         StackPane stackPaneFive = new StackPane(); 
         stackPaneFive.getChildren().addAll(imageView6,root);
 
