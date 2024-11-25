@@ -88,7 +88,7 @@ public class BudgetPlanner extends Application
         imageView.setFitHeight(130);
         imageView.setFitWidth(130);
 
-        // Image of MT Logo
+        // Image of MT Logo for background
         Image image2 = new Image("file:content/MTLogo.png"); 
         ImageView imageView2 = new ImageView(image2);
         imageView2.setFitHeight(900);
@@ -189,6 +189,8 @@ public class BudgetPlanner extends Application
         // Creates StackPane that holds all nodes and background image
         StackPane stackPaneOne = new StackPane(); 
         stackPaneOne.getChildren().addAll(imageView2, vBoxSceneOne);
+
+        // sets scene 1
         sceneOne = new Scene(stackPaneOne, 1000, 500);
 
         // sets the initial scene and show the stage
@@ -205,45 +207,53 @@ public class BudgetPlanner extends Application
         /****************************************************/
         Button backButton2_1, confirmButton; // Buttons used in scene 2
 
+        // holds all nodes for scene 2
         VBox vBoxSceneTwo = new VBox(30);
         vBoxSceneTwo.setAlignment(Pos.CENTER);
 
-        // label and combo box
+        // Label created for selecting pay period
         Label sceneTwoLabelOne = new Label("Select Pay Frequency");
         sceneTwoLabelOne.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         sceneTwoLabelOne.setStyle("-fx-text-fill: #333;");
 
+        // ComboBox for selecting pay period
         ComboBox<String> frequencyComboBox = new ComboBox<>();
         frequencyComboBox.getItems().addAll("Weekly", "Bi-Weekly", "Monthly", "Yearly");
         frequencyComboBox.setStyle("-fx-font-size: 14;");
 
-        // label and text field
+        // Label for entering income
         Label incomeLabel = new Label("Enter Income:");
         incomeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         incomeLabel.setStyle("-fx-text-fill: #333;");
 
+        // TextField to enter income
         TextField incomeField = new TextField();
         incomeField.setPromptText("Enter your income...");
         incomeField.setStyle("-fx-font-size: 14; -fx-padding: 5;");
 
+        // HBox that holds income Label and income TextField
         HBox inputBox = new HBox(10, incomeLabel, incomeField);
         inputBox.setAlignment(Pos.CENTER);
 
-        // Buttons
+        // back and confirm buttons given text and styles
         backButton2_1 = new Button("Go Back");
         backButton2_1.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         confirmButton = new Button("Confirm");
         confirmButton.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
+        // HBox that holds back and confirm buttons
         HBox hBoxSceneTwo = new HBox(20, backButton2_1, confirmButton);
         hBoxSceneTwo.setAlignment(Pos.CENTER);
 
+        // Creates error Label
         Label errorLabel = new Label("Please Enter All Fields With Valid Info!");
         errorLabel.setStyle("-fx-font-weight: bold");
         errorLabel.setVisible(false);
         
+        // Adds nodes to the layout
         vBoxSceneTwo.getChildren().addAll(sceneTwoLabelOne, frequencyComboBox, inputBox, hBoxSceneTwo, errorLabel);
 
+        // Image of MT Logo for background
         ImageView imageView3 = new ImageView(image2);
         imageView3.setFitHeight(900);
         imageView3.setFitWidth(900);
@@ -253,6 +263,7 @@ public class BudgetPlanner extends Application
         StackPane stackPaneTwo = new StackPane(); 
         stackPaneTwo.getChildren().addAll(imageView3,vBoxSceneTwo);
         
+        // sets scene 2
         sceneTwo = new Scene(stackPaneTwo, 1000, 500);
         /****************************************************/
 
@@ -346,6 +357,7 @@ public class BudgetPlanner extends Application
         VBox updatedMenu = new VBox(10, menu, statusMessage2);
         updatedMenu.setAlignment(Pos.CENTER);
         
+        // Image of MT Logo for background
         ImageView imageView4 = new ImageView(image2);
         imageView4.setFitHeight(900);
         imageView4.setFitWidth(900);
@@ -355,6 +367,7 @@ public class BudgetPlanner extends Application
         StackPane stackPaneThree = new StackPane(); 
         stackPaneThree.getChildren().addAll(imageView4,updatedMenu);
 
+        // sets scene 3
         sceneThree = new Scene(stackPaneThree, 1000, 500);
         /****************************************************/
 
@@ -397,6 +410,7 @@ public class BudgetPlanner extends Application
         VBox expenseOutput = new VBox(45, listOfExpenses, bottomButtonsSceneFour);
         expenseOutput.setAlignment(Pos.CENTER);
 
+        // Image of MT Logo for background
         ImageView imageView5 = new ImageView(image2);
         imageView5.setFitHeight(900);
         imageView5.setFitWidth(900);
@@ -406,6 +420,7 @@ public class BudgetPlanner extends Application
         StackPane stackPaneFour = new StackPane(); 
         stackPaneFour.getChildren().addAll(imageView5,expenseOutput);
 
+        // sets scene 4
         sceneFour = new Scene(stackPaneFour, 1000, 500);
         /****************************************************/
 
@@ -449,6 +464,7 @@ public class BudgetPlanner extends Application
         hBoxBottom.setAlignment(Pos.BOTTOM_LEFT);
         hBoxBottom.setPadding(new Insets(20));
 
+        // Image of MT Logo for background
         ImageView imageView6 = new ImageView(image2);
         imageView6.setFitHeight(900);
         imageView6.setFitWidth(900);
@@ -458,6 +474,7 @@ public class BudgetPlanner extends Application
         StackPane stackPaneFive = new StackPane(); 
         stackPaneFive.getChildren().addAll(imageView6,root);
 
+        // sets scene 5
         sceneFive = new Scene(stackPaneFive, 1000, 500);
         /****************************************************/
 
