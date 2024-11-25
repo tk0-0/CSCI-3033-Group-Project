@@ -21,15 +21,16 @@ import javafx.scene.shape.*;
 import java.util.*;
 
 public class BudgetPlanner extends Application {
+    // All Scenes
+    private Scene sceneOne;   // Welcome Menu
+    private Scene sceneTwo;   // Enter Income
+    private Scene sceneThree; // Add Expenses
+    private Scene sceneFour;  // Expense Review
+    private Scene sceneFive;  // Budget Plans Viewer
 
-    private Scene sceneOne;
-    private Scene sceneTwo;
-    private Scene sceneThree;
-    private Scene sceneFour;
-    private Scene sceneFive;
-
+    // All main categories
     private final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
-
+    
     private double income;
     private double monthlyIncome;
     private String payFrequency;
@@ -165,7 +166,7 @@ public class BudgetPlanner extends Application {
         sceneTwoLabelOne.setStyle("-fx-text-fill: #333;");
 
         frequencyComboBox = new ComboBox<>();
-        frequencyComboBox.getItems().addAll("Weekly", "Bi-Weekly", "Monthly");
+        frequencyComboBox.getItems().addAll("Weekly", "Bi-Weekly", "Monthly", "Yearly");
         frequencyComboBox.setStyle("-fx-font-size: 14;");
 
         // label and text field
@@ -268,13 +269,13 @@ public class BudgetPlanner extends Application {
         Label amtEnter_message = new Label("Enter Amount:");  
         amtEnter_message.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;"); 
 
-        Label goodExpense = new Label();
-        goodExpense.setStyle("-fx-font-size: 15px Arial;");
-        goodExpense.setVisible(false);
+        Label statusMessage1 = new Label();
+        statusMessage1.setStyle("-fx-font-size: 15px Arial;");
+        statusMessage1.setVisible(false);
         
-        Label errorMessage = new Label();
-        errorMessage.setStyle("-fx-font-weight: bold");
-        errorMessage.setVisible(false);
+        Label statusMessage2 = new Label();
+        statusMessage2.setStyle("-fx-font-weight: bold");
+        statusMessage2.setVisible(false);
 
         //Buttons for sceneThree: Adding to List, Next Button, Reset Button, go Back button
         Button add = new Button("Add");      
@@ -298,11 +299,7 @@ public class BudgetPlanner extends Application {
         back.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         //Categories
-        categories.getItems().addAll(   "Home and Utilities", "Food/Groceries", "Health/Personal Care", 
-                                        "Personal Insurance", "Savings", "Transportation", 
-                                        "Education", "Communication", "Pets", 
-                                        "Shopping and Entertainment", "Emergencies", "Travel", 
-                                        "Miscellaneous", "Other"    );
+        categories.getItems().addAll(Arrays.asList(mainCategories));
 
         //Action events for Category Combo Box
         categories.setOnAction(e -> {
@@ -383,8 +380,8 @@ public class BudgetPlanner extends Application {
                 String enteredAmount = amount.getText();
                 String subCategory;
 
-                errorMessage.setVisible(false);
-                goodExpense.setVisible(false);
+                statusMessage2.setVisible(false);
+                statusMessage1.setVisible(false);
 
                 try{ 
                     //If textbox for amount not empty, category & subcategory is not empty, and the amount the user entered is not less than 0
@@ -412,8 +409,8 @@ public class BudgetPlanner extends Application {
                             expenseAmounts.add(Double.parseDouble(enteredAmount));
 
                             //Output a message saying expense was added
-                            goodExpense.setText("Expense Added to List!");
-                            goodExpense.setVisible(true);
+                            statusMessage1.setText("Expense Added to List!");
+                            statusMessage1.setVisible(true);
                     
                             //Reset all values 
                             categories.setValue(null);
@@ -428,21 +425,21 @@ public class BudgetPlanner extends Application {
                         if(!(!amount.getText().isEmpty() && (categories.getValue() != "Other" || !custom.getText().isEmpty()) && categories.getValue() != null && subCategories.getValue() != null))
                         {
                             //In case user has not filled out all fields
-                            goodExpense.setText("Not All Fields Have Been Entered!");
-                            goodExpense.setStyle("-fx-font-weight: bold");
-                            goodExpense.setVisible(true);
+                            statusMessage1.setText("Not All Fields Have Been Entered!");
+                            statusMessage1.setStyle("-fx-font-weight: bold");
+                            statusMessage1.setVisible(true);
                         }
 
                         if(Double.parseDouble(amount.getText()) < 0.0)
                         {
-                            errorMessage.setText("Please Enter Valid Information!");
-                            errorMessage.setVisible(true);
+                            statusMessage2.setText("Please Enter Valid Information!");
+                            statusMessage2.setVisible(true);
                         }
                     }
                 }   catch (NumberFormatException ex) {
                         //In case user enters letters in the amount
-                        errorMessage.setText("Please Enter Valid Information!");
-                        errorMessage.setVisible(true);
+                        statusMessage2.setText("Please Enter Valid Information!");
+                        statusMessage2.setVisible(true);
                     }
             });
 
@@ -451,15 +448,17 @@ public class BudgetPlanner extends Application {
                 expenseAmounts.clear();
                 expenseCategories.clear();
                 expenseSubCategories.clear();
-
                 categories.setValue(null);
                 subCategories.setValue(null);
                 subCategories.setVisible(false);
-                errorMessage.setVisible(false);
-                goodExpense.setVisible(false);
+                
+                statusMessage1.setVisible(false);
                 custom.setVisible(false);
                 custom.clear();
                 amount.clear();
+
+                statusMessage2.setText("Reset Complete!");
+                statusMessage2.setVisible(true);
             });
         });
 
@@ -477,7 +476,7 @@ public class BudgetPlanner extends Application {
         HBox amount_area = new HBox(10, amtEnter_message, amount); 
         amount_area.setAlignment(Pos.CENTER);
 
-        VBox amountw_Error = new VBox(15, amount_area, goodExpense);
+        VBox amountw_Error = new VBox(15, amount_area, statusMessage1);
         amountw_Error.setAlignment(Pos.CENTER);
 
         HBox bottom_buttons = new HBox(10, back, reset, add, next); 
@@ -491,7 +490,7 @@ public class BudgetPlanner extends Application {
         VBox menu = new VBox(50, category_areas, bottom_area);
 
         //Holds the whole menu with the error message
-        VBox updated_menu = new VBox(10, menu, errorMessage);
+        VBox updated_menu = new VBox(10, menu, statusMessage2);
         updated_menu.setAlignment(Pos.CENTER);
 
         //Menu for the Second Scene
@@ -557,8 +556,8 @@ public class BudgetPlanner extends Application {
         goBack.setOnAction(o -> {
             //Show sceneThree
             primaryStage.setScene(sceneThree);
-            errorMessage.setVisible(false);
-            goodExpense.setVisible(false);
+            statusMessage2.setVisible(false);
+            statusMessage1.setVisible(false);
             primaryStage.show();
         });
 
@@ -577,8 +576,8 @@ public class BudgetPlanner extends Application {
                     monthlyIncome = CalculateMonthlyAverage();
         
                     // Goes to third scene
-                    errorMessage.setVisible(false);
-                    goodExpense.setVisible(false);
+                    statusMessage2.setVisible(false);
+                    statusMessage1.setVisible(false);
                     primaryStage.setScene(sceneThree);
                 }
                 else {
@@ -699,6 +698,8 @@ public class BudgetPlanner extends Application {
             monthlyAverage = income * 4;
         else if(payFrequency.equals("Bi-Weekly"))
             monthlyAverage = income * 2;
+        else if(payFrequency.equals("Yearly"))
+        monthlyAverage = income / 12;
         else
             monthlyAverage = income;
 
@@ -712,6 +713,8 @@ public class BudgetPlanner extends Application {
 
         root.setCenter(null);
         totalAmount = 0.0;
+
+        expenseChanges.clear();
 
         expenseItems = BudgetAlgorithms.TotalExpenses(expenseCategories, expenseAmounts);
 
@@ -833,7 +836,7 @@ public class BudgetPlanner extends Application {
         expensesList.getChildren().clear();
         //For loop to add each expense to the VBox list
         for (int i = 0; i < expenseItems.length; i++) {
-            if(expenseChanges.containsKey(i))
+            if(expenseChanges.containsKey(i) && expenseChanges.get(i) > 0.0)
             {
                 Text expenseText = new Text(mainCategories[i] + ":  Cutback $" + String.format("%.2f", expenseChanges.get(i)));
                 expenseText.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
