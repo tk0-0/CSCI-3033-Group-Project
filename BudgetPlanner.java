@@ -386,8 +386,8 @@ public class BudgetPlanner extends Application
         // ScrollPane holds the list of expenses
         ScrollPane scrollPane = new ScrollPane(expensesList);
         scrollPane.setFitToWidth(true);
-        scrollPane.setPrefSize(375, 240);
-        scrollPane.setMaxWidth(375);
+        scrollPane.setPrefSize(400, 240);
+        scrollPane.setMaxWidth(400);
         scrollPane.setStyle("-fx-background-color: #696969;");
 
         // Header for the expense list in scene 4
@@ -691,27 +691,27 @@ public class BudgetPlanner extends Application
                     }
             });
 
-            // Reset Button on sceneThree to revert everything back to original
+            // Reset Button in scene 3 to revert everything back to original
             resetButton1.setOnAction(y -> {
-                // Clear All the ArrayLists
+                // Clears all the ArrayLists
                 expenseAmounts.clear();               
                 expenseCategories.clear();
                 expenseSubCategories.clear();
 
-                // Clear all of the comboBoxes and hide the SubCategory
+                // Clears all of the ComboBoxes and hide the subcategory
                 categories.setValue(null);
                 subCategories.setValue(null);
                 subCategories.setVisible(false);
                 
-                // Hide the Status Messages and Custom Expense Box
+                // Hides the status message and custom expense box
                 statusMessage1.setVisible(false);
                 custom.setVisible(false);
 
-                // Clear the textfields of any information
+                // Clears the textfields of any information
                 custom.clear();
                 amount.clear();
 
-                // Display Message
+                // Displays status message
                 statusMessage2.setText("Reset Complete!");
                 statusMessage2.setVisible(true);
             });
@@ -720,18 +720,19 @@ public class BudgetPlanner extends Application
         
         // Action event for the continue button
         nextButton.setOnAction(e -> {
-            // Clear the VBox list if it has elements already
+            // Clear the VBox list
             expensesList.getChildren().clear();
+
             // For loop to add each expense to the VBox list
             for(int i = 0; i < expenseCategories.size(); i++)
             {
-                // Creating a Text for the expenses and adding it to the expenseslist box
+                // Creating a Text for the expenses and adding it to the expense list box
                 Text expenseText = new Text(expenseCategories.get(i) + ":  " + expenseSubCategories.get(i) + "     $" + String.format("%.2f", expenseAmounts.get(i)));
                 expenseText.setStyle("-fx-font-family: Arial; -fx-font-size: 13px;");
                 expensesList.getChildren().add(expenseText);
             }
 
-            // Show sceneFour
+            // Show scene 4
             primaryStage.setScene(sceneFour);
             primaryStage.show();
         });
@@ -741,9 +742,8 @@ public class BudgetPlanner extends Application
 
         // Scene 4 Events
         /****************************************************/
-        // Ryan's Calculate Expenses Button Event
+        // Button to move from scene 4 to scene 5
         recommendationsButton.setOnAction(e -> {
-            // Moves to Recommendation Scene and adds the back button for the bottomleft scene
             primaryStage.setScene(sceneFive);
 
             hBoxBottom.getChildren().clear();
@@ -756,17 +756,17 @@ public class BudgetPlanner extends Application
 
         // Scene 5 Events
         /****************************************************/
-        // Quit the program once user is satisfied
+        // Quits the program once user is satisfied
         quitButton2.setOnAction(e -> Platform.exit());
 
-        // Clear button removes the chart from the scene and hides the clear button after
+        // Clear Button removes the current pie chart/list off the screen
         resetButton.setOnAction(e -> {
             root.setCenter(null);
 
             hBoxBottom.getChildren().remove(resetButton);
         });
 
-        // Show the Expense List for Plan1 and the Clear Button
+        // Shows the Expense List for Plan1 and the Clear Button
         list1.setOnAction(e -> {
             AlgorithmCall(1);
 
@@ -775,7 +775,7 @@ public class BudgetPlanner extends Application
             CreateList();
         });
 
-        // Show the Expense List for Plan2 and the Clear Button
+        // Shows the Expense List for Plan2 and the Clear Button
         list2.setOnAction(e -> {
             AlgorithmCall(2);
 
@@ -784,7 +784,7 @@ public class BudgetPlanner extends Application
             CreateList();
         });
 
-        // Show the Expense List for Plan3 and the Clear Button
+        // Shows the Expense List for Plan3 and the Clear Button
         list3.setOnAction(e -> {
             AlgorithmCall(3);
 
@@ -793,7 +793,7 @@ public class BudgetPlanner extends Application
             CreateList();
         });
 
-        // Show the Pie Chart for Plan1 and the Clear Button
+        // Shows the Pie Chart for Plan1 and the Clear Button
         pie1.setOnAction(e -> {
             AlgorithmCall(1);
 
@@ -802,7 +802,7 @@ public class BudgetPlanner extends Application
             CreatePieChart();
         });
 
-        // Show the Pie Chart for Plan2 and the Clear Button
+        // Shows the Pie Chart for Plan2 and the Clear Button
         pie2.setOnAction(e -> {
             AlgorithmCall(2);
 
@@ -811,7 +811,7 @@ public class BudgetPlanner extends Application
             CreatePieChart();
         });
 
-        // Show the Pie Chart for Plan3 and the Clear Button
+        // Shows the Pie Chart for Plan3 and the Clear Button
         pie3.setOnAction(e -> {
             AlgorithmCall(3);
 
@@ -825,7 +825,7 @@ public class BudgetPlanner extends Application
 
         // Back Button Events
         /****************************************************/
-        // When user clicks back on Scene2 (Income Input Scene), it goes back to Scene1 (The Start Menu)
+        // When user clicks back on scene 2 (Income Input Scene), it goes back to scene 1 (The Start Menu)
         backButton2_1.setOnAction(e -> {
             primaryStage.setScene(sceneOne);
             errorLabel.setVisible(false);
@@ -834,19 +834,19 @@ public class BudgetPlanner extends Application
             player.stop();
         });
 
-        // When user clicks back on Scene3 (The Expense Input Scene), it goes back to scene2 (The Income Input Scene)
+        // When user clicks back on scene 3 (The Expense Input Scene), it goes back to scene 2 (The Income Input Scene)
         backButton3_2.setOnAction(e -> primaryStage.setScene(sceneTwo));
 
-        // When user clicks back on Scene4 (The Full Expense List Output), it goes back to scene3 (The Expense Input Scene)
+        // When user clicks back on scene 4 (The Full Expense List Output), it goes back to scene 3 (The Expense Input Scene)
         backButton4_3.setOnAction(e -> {
-            // Show sceneThree
+            // Show scene 3
             primaryStage.setScene(sceneThree);
             statusMessage2.setVisible(false);
             statusMessage1.setVisible(false);
             primaryStage.show();
         });
         
-        // When user clicks back on Scene5 (Recommendation Scene), it goes back to scene4 (Full Expense List Output)
+        // When user clicks back on scene 5 (Recommendation Scene), it goes back to scene 4 (Full Expense List Output)
         backButton5_4.setOnAction(e -> {
             root.setCenter(null);
 
@@ -860,38 +860,38 @@ public class BudgetPlanner extends Application
     {
         double monthlyAverage = 0.0;
 
-        if(payFrequency.equals("Weekly"))              // Paid Weekly
+        if(payFrequency.equals("Weekly"))         // Paid Weekly
             monthlyAverage = income * 4;
-        else if(payFrequency.equals("Bi-Weekly"))      // Paid every other Week
+        else if(payFrequency.equals("Bi-Weekly")) // Paid every other Week
             monthlyAverage = income * 2;
-        else if(payFrequency.equals("Yearly"))         // Paid once in the Year
+        else if(payFrequency.equals("Yearly"))    // Paid once in the Year
             monthlyAverage = income / 12;
         else
-            monthlyAverage = income;                            // Paid Monthly
+            monthlyAverage = income;                       // Paid Monthly
 
         return monthlyAverage;
     }
     
-    // Calculates the Pie Chart / Expense List for Scene4 when called
+    // Calculates the Pie Chart / Expense List for Scene 5 when called
     private void AlgorithmCall(final int num)
     {
-        // Add the Back button to Scen4 and clear the scene
+        // Adds the Back Button to scene 5 and clear the scene
         hBoxBottom.getChildren().clear();
         hBoxBottom.getChildren().add(backButton5_4);
 
+        // Resets values
         root.setCenter(null);
         totalAmount = 0.0;
-
         expenseChanges.clear();
 
-        // Hold the number of expenses for each category
+        // Holds the number of expenses for each main category
         expenseItems = BudgetAlgorithms.TotalExpenses(expenseCategories, expenseAmounts);
 
-        // Calculate Total Amount of Expenses
+        // Calculates Total Amount of Expenses
         for(double expense : expenseAmounts)
             totalAmount += expense;
 
-        // Calculation of Expenses when Amount is greater than the income of the User
+        // Subtracts the savings from the total expenses (if expenses are more than income)
         if((expenseItems[13] > 0.0) && (totalAmount > monthlyIncome))
         {
             totalAmount -= expenseItems[13];
@@ -901,6 +901,7 @@ public class BudgetPlanner extends Application
             expenseItems[13] = 0;
         }
         // Calculation of Expenses when Amount is Less than the Income of the User
+        // Excess money goes into savings
         if(totalAmount < monthlyIncome)
         {
             double savings = monthlyIncome - totalAmount;
@@ -912,7 +913,7 @@ public class BudgetPlanner extends Application
 
             expenseItems[13] += savings;
         }
-        // Calculation of each plan for the given expense and income of the user
+        // Calculation of each budget plan for the given expense and monthly income of the user
         else if(totalAmount != monthlyIncome)
         {
             switch(num)
@@ -996,25 +997,26 @@ public class BudgetPlanner extends Application
         Label expenseList = new Label("Expense Cutbacks: ");
         expenseList.setStyle("-fx-font: 20px Arial; -fx-font-weight: bold;");
 
-        // Make a VBox for the Scenes
+        // Make a VBox for the list of cutbacks in scene 5
         VBox expensesList = new VBox(10);
         expensesList.setPadding(new Insets(5));
         expensesList.setAlignment(Pos.CENTER);
 
-        // ScrollPane to hold the list of expenses
+        // ScrollPane to hold the list of expense cutbacks
         ScrollPane scrollPane = new ScrollPane(expensesList);
         scrollPane.setFitToWidth(true);
-        scrollPane.setPrefSize(375, 240);
-        scrollPane.setMaxWidth(375);
+        scrollPane.setPrefSize(400, 240);
+        scrollPane.setMaxWidth(400);
         scrollPane.setStyle("-fx-background-color: #696969;");
 
-        // Contains the list of expenses
+        // Contains the nodes that contain the expense cutbacks
         VBox listOfExpenses = new VBox(5, expenseList, scrollPane);
         listOfExpenses.setAlignment(Pos.CENTER);
 
-        // Clear the VBox list if it has elements already
+        // Clear the VBox list
         expensesList.getChildren().clear();
-        // For loop to add each expense to the VBox list
+
+        // For loop to add each expense cutback to the VBox list
         for(int i = 0; i < expenseItems.length; i++)
         {
             if(expenseChanges.containsKey(i) && expenseChanges.get(i) > 0.0)
