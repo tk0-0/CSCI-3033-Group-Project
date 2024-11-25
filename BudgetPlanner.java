@@ -115,16 +115,16 @@ public class BudgetPlanner extends Application {
         Circle sceneOneCircleTwo = new Circle(4);
         sceneOneCircleTwo.setStroke(Color.BLACK);
 
-        PathTransition pt = new PathTransition(); 
-        pt.setDuration(Duration.millis(5000)); 
+        PathTransition pt = new PathTransition();
+        pt.setDuration(Duration.millis(5000));
         pt.setPath(sceneOneCircleOne);
-        pt.setNode(sceneOneCircleTwo); 
+        pt.setNode(sceneOneCircleTwo);
         pt.setCycleCount(Timeline.INDEFINITE);
         pt.setInterpolator(Interpolator.LINEAR);
-        pt.setAutoReverse(false); 
+        pt.setAutoReverse(false);
         pt.play();
 
-        FillTransition filler = new FillTransition(new Duration(2000), sceneOneCircleTwo, Color.GREEN, Color.YELLOW); 
+        FillTransition filler = new FillTransition(new Duration(2000), sceneOneCircleTwo, Color.GREEN, Color.YELLOW);
         filler.setCycleCount(Timeline.INDEFINITE);
         filler.setAutoReverse(true);
         filler.play();
@@ -138,15 +138,15 @@ public class BudgetPlanner extends Application {
         sceneOneButtonTwo = new Button("Quit");
         sceneOneButtonTwo.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        ScaleTransition scale = new ScaleTransition(new Duration(2000), sceneOneButtonOne); 
-        scale.setFromX(1); 
+        ScaleTransition scale = new ScaleTransition(new Duration(2000), sceneOneButtonOne);
+        scale.setFromX(1);
         scale.setFromY(1);
-        scale.setToX(1.2); 
-        scale.setToY(1.2); 
+        scale.setToX(1.2);
+        scale.setToY(1.2);
         scale.setCycleCount(Timeline.INDEFINITE);
         scale.setAutoReverse(true);
         
-        scale.play(); 
+        scale.play();
 
         // Adding nodes to the layout
         vBoxSceneOne.getChildren().addAll(stackPane, sceneOneButtonOne, sceneOneButtonTwo);
@@ -204,7 +204,7 @@ public class BudgetPlanner extends Application {
 
         // Audio Files
         File file = new File("content/money1.mp3");
-        Media media = new Media(file.toURI().toString()); 
+        Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
 
         // Button Actions
@@ -221,7 +221,7 @@ public class BudgetPlanner extends Application {
 
         // Go back button
         sceneTwoButtonOne.setOnAction(e -> {
-            primaryStage.setScene(sceneOne); 
+            primaryStage.setScene(sceneOne);
             errorLabel.setVisible(false);
             incomeField.setText("");
             frequencyComboBox.setValue(null);
@@ -234,40 +234,32 @@ public class BudgetPlanner extends Application {
         primaryStage.show();
 
 
-
-
-
-
-
-
-
-
         // Ryan's Code
 
         //ComboBoxes for the categories
         ComboBox<String> categories = new ComboBox<>();
 
-        ComboBox<String> subCategories = new ComboBox<>();       
-        subCategories.setPrefWidth(200);    
+        ComboBox<String> subCategories = new ComboBox<>();
+        subCategories.setPrefWidth(200);
         subCategories.setVisible(false);
 
         //Textfields for the custom category and user input amount
         TextField amount = new TextField();
 
-        TextField custom = new TextField();                
-        custom.setPrefWidth(200);   
+        TextField custom = new TextField();
+        custom.setPrefWidth(200);
         custom.setVisible(false);
 
         //Labels for the Lists and amount
-        Label selectCategory = new Label("Select a Category!");  
+        Label selectCategory = new Label("Select a Category!");
         selectCategory.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
 
-        Label selectSubCategories = new Label("Select a Subcategory!");     
+        Label selectSubCategories = new Label("Select a Subcategory!");
         selectSubCategories.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
         selectSubCategories.setVisible(false);
 
-        Label amtEnter_message = new Label("Enter Amount:");  
-        amtEnter_message.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;"); 
+        Label amtEnter_message = new Label("Enter Amount:");
+        amtEnter_message.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
 
         Label statusMessage1 = new Label();
         statusMessage1.setStyle("-fx-font-size: 15px Arial;");
@@ -278,12 +270,12 @@ public class BudgetPlanner extends Application {
         statusMessage2.setVisible(false);
 
         //Buttons for sceneThree: Adding to List, Next Button, Reset Button, go Back button
-        Button add = new Button("Add");      
+        Button add = new Button("Add");
         add.setPrefWidth(90);
         add.setPrefHeight(15);
         add.setStyle("-fx-background-color: #ffa500; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        Button next = new Button("Continue");        
+        Button next = new Button("Continue");
         next.setPrefWidth(95);
         next.setPrefHeight(15);
         next.setStyle("-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
@@ -315,61 +307,61 @@ public class BudgetPlanner extends Application {
             custom.setVisible(false);
 
             //String Comparisons
-            if ("Home and Utilities".equals(category)) {    selectSubCategories.setVisible(true); 
-                                                            subCategories.setVisible(true); 
+            if ("Home and Utilities".equals(category)) {    selectSubCategories.setVisible(true);
+                                                            subCategories.setVisible(true);
                                                             subCategories.getItems().setAll("Rent", "Mortgage", "Water, Electric, etc.", "Home Repair");    }
 
-            else if ("Food/Groceries".equals(category)) {   selectSubCategories.setVisible(true); 
-                                                            subCategories.setVisible(true); 
+            else if ("Food/Groceries".equals(category)) {   selectSubCategories.setVisible(true);
+                                                            subCategories.setVisible(true);
                                                             subCategories.getItems().setAll("Grocery Shopping", "Fast Food/Restaurant", "Food Delivery");   }
 
-            else if ("Health/Personal Care".equals(category)) { selectSubCategories.setVisible(true); 
-                                                                subCategories.setVisible(true); 
+            else if ("Health/Personal Care".equals(category)) { selectSubCategories.setVisible(true);
+                                                                subCategories.setVisible(true);
                                                                 subCategories.getItems().setAll("Medicine", "Medical Bill");    }
 
-            else if ("Personal Insurance".equals(category)) {   selectSubCategories.setVisible(true); 
+            else if ("Personal Insurance".equals(category)) {   selectSubCategories.setVisible(true);
                                                                 subCategories.setVisible(true);
                                                                 subCategories.getItems().setAll("Health Insurance", "Disability Insurance", "Life Insurance", "Dental Insurance", "Renters Insurance", "Auto Insurance");   }
 
-            else if ("Savings".equals(category)) {  selectSubCategories.setVisible(false); 
-                                                    subCategories.setVisible(false);  
+            else if ("Savings".equals(category)) {  selectSubCategories.setVisible(false);
+                                                    subCategories.setVisible(false);
                                                     subCategories.getItems().setAll("");
                                                     subCategories.setValue(" ");    }
 
-            else if ("Transportation".equals(category)) {   selectSubCategories.setVisible(true);  
-                                                            subCategories.setVisible(true); 
+            else if ("Transportation".equals(category)) {   selectSubCategories.setVisible(true);
+                                                            subCategories.setVisible(true);
                                                             subCategories.getItems().setAll("Car Payment", "Car Maintenance", "Gas");   }
 
-            else if ("Education".equals(category)) {    selectSubCategories.setVisible(true); 
-                                                        subCategories.setVisible(true); 
+            else if ("Education".equals(category)) {    selectSubCategories.setVisible(true);
+                                                        subCategories.setVisible(true);
                                                         subCategories.getItems().setAll("Tuition", "School Supplies");  }
 
-            else if ("Communication".equals(category)) {    selectSubCategories.setVisible(true); 
-                                                            subCategories.setVisible(true);  
+            else if ("Communication".equals(category)) {    selectSubCategories.setVisible(true);
+                                                            subCategories.setVisible(true);
                                                             subCategories.getItems().setAll("Internet Bill", "Phone Bill", "Phone Payment");    }
 
-            else if ("Pets".equals(category)) { selectSubCategories.setVisible(true); 
-                                                subCategories.setVisible(true); 
+            else if ("Pets".equals(category)) { selectSubCategories.setVisible(true);
+                                                subCategories.setVisible(true);
                                                 subCategories.getItems().setAll("Pet Supplies", "Vet Visit", "Pet Insurance");  }
 
-            else if ("Shopping and Entertainment".equals(category)) {   selectSubCategories.setVisible(true); 
-                                                                        subCategories.setVisible(true); 
+            else if ("Shopping and Entertainment".equals(category)) {   selectSubCategories.setVisible(true);
+                                                                        subCategories.setVisible(true);
                                                                         subCategories.getItems().setAll("Online Purchase", "In-Person Purchase", "Clothes Shopping", "Streaming Service", "Game");  }
 
-            else if ("Emergencies".equals(category)) {  selectSubCategories.setVisible(true);  
-                                                        subCategories.setVisible(true); 
+            else if ("Emergencies".equals(category)) {  selectSubCategories.setVisible(true);
+                                                        subCategories.setVisible(true);
                                                         subCategories.getItems().setAll("Funeral", "Family Support");   }
 
-            else if ("Travel".equals(category)) {   selectSubCategories.setVisible(true); 
-                                                    subCategories.setVisible(true);  
+            else if ("Travel".equals(category)) {   selectSubCategories.setVisible(true);
+                                                    subCategories.setVisible(true);
                                                     subCategories.getItems().setAll("Lodging", "Plane Ticket", "Car Rental");   }
 
-            else if ("Miscellaneous".equals(category)) {    selectSubCategories.setVisible(true); 
-                                                            subCategories.setVisible(true); 
+            else if ("Miscellaneous".equals(category)) {    selectSubCategories.setVisible(true);
+                                                            subCategories.setVisible(true);
                                                             subCategories.getItems().setAll("Loan/Debt", "Check", "Withdraw");  }
 
-            else if ("Other".equals(category)) {    subCategories.setVisible(false); 
-                                                    selectSubCategories.setVisible(false); 
+            else if ("Other".equals(category)) {    subCategories.setVisible(false);
+                                                    selectSubCategories.setVisible(false);
                                                     custom.setVisible(true);
                                                     subCategories.setValue(custom.getText());   }
             
@@ -463,23 +455,23 @@ public class BudgetPlanner extends Application {
         });
 
         //Creates the category area
-        HBox customcat = new HBox(10, custom); 
+        HBox customcat = new HBox(10, custom);
         customcat.setAlignment(Pos.CENTER);
 
-        VBox category_box = new VBox(10, selectCategory, categories, customcat);  
+        VBox category_box = new VBox(10, selectCategory, categories, customcat);
         category_box.setAlignment(Pos.CENTER);
 
-        VBox subCategory_box = new VBox(10, selectSubCategories, subCategories);   
+        VBox subCategory_box = new VBox(10, selectSubCategories, subCategories);
         subCategory_box.setAlignment(Pos.CENTER);
 
         //Creates the bottom area 
-        HBox amount_area = new HBox(10, amtEnter_message, amount); 
+        HBox amount_area = new HBox(10, amtEnter_message, amount);
         amount_area.setAlignment(Pos.CENTER);
 
         VBox amountw_Error = new VBox(15, amount_area, statusMessage1);
         amountw_Error.setAlignment(Pos.CENTER);
 
-        HBox bottom_buttons = new HBox(10, back, reset, add, next); 
+        HBox bottom_buttons = new HBox(10, back, reset, add, next);
         bottom_buttons.setAlignment(Pos.CENTER);
 
         //Combines the category area and bottom area
@@ -571,7 +563,7 @@ public class BudgetPlanner extends Application {
             try {
                 if (!incomeField.getText().isEmpty() && frequencyComboBox.getValue() != null && Double.parseDouble(incomeField.getText()) >= 0.0) {
                     // Try to parse income as a Double
-                    income = Double.parseDouble(incomeField.getText()); 
+                    income = Double.parseDouble(incomeField.getText());
                     payFrequency = new String(frequencyComboBox.getValue());
                     monthlyIncome = CalculateMonthlyAverage();
         
@@ -581,7 +573,7 @@ public class BudgetPlanner extends Application {
                     primaryStage.setScene(sceneThree);
                 }
                 else {
-                    errorLabel.setVisible(true); 
+                    errorLabel.setVisible(true);
                 }
             } catch (NumberFormatException ex) {
                 // If parsing fails, show error for invalid income input
