@@ -63,23 +63,20 @@ public class BudgetPlanner extends Application
     // Scene 5 Nodes
     // Used in different scopes, so made private global for ease of use in current file
     private Button backButton5_4 = new Button("Go Back"); // button to go back to scene 4
-    private HBox hboxbottom = new HBox(20);                    // hbox to hold buttons at bottom of pane
+    private HBox hBoxBottom = new HBox(20);                    // hbox to hold buttons at bottom of pane
     private BorderPane root = new BorderPane();                // root pane for scene 5
 
     @Override
     public void start(Stage primaryStage)
     {
-        Button startButton, quitButton1, backButton2_1, confirmButton;
-        ComboBox<String> frequencyComboBox;
-        TextField incomeField;
-        Label errorLabel;
-
         // Scene One
         /****************************************************/
         // Audio Files
         File file = new File("content/BackgroundMusic.mp3");
         Media media = new Media(file.toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
+
+        Button startButton, quitButton1; // Buttons used in scene 1
         
         VBox vBoxSceneOne = new VBox(20);
         vBoxSceneOne.setAlignment(Pos.CENTER);
@@ -192,6 +189,8 @@ public class BudgetPlanner extends Application
 
         // Scene Two
         /****************************************************/
+        Button backButton2_1, confirmButton; // Buttons used in scene 2
+
         VBox vBoxSceneTwo = new VBox(30);
         vBoxSceneTwo.setAlignment(Pos.CENTER);
 
@@ -200,7 +199,7 @@ public class BudgetPlanner extends Application
         sceneTwoLabelOne.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         sceneTwoLabelOne.setStyle("-fx-text-fill: #333;");
 
-        frequencyComboBox = new ComboBox<>();
+        ComboBox<String> frequencyComboBox = new ComboBox<>();
         frequencyComboBox.getItems().addAll("Weekly", "Bi-Weekly", "Monthly", "Yearly");
         frequencyComboBox.setStyle("-fx-font-size: 14;");
 
@@ -209,7 +208,7 @@ public class BudgetPlanner extends Application
         incomeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         incomeLabel.setStyle("-fx-text-fill: #333;");
 
-        incomeField = new TextField();
+        TextField incomeField = new TextField();
         incomeField.setPromptText("Enter your income...");
         incomeField.setStyle("-fx-font-size: 14; -fx-padding: 5;");
 
@@ -225,7 +224,7 @@ public class BudgetPlanner extends Application
         HBox hBoxSceneTwo = new HBox(20, backButton2_1, confirmButton);
         hBoxSceneTwo.setAlignment(Pos.CENTER);
 
-        errorLabel = new Label("Please Enter All Fields With Valid Info!");
+        Label errorLabel = new Label("Please Enter All Fields With Valid Info!");
         errorLabel.setStyle("-fx-font-weight: bold");
         errorLabel.setVisible(false);
         
@@ -266,8 +265,8 @@ public class BudgetPlanner extends Application
         selectSubCategories.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
         selectSubCategories.setVisible(false);
 
-        Label amtEnter_message = new Label("Enter Amount:");
-        amtEnter_message.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
+        Label enterAmount = new Label("Enter Amount:");
+        enterAmount.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
 
         Label statusMessage1 = new Label();
         statusMessage1.setStyle("-fx-font-size: 15px Arial;");
@@ -312,25 +311,25 @@ public class BudgetPlanner extends Application
         subCategoryBox.setAlignment(Pos.CENTER);
 
         //Creates the bottom area 
-        HBox amount_area = new HBox(10, amtEnter_message, amount);
-        amount_area.setAlignment(Pos.CENTER);
+        HBox amountArea = new HBox(10, enterAmount, amount);
+        amountArea.setAlignment(Pos.CENTER);
 
-        VBox amountw_Error = new VBox(15, amount_area, statusMessage1);
-        amountw_Error.setAlignment(Pos.CENTER);
+        VBox amountWithStatus = new VBox(15, amountArea, statusMessage1);
+        amountWithStatus.setAlignment(Pos.CENTER);
 
-        HBox bottom_buttons = new HBox(10, backButton3_2, resetButton1, addButton, nextButton);
-        bottom_buttons.setAlignment(Pos.CENTER);
+        HBox bottomButtonsSceneThree = new HBox(10, backButton3_2, resetButton1, addButton, nextButton);
+        bottomButtonsSceneThree.setAlignment(Pos.CENTER);
 
         //Combines the category area and bottom area
-        VBox category_areas = new VBox(15, categoryBox, subCategoryBox);
+        VBox categoryAreas = new VBox(15, categoryBox, subCategoryBox);
 
-        VBox bottom_area = new VBox(30, amountw_Error, bottom_buttons);
+        VBox bottomArea = new VBox(30, amountWithStatus, bottomButtonsSceneThree);
 
-        VBox menu = new VBox(50, category_areas, bottom_area);
+        VBox menu = new VBox(50, categoryAreas, bottomArea);
 
         //Holds the whole menu with the error message
-        VBox updated_menu = new VBox(10, menu, statusMessage2);
-        updated_menu.setAlignment(Pos.CENTER);
+        VBox updatedMenu = new VBox(10, menu, statusMessage2);
+        updatedMenu.setAlignment(Pos.CENTER);
         
         ImageView imageView4 = new ImageView(image2);
         imageView4.setFitHeight(900);
@@ -338,7 +337,7 @@ public class BudgetPlanner extends Application
         imageView4.setOpacity(0.05);
 
         StackPane stackPaneThree = new StackPane(); 
-        stackPaneThree.getChildren().addAll(imageView4,updated_menu);
+        stackPaneThree.getChildren().addAll(imageView4,updatedMenu);
 
         sceneThree = new Scene(stackPaneThree, 1000, 500);
         /****************************************************/
@@ -371,15 +370,15 @@ public class BudgetPlanner extends Application
         backButton4_3.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
         //Contains the Buttons for sceneFour
-        HBox bottomButtons = new HBox(10, backButton4_3, recommendationsButton);
-        bottomButtons.setAlignment(Pos.CENTER);
+        HBox bottomButtonsSceneFour = new HBox(10, backButton4_3, recommendationsButton);
+        bottomButtonsSceneFour.setAlignment(Pos.CENTER);
 
         //Contains the list of expenses
         VBox listOfExpenses = new VBox(5, expenseList, scrollPane);
         listOfExpenses.setAlignment(Pos.CENTER);
 
         //Shows the List of expenses and the Buttons on sceneFour
-        VBox expenseOutput = new VBox(45, listOfExpenses, bottomButtons);
+        VBox expenseOutput = new VBox(45, listOfExpenses, bottomButtonsSceneFour);
         expenseOutput.setAlignment(Pos.CENTER);
 
         ImageView imageView5 = new ImageView(image2);
@@ -419,19 +418,19 @@ public class BudgetPlanner extends Application
         vbox3.setAlignment(Pos.CENTER);
         Button quitButton2 = new Button("Quit");
         quitButton2.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
-        HBox hboxtop = new HBox(20, vbox1, vbox2, vbox3, quitButton2);
+        HBox hBoxTop = new HBox(20, vbox1, vbox2, vbox3, quitButton2);
 
-        root.setTop(hboxtop);
-        hboxtop.setAlignment(Pos.CENTER);
+        root.setTop(hBoxTop);
+        hBoxTop.setAlignment(Pos.CENTER);
         Button resetButton = new Button("Clear");
 
         backButton5_4.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
         resetButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        hboxbottom.getChildren().add(backButton5_4);
-        root.setBottom(hboxbottom);
-        hboxbottom.setAlignment(Pos.BOTTOM_LEFT);
-        hboxbottom.setPadding(new Insets(20));
+        hBoxBottom.getChildren().add(backButton5_4);
+        root.setBottom(hBoxBottom);
+        hBoxBottom.setAlignment(Pos.BOTTOM_LEFT);
+        hBoxBottom.setPadding(new Insets(20));
 
         ImageView imageView6 = new ImageView(image2);
         imageView6.setFitHeight(900);
@@ -681,9 +680,9 @@ public class BudgetPlanner extends Application
         recommendationsButton.setOnAction(e -> {
             primaryStage.setScene(sceneFive);
 
-            hboxbottom.getChildren().clear();
+            hBoxBottom.getChildren().clear();
 
-            hboxbottom.getChildren().add(backButton5_4);
+            hBoxBottom.getChildren().add(backButton5_4);
         });
         /****************************************************/
 
@@ -696,13 +695,13 @@ public class BudgetPlanner extends Application
         resetButton.setOnAction(e -> {
             root.setCenter(null);
 
-            hboxbottom.getChildren().remove(resetButton);
+            hBoxBottom.getChildren().remove(resetButton);
         });
 
         list1.setOnAction(e -> {
             AlgorithmCall(1);
 
-            hboxbottom.getChildren().add(resetButton);
+            hBoxBottom.getChildren().add(resetButton);
 
             CreateList();
         });
@@ -710,7 +709,7 @@ public class BudgetPlanner extends Application
         list2.setOnAction(e -> {
             AlgorithmCall(2);
 
-            hboxbottom.getChildren().add(resetButton);
+            hBoxBottom.getChildren().add(resetButton);
 
             CreateList();
         });
@@ -718,7 +717,7 @@ public class BudgetPlanner extends Application
         list3.setOnAction(e -> {
             AlgorithmCall(3);
 
-            hboxbottom.getChildren().add(resetButton);
+            hBoxBottom.getChildren().add(resetButton);
 
             CreateList();
         });
@@ -726,7 +725,7 @@ public class BudgetPlanner extends Application
         pie1.setOnAction(e -> {
             AlgorithmCall(1);
 
-            hboxbottom.getChildren().add(resetButton);
+            hBoxBottom.getChildren().add(resetButton);
 
             CreatePieChart();
         });
@@ -734,7 +733,7 @@ public class BudgetPlanner extends Application
         pie2.setOnAction(e -> {
             AlgorithmCall(2);
 
-            hboxbottom.getChildren().add(resetButton);
+            hBoxBottom.getChildren().add(resetButton);
 
             CreatePieChart();
         });
@@ -742,7 +741,7 @@ public class BudgetPlanner extends Application
         pie3.setOnAction(e -> {
             AlgorithmCall(3);
 
-            hboxbottom.getChildren().add(resetButton);
+            hBoxBottom.getChildren().add(resetButton);
 
             CreatePieChart();
         });
@@ -796,8 +795,8 @@ public class BudgetPlanner extends Application
 
     private void AlgorithmCall(final int num)
     {
-        hboxbottom.getChildren().clear();
-        hboxbottom.getChildren().add(backButton5_4);
+        hBoxBottom.getChildren().clear();
+        hBoxBottom.getChildren().add(backButton5_4);
 
         root.setCenter(null);
         totalAmount = 0.0;
