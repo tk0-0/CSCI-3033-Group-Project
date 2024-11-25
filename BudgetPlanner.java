@@ -30,7 +30,7 @@ public class BudgetPlanner extends Application {
 
     // All main categories
     private final String[] mainCategories = {"Home and Utilities", "Food/Groceries", "Health/Personal Care", "Personal Insurance", "Transportation", "Emergencies", "Education", "Communication", "Pets", "Shopping and Entertainment", "Travel", "Miscellaneous", "Other", "Savings"};
-    
+
     private double income;
     private double monthlyIncome;
     private String payFrequency;
