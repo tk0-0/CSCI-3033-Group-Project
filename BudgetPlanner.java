@@ -270,18 +270,18 @@ public class BudgetPlanner extends Application
         // Scene Three
         /****************************************************/
         // ComboBoxes for the categories
-        ComboBox<String> categories = new ComboBox<>();      // ComboBox for Main Categories
-        ComboBox<String> subCategories = new ComboBox<>();   // ComboBox for the Sub Categories
-        subCategories.setPrefWidth(200);                     // Setting Width & Changing Visibility
-        subCategories.setVisible(false);
+        ComboBox<String> categories = new ComboBox<>();    // ComboBox for Main Categories
+        ComboBox<String> subCategories = new ComboBox<>(); // ComboBox for the Sub Categories
+        subCategories.setPrefWidth(200);                   // Setting Width
+        subCategories.setVisible(false);                   // Changing Visibility
 
         // Textfields for the custom category and user input amount
-        TextField amount = new TextField();        // TextField for User to enter Expense Amount
-        TextField custom = new TextField();        // TextField for User to enter Custom Expense Category
-        custom.setPrefWidth(200);
-        custom.setVisible(false);
+        TextField amount = new TextField(); // TextField for user to enter Expense Amount
+        TextField custom = new TextField(); // TextField for user to enter Custom Expense Category
+        custom.setPrefWidth(200);           // Setting Width
+        custom.setVisible(false);           // Changing Visibility
 
-        // Labels for the Category Comboboxes and User Input TextFields
+        // Labels for the Category ComboBoxes and User Input TextFields
         Label selectCategory = new Label("Select a Category!");
         selectCategory.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
 
@@ -292,7 +292,7 @@ public class BudgetPlanner extends Application
         Label enterAmount = new Label("Enter Amount:");
         enterAmount.setStyle("-fx-font-size: 15px Arial; -fx-font-weight: bold;");
 
-        // Labels for Status Messages for valid Expense / invalid Expense
+        // Labels for status messages for valid expense / invalid expense
         Label statusMessage1 = new Label();
         statusMessage1.setStyle("-fx-font-size: 15px Arial;");
         statusMessage1.setVisible(false);
@@ -301,7 +301,7 @@ public class BudgetPlanner extends Application
         statusMessage2.setStyle("-fx-font-weight: bold");
         statusMessage2.setVisible(false);
 
-        // Buttons for sceneThree: Adding to List, Next Button to Scene4, Reset Button, go Back to Scene3 button
+        // Buttons for scene 3: Adding to List, Next Button to scene 4, Reset Button, Go Back to scene 2 Button
         Button addButton = new Button("Add");
         addButton.setPrefWidth(90);
         addButton.setPrefHeight(15);
@@ -322,43 +322,43 @@ public class BudgetPlanner extends Application
         backButton3_2.setPrefHeight(15);
         backButton3_2.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-weight: bold;");
 
-        // Add all of the main cateogories to the MainCategory ComboBox
+        // Add all of the main cateogories to the main category ComboBox
         categories.getItems().addAll(Arrays.asList(mainCategories));  
 
-        // Formatting of the Custom User Expense Textfield
+        // Formats the Custom User Expense Textfield
         HBox customCat = new HBox(10, custom);
         customCat.setAlignment(Pos.CENTER);
 
-        // Combining the Main Category ComboBox and Labels together
+        // Combines the main category ComboBox and Labels
         VBox categoryBox = new VBox(10, selectCategory, categories, customCat);
         categoryBox.setAlignment(Pos.CENTER);
 
-        // Combining SubCategory Label and ComboBox
+        // Combines subcategory Label and ComboBox
         VBox subCategoryBox = new VBox(10, selectSubCategories, subCategories);
         subCategoryBox.setAlignment(Pos.CENTER);
 
-        // Combining User Expense Amount input label and textfield
+        // Combines User Expense Amount input label and TextField
         HBox amountArea = new HBox(10, enterAmount, amount);
         amountArea.setAlignment(Pos.CENTER);
 
-        // Combining the UserExpense Inputs with the status Messages
+        // Combines the User Expense Inputs with the status messages
         VBox amountWithStatus = new VBox(15, amountArea, statusMessage1);
         amountWithStatus.setAlignment(Pos.CENTER);
 
-        // Formatting the Buttons for Scene3 to be placed at the bottom
+        // Formats the Buttons for scene 3 to be placed at the bottom
         HBox bottomButtonsSceneThree = new HBox(10, backButton3_2, resetButton1, addButton, nextButton);
         bottomButtonsSceneThree.setAlignment(Pos.CENTER);
 
-        // Combining the Main Category and SubCategory Boxes together
+        // Combines the main category and subcategory ComboBoxes
         VBox categoryAreas = new VBox(15, categoryBox, subCategoryBox);
 
-        // Combining the User Expense Amount and Buttons of Scene3 together
+        // Combines the User Expense Amount and Buttons of scene 3
         VBox bottomArea = new VBox(30, amountWithStatus, bottomButtonsSceneThree);
 
-        // Combining the Category and the Bottom Area together
+        // Combines the category and the bottom area
         VBox menu = new VBox(50, categoryAreas, bottomArea);
 
-        // Combines the Whole menu with another status message for the user to create Scene3
+        // Combines the whole menu with another status message for the user to create scene 3
         VBox updatedMenu = new VBox(10, menu, statusMessage2);
         updatedMenu.setAlignment(Pos.CENTER);
         
